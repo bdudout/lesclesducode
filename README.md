@@ -1,5 +1,10 @@
 # Les clés du code — version web (MVP)
 
+**En ligne : https://bdudout.github.io/lesclesducode/** (non référencé par les moteurs
+de recherche). Chaque envoi sur la branche `main` republie le site automatiquement
+(`.github/workflows/pages.yml`) ; le cache hors-ligne des tablettes se met à jour tout
+seul.
+
 Portage web responsive des 12 jeux de [lesclesducode.fr](http://www.lesclesducode.fr/)
 pour apprendre le code alphabétique (mots-référents « a de ananas », « ou de rouge »…).
 
