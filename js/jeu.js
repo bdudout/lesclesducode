@@ -17,13 +17,16 @@ const items = itemsDuJeu(donnees.familles[jeu.famille], jeu.famille, reglages, p
 const joueur = joueurCourant();
 
 document.title = `${jeu.numero}. ${jeu.titre} — Les clés du code`;
+// Mode classe (TBI) : réglage adulte, ou ?classe=1 dans l'adresse du jeu.
+const modeClasse = reglages.classe || parametres.get('classe') === '1';
 document.body.classList.add(`ecriture-${jeu.ecriture}`, `famille-${jeu.famille}`);
+document.body.classList.toggle('mode-classe', modeClasse);
 reglerVitesse(reglages.voixLente);
 debloquer();
 
 const $ = sel => document.getElementById(sel);
-$('bloc-chrono').hidden = !reglages.chrono;
-$('bloc-erreurs').hidden = !reglages.erreurs;
+$('bloc-chrono').hidden = !reglages.chrono || modeClasse;
+$('bloc-erreurs').hidden = !reglages.erreurs || modeClasse;
 if (joueur) $('joueur').textContent = joueur.avatar;
 
 const CONSIGNES = {
@@ -60,14 +63,16 @@ function visuel(item) {
 }
 
 // ---------- Aide : fiche de tous les référents de la famille ----------
+// Se ferme seulement avec ✖ (un toucher ailleurs ne la ferme plus par erreur) ;
+// toucher une carte fait entendre son référent.
 $('aide').innerHTML = `
-  <p class="fermer-aide" aria-label="Fermer">✖️</p>
+  <button class="fermer-aide" id="b-fermer-aide" aria-label="Fermer la fiche">✖</button>
   <div class="grille-aide">${items.map(it => `
-    <div class="carte-aide">
+    <button class="carte-aide" data-id="${it.id}" aria-label="${it.dit}">
       <div class="grapheme ${jeu.famille === 'alphabet' && it.voyelle ? 'voyelle' : ''}">${it.graphie}</div>
       <div class="visuel-aide">${visuel(it)}</div>
       <div class="mot">${it.mot || '(muet)'}</div>
-    </div>`).join('')}
+    </button>`).join('')}
   </div>`;
 // ---------- Écran de départ : un grand ▶ qui débloque le son et dit la consigne ----------
 const [texteVignette, idVignette] = jeu.vignette;
@@ -80,7 +85,11 @@ $('b-jouer').addEventListener('click', () => {
 });
 
 $('b-aide').addEventListener('click', () => { $('aide').hidden = false; });
-$('aide').addEventListener('click', () => { $('aide').hidden = true; });
+$('b-fermer-aide').addEventListener('click', () => { $('aide').hidden = true; });
+$('aide').addEventListener('click', e => {
+  const carte = e.target.closest('.carte-aide');
+  if (carte && modeSon !== 3) parler(items.find(i => i.id === carte.dataset.id).dit);
+});
 
 // ---------- Score et chrono (démarre au premier essai, pas au chargement) ----------
 let reussites = 0;
@@ -105,6 +114,7 @@ const partie = {
   items,
   visuel,
   seriesCourtes: reglages.seriesCourtes,
+  classe: modeClasse,
   // toute la famille, même si l'enseignant en a retiré : le clavier des jeux « écrire »
   // en tire ses touches, sans trahir les seuls graphèmes du jeu
   famille: donnees.familles[jeu.famille],
@@ -132,9 +142,9 @@ function finir() {
   clearInterval(tic);
   ajouterHistorique({ jeu: jeu.id, date: Date.now(), erreurs, secondes, joueur: joueur?.id || null, aides, confusions });
   const temps = `${Math.floor(secondes / 60)} min ${String(secondes % 60).padStart(2, '0')} s`;
-  const morceaux = [`${items.length} trouvés`];
-  if (reglages.erreurs) morceaux.push(`${erreurs} erreur${erreurs > 1 ? 's' : ''}`);
-  if (reglages.chrono) morceaux.push(temps);
+  // fin toujours positive : les erreurs vont dans la fiche de l'adulte, pas sous les yeux de l'enfant
+  const morceaux = [`${items.length} trouvés !`];
+  if (reglages.chrono && !modeClasse) morceaux.push(temps);
   $('fin-stats').textContent = morceaux.join(' · ');
   setTimeout(() => {
     $('fin').hidden = false;

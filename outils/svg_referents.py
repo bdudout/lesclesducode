@@ -11,10 +11,15 @@ def svg(body):
             '<g fill="none" stroke="#2b2118" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">'
             + body.format(**C) + '</g></svg>\n')
 
-BLOB = ("M50 12 Q64 16 70 28 Q86 30 86 46 Q94 62 80 72 Q76 90 58 86 Q44 94 34 82 "
-        "Q14 82 16 64 Q6 50 18 40 Q16 20 34 20 Q40 10 50 12Z")
-def blob(col):
-    return f'<path d="{BLOB}" fill="{col}"/><path d="M34 36 Q40 30 48 31" stroke="#fff" stroke-width="4" opacity=".6"/>'
+def crayon(col, fonce):
+    """Une couleur : le trait d'un crayon de couleur, et le crayon qui l'a tracé."""
+    return (trait("M10 74 Q20 50 32 66 Q44 84 56 62", col, 11)
+            + '<g transform="translate(58 60) rotate(-40)">'
+              '<path d="M0 0 L16 -8 L16 8Z" fill="#f2d4a7"/>'
+              f'<path d="M0 0 L6 -3 L6 3Z" fill="{col}" stroke-width="2"/>'
+              f'<rect x="16" y="-8" width="40" height="16" rx="2" fill="{col}"/>'
+              f'<path d="M24 -8 L24 8 M48 -8 L48 8" stroke="{fonce}" stroke-width="2"/>'
+              f'<rect x="56" y="-8" width="6" height="16" rx="2" fill="{fonce}"/></g>')
 
 def trait(d, col, w=9):
     # chiffre ou trait épais : contour sombre puis couleur
@@ -101,7 +106,7 @@ ALPHABET = {
       '<path d="M40 66 Q50 62 60 66"/>'
       '<rect x="45" y="48" width="10" height="36" rx="5" fill="{SK}"/>'
       '<path d="M78 24 Q86 30 84 40 M84 16 Q96 26 92 42" stroke-width="2.5" opacity=".5"/>',
- "i": blob("#9aa0a6"),
+ "i": crayon("#9aa0a6", "#6c757d"),
  "j": '<rect x="30" y="16" width="40" height="11" rx="3" fill="{P}"/>'
       '<path d="M30 27 L70 27 L88 82 Q50 92 12 82Z" fill="#c77dff"/>'
       '<path d="M42 27 L34 88 M58 27 L66 88 M50 27 L50 90" stroke-width="2"/>',
@@ -168,7 +173,7 @@ ALPHABET = {
 }
 
 COMPLEXES = {
- "ou": blob("{R}"),
+ "ou": crayon("{R}", "#9d0208"),
  "on": '<path d="M28 50 L8 32 L12 50 L8 68Z" fill="#ff8fab"/><path d="M72 50 L92 32 L88 50 L92 68Z" fill="#ff8fab"/>'
        '<ellipse cx="50" cy="50" rx="25" ry="19" fill="#ff4d6d"/><path d="M36 44 Q50 36 64 44 M36 56 Q50 64 64 56" stroke="#fff" stroke-width="3"/>',
  "eacute": '<path d="M36 60 L80 12 L92 8 L88 20 L40 64Z" fill="#dfe4ea"/><path d="M44 56 L84 14" stroke="#adb5bd" stroke-width="2"/>'
@@ -177,7 +182,7 @@ COMPLEXES = {
  "an": '<rect x="10" y="28" width="80" height="9" rx="2" fill="{BR}"/><rect x="10" y="41" width="80" height="9" rx="2" fill="{BR}"/>'
        '<path d="M22 50 L22 58 M78 50 L78 58 M16 68 L16 90 M84 68 L84 90" stroke-width="5"/>'
        '<rect x="6" y="57" width="88" height="11" rx="2" fill="{BR}"/>',
- "au": blob("{Y}"),
+ "au": crayon("{Y}", "#e09f3e"),
  "in": '<ellipse cx="38" cy="26" rx="8" ry="22" fill="#fff"/><ellipse cx="62" cy="26" rx="8" ry="22" fill="#fff"/>'
        '<ellipse cx="38" cy="28" rx="3.5" ry="14" fill="{PK}" stroke="none"/><ellipse cx="62" cy="28" rx="3.5" ry="14" fill="{PK}" stroke="none"/>'
        '<circle cx="50" cy="64" r="27" fill="#fff"/><circle cx="40" cy="58" r="3.5" fill="{D}"/><circle cx="60" cy="58" r="3.5" fill="{D}"/>'
@@ -211,7 +216,9 @@ COMPLEXES = {
         '<rect x="28" y="42" width="43" height="46" rx="14" fill="{SK}"/>'
         '<rect x="30" y="40" width="39" height="10" fill="{SK}" stroke="none"/>',
  "egrave": '<g transform="rotate(-15 50 50)"><rect x="8" y="36" width="84" height="26" rx="3" fill="{Y}"/>' + graduations() + '</g>',
- "oin": '<circle cx="50" cy="52" r="22" fill="{D}"/><circle cx="43" cy="45" r="5" fill="#fff" stroke="none" opacity=".35"/>',
+ "oin": '<rect x="6" y="46" width="30" height="12" rx="6" fill="#ced4da" stroke="none"/>'
+        '<rect x="42" y="46" width="22" height="12" rx="6" fill="#ced4da" stroke="none"/>'
+        '<circle cx="80" cy="53" r="10" fill="{D}"/>',
  "ph": '<circle cx="84" cy="10" r="8" fill="{R}"/>'
        '<path d="M50 76 L42 93 L62 90Z" fill="#6c7a89"/><path d="M14 80 L2 72 L4 90Z" fill="#6c7a89"/>'
        '<path d="M10 80 Q20 60 46 58 Q60 40 66 26 Q72 16 82 20 Q92 26 86 40 Q80 60 74 76 Q60 88 30 86 Q14 88 10 80Z" fill="#8d99ae"/>'
@@ -228,7 +235,7 @@ COMPLEXES = {
        '<path d="M58 10 Q88 12 88 48 Q80 30 64 30 Q50 26 40 30 Q44 14 58 10Z" fill="{BR}"/>'
        '<ellipse cx="68" cy="52" rx="6" ry="8" fill="{SK}"/><circle cx="46" cy="40" r="3" fill="{D}"/>'
        '<path d="M36 70 L44 69" stroke-width="2.5"/>',
- "eu": blob("{B}"),
+ "eu": crayon("{B}", "#1d4ed8"),
  "ette": '<path d="M12 48 L4 38 M88 48 L96 38" stroke-width="4"/>'
          '<circle cx="29" cy="54" r="17" fill="{LB}" stroke-width="5"/><circle cx="71" cy="54" r="17" fill="{LB}" stroke-width="5"/>'
          '<path d="M46 50 Q50 44 54 50" stroke-width="4"/><path d="M20 48 Q24 42 30 42 M62 48 Q66 42 72 42" stroke="#fff" stroke-width="3"/>',
@@ -290,7 +297,7 @@ COMPLEXES = {
  "ouille": '<path d="M50 28 Q50 14 60 8" stroke="{DG}" stroke-width="7"/>'
            '<ellipse cx="31" cy="60" rx="21" ry="30" fill="{O}"/><ellipse cx="69" cy="60" rx="21" ry="30" fill="{O}"/>'
            '<ellipse cx="50" cy="60" rx="20" ry="32" fill="#f8961e"/><path d="M56 22 Q70 12 80 22 Q68 30 56 22Z" fill="{G}"/>',
- "er2": blob("{G}"),
+ "er2": crayon("{G}", "{DG}"),
  "eille": '<ellipse cx="40" cy="30" rx="12" ry="17" fill="#e0f2ff" transform="rotate(-20 40 30)"/>'
           '<ellipse cx="60" cy="30" rx="12" ry="17" fill="#e0f2ff" transform="rotate(20 60 30)"/>'
           '<path d="M20 58 L8 60 L20 62Z" fill="{D}"/>'
@@ -339,7 +346,7 @@ DOUBLES = {
        '<path d="M16 36 Q30 32 42 38 M16 46 Q30 42 42 48 M16 56 Q30 52 42 58 M16 66 Q30 62 42 68 M58 38 Q70 32 84 36 M58 48 Q70 42 84 46 M58 58 Q70 52 84 56 M58 68 Q70 62 84 66" stroke="#adb5bd" stroke-width="2"/>',
  "cl": '<path d="M44 45 L92 45 L92 55 L88 55 L88 66 L79 66 L79 55 L73 55 L73 63 L64 63 L64 55 L44 55Z" fill="{Y}"/>'
        '<path d="M8 50 a19 19 0 1 0 38 0 a19 19 0 1 0 -38 0 M20 50 a7 7 0 1 1 14 0 a7 7 0 1 1 -14 0" fill="{Y}" fill-rule="evenodd"/>',
- "bl": blob("#ffffff"),
+ "bl": crayon("#ffffff", "#ced4da"),
  "fl": '<path d="M44 8 L56 8 L58 78 L64 92 L36 92 L42 78Z" fill="#f2e8cf"/><path d="M44 8 L56 8 L55 20 L45 20Z" fill="{LBR}"/>'
        '<rect x="46" y="24" width="8" height="4" fill="{D}"/>'
        '<circle cx="50" cy="38" r="3" fill="{D}"/><circle cx="50" cy="48" r="3" fill="{D}"/><circle cx="50" cy="58" r="3" fill="{D}"/>'
@@ -401,6 +408,36 @@ AUTRES = {
              '<circle cx="44" cy="58" r="5" fill="{R}" stroke-width="2"/><circle cx="56" cy="58" r="5" fill="{R}" stroke-width="2"/>'
              '<rect x="16" y="20" width="68" height="11" rx="3" fill="{LB}"/><path d="M76 14 L92 2" stroke-width="5"/>',
 }
+
+CERISE = ('<path d="M60 12 Q50 30 36 56 M60 12 Q66 34 66 58" stroke="{DG}" stroke-width="4"/>'
+          '<path d="M60 12 Q74 4 86 12 Q74 22 60 12Z" fill="{G}"/>'
+          '<circle cx="34" cy="68" r="17" fill="{R}"/><circle cx="68" cy="70" r="17" fill="{R}"/>'
+          '<ellipse cx="28" cy="62" rx="3" ry="6" fill="#fff" stroke="none" opacity=".6"/>'
+          '<ellipse cx="62" cy="64" rx="3" ry="6" fill="#fff" stroke="none" opacity=".6"/>')
+POT = ('<rect x="22" y="34" width="56" height="58" rx="12" fill="#c1121f"/>'
+       '<rect x="16" y="18" width="68" height="18" rx="5" fill="#e9c46a"/>'
+       '<path d="M22 36 L30 46 L38 36 L46 46 L54 36 L62 46 L70 36 L78 46" stroke-width="2"/>'
+       '<rect x="32" y="56" width="36" height="22" rx="3" fill="#fff"/><path d="M38 64 L62 64 M38 70 L56 70" stroke-width="2"/>')
+ROSE = ('<path d="M50 58 Q46 78 50 96" stroke="{DG}" stroke-width="5"/><path d="M50 80 Q64 66 76 72 Q66 86 50 80Z" fill="{G}"/>'
+        '<path d="M30 40 Q28 18 50 16 Q72 18 70 40 Q68 60 50 60 Q32 60 30 40Z" fill="#e63973"/>'
+        '<path d="M50 38 m-4 0 a4 4 0 1 1 8 0 a9 9 0 1 1 -16 0 a14 14 0 1 1 26 2" stroke="#9d0b4b" stroke-width="2.5"/>')
+GIRAFE = ('<path d="M38 98 L46 44 L62 44 L66 98Z" fill="{Y}"/>'
+          '<ellipse cx="50" cy="62" rx="5" ry="4" fill="{BR}" stroke="none"/><ellipse cx="58" cy="78" rx="5" ry="4" fill="{BR}" stroke="none"/>'
+          '<ellipse cx="47" cy="88" rx="4" ry="3" fill="{BR}" stroke="none"/>'
+          '<path d="M48 22 L46 8 M60 20 L62 6" stroke-width="4"/><circle cx="46" cy="7" r="4" fill="{BR}"/><circle cx="62" cy="5" r="4" fill="{BR}"/>'
+          '<ellipse cx="36" cy="28" rx="9" ry="4" fill="{Y}" transform="rotate(-25 36 28)"/>'
+          '<ellipse cx="56" cy="34" rx="22" ry="15" fill="{Y}"/><ellipse cx="74" cy="39" rx="12" ry="9" fill="#f2c57c"/>'
+          '<circle cx="54" cy="30" r="3" fill="{D}"/><circle cx="80" cy="37" r="1.8" fill="{D}"/>')
+
+def duo(gauche, droite):
+    """Deux mots-référents pour une même lettre (« c de carotte ou de cerise »)."""
+    return ('<g transform="translate(-6 18) scale(.64)" stroke-width="4.7">' + gauche + '</g>'
+            '<g transform="translate(42 18) scale(.64)" stroke-width="4.7">' + droite + '</g>')
+
+ALPHABET["c"] = duo(ALPHABET["c"], CERISE)
+ALPHABET["o"] = duo(POT, ALPHABET["o"])
+ALPHABET["s"] = duo(ALPHABET["s"], ROSE)
+ALPHABET["g"] = duo(ALPHABET["g"], GIRAFE)
 
 FAMILLES = {"alphabet": ALPHABET, "complexes": COMPLEXES, "doubles": DOUBLES, "autres": AUTRES}
 ref = json.load(open(os.path.join(ROOT, "data/referentiel.json")))["familles"]

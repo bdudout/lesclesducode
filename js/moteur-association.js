@@ -10,6 +10,7 @@ import { PAR_SERIE, decouper, pointsSeries, celebrerSerie } from './series.js';
 const TAILLE_CONFORT = 64; // en dessous, on découpe en séries
 const TAILLE_MIN = 44;     // en dessous, on fait défiler plutôt que de rapetisser
 const TAILLE_MAX = 170;
+const TAILLE_MAX_CLASSE = 280; // mode classe : visible du fond de la salle au TBI
 
 function ordonner(items, melange, cible) {
   if (melange === 'tout' || melange === cible) return melanger(items);
@@ -26,7 +27,7 @@ function echelle(texte) {
 }
 
 // Plus grande case possible pour n paires sans défilement (colonnes imposées ou non).
-function calculer(plateau, n, colonnesImposees) {
+function calculer(plateau, n, colonnesImposees, max = TAILLE_MAX) {
   const style = getComputedStyle(plateau);
   const gap = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--gap')) || 8;
   const L = plateau.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
@@ -47,7 +48,7 @@ function calculer(plateau, n, colonnesImposees) {
     const c = Math.max(1, Math.floor((L + gap) / (TAILLE_MIN + gap)));
     meilleur = { c, s: (L - (c - 1) * gap) / c };
   }
-  return { c: meilleur.c, s: Math.floor(Math.min(meilleur.s, TAILLE_MAX)) };
+  return { c: meilleur.c, s: Math.floor(Math.min(meilleur.s, max)) };
 }
 
 function appliquer(plateau, { c, s }) {
@@ -62,7 +63,8 @@ export function lancerAssociation(plateau, partie) {
 
   // Séances courtes demandées, ou cases trop petites pour tout afficher : séries de 8.
   // (les jeux « par rangée » s'affichent en 8 colonnes : c'est cette taille-là qui compte)
-  const tailleUnique = calculer(plateau, items.length, parRangee ? PAR_SERIE : null).s;
+  const max = partie.classe ? TAILLE_MAX_CLASSE : TAILLE_MAX;
+  const tailleUnique = calculer(plateau, items.length, parRangee ? PAR_SERIE : null, max).s;
   const series = partie.seriesCourtes || tailleUnique < TAILLE_CONFORT
     ? decouper(items, jeu.melange)
     : [items];
@@ -71,10 +73,10 @@ export function lancerAssociation(plateau, partie) {
   let trouvesDansSerie = 0;
 
   function ajusterIci() {
-    let mesure = calculer(plateau, serie.length);
+    let mesure = calculer(plateau, serie.length, null, max);
     // jeux par rangées en une seule série : garder 8 colonnes si les cases restent assez grandes
     if (parRangee && series.length === 1) {
-      const enRangees = calculer(plateau, serie.length, PAR_SERIE);
+      const enRangees = calculer(plateau, serie.length, PAR_SERIE, max);
       if (enRangees.s >= TAILLE_MIN + 8) mesure = enRangees;
     }
     appliquer(plateau, mesure);

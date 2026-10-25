@@ -83,7 +83,7 @@ appuiLong($('adulte'), ouvrir);
 
 const cases = {
   chrono: 'r-chrono', erreurs: 'r-erreurs', voixLente: 'r-voix', vibrations: 'r-vibrations',
-  seriesCourtes: 'r-series', titres: 'r-titres',
+  seriesCourtes: 'r-series', titres: 'r-titres', classe: 'r-classe',
 };
 $('ligne-vibrations').hidden = !estNatif;
 

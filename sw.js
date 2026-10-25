@@ -9,7 +9,7 @@ const FICHIERS = [
   'js/data.js', 'js/audio.js', 'js/appui-long.js', 'js/natif.js', 'js/series.js', 'js/menu.js', 'js/jeu.js', 'js/pwa.js',
   'js/moteur-association.js', 'js/moteur-ecriture.js',
   'data/referentiel.json', 'data/jeux.json', 'img/images.json', 'son/sons.json',
-  'fonts/andika-400.woff2', 'fonts/andika-700.woff2', 'fonts/playwrite-fr-moderne.woff',
+  'fonts/andika-400.woff2', 'fonts/andika-700.woff2', 'fonts/playwrite-fr-trad.woff',
   'img/icone.svg', 'img/icone-192.png', 'img/icone-512.png', 'img/icone-180.png',
 ];
 

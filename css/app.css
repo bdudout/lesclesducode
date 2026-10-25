@@ -1,7 +1,8 @@
 /* Polices embarquées (licence SIL OFL) pour fonctionner hors connexion */
 @font-face { font-family: 'Andika'; font-weight: 400; font-display: swap; src: url(../fonts/andika-400.woff2) format('woff2'); }
 @font-face { font-family: 'Andika'; font-weight: 700; font-display: swap; src: url(../fonts/andika-700.woff2) format('woff2'); }
-@font-face { font-family: 'Playwrite FR Moderne'; font-display: swap; src: url(../fonts/playwrite-fr-moderne.woff) format('woff'); }
+/* cursive française traditionnelle, avec les attaques de l'écriture scolaire */
+@font-face { font-family: 'Playwrite FR Trad'; font-display: swap; src: url(../fonts/playwrite-fr-trad.woff) format('woff'); }
 
 :root {
   --fond: #fff6dc;
@@ -18,7 +19,7 @@
   --rayon: 18px;
   --gap: 8px;
   --police: 'Andika', 'Comic Sans MS', system-ui, sans-serif;
-  --police-cursive: 'Playwrite FR Moderne', 'Segoe Script', cursive;
+  --police-cursive: 'Playwrite FR Trad', 'Segoe Script', cursive;
 }
 
 * { box-sizing: border-box; }
@@ -252,7 +253,11 @@ body.jeu {
   overflow: hidden;
 }
 .case.grapheme { font-weight: 700; }
-.case.voyelle { color: var(--voyelle); }
+/* voyelles : rouge (repère de la méthode) + léger soulignement, pour les enfants daltoniens */
+.case.voyelle, .carte-aide .voyelle, .voyelle {
+  color: var(--voyelle);
+  text-decoration: underline; text-decoration-thickness: .07em; text-underline-offset: .12em;
+}
 .case.image .emoji { font-size: calc(var(--taille, 80px) * .62); }
 .case.image img { width: 85%; height: 85%; object-fit: contain; pointer-events: none; }
 .case.image .mot { padding: 2px; text-align: center; }
@@ -275,6 +280,8 @@ body.jeu {
 
 .ecriture-capitales .grapheme { text-transform: uppercase; }
 .ecriture-cursive .grapheme { font-family: var(--police-cursive); font-weight: 400; }
+/* la cursive a de grands jambages (j, p, z) : un peu plus petite et remontée pour tenir dans la case */
+.ecriture-cursive .case.grapheme { font-size: calc(var(--taille) * .4) !important; padding-bottom: .6em; }
 
 /* jeux « écrire » */
 .zone-ecrire {
@@ -357,13 +364,16 @@ body.jeu.avec-clavier { grid-template-rows: 1fr auto auto; }
   grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
   max-width: 1200px; margin: 0 auto;
 }
-.carte-aide { background: var(--carte); border: 2px solid var(--bord); border-radius: 14px; padding: 8px; text-align: center; }
+.carte-aide { font: inherit; color: inherit; width: 100%; background: var(--carte); border: 2px solid var(--bord); border-radius: 14px; padding: 8px; text-align: center; cursor: pointer; touch-action: manipulation; }
 .carte-aide .grapheme { font-size: 1.8rem; font-weight: 700; }
 .carte-aide .visuel-aide { --taille: 64px; height: 64px; display: grid; place-items: center; }
 .carte-aide .visuel-aide img { width: 64px; height: 64px; }
 .carte-aide .visuel-aide .emoji { font-size: 2.4rem; }
 .carte-aide .mot { font-size: .85rem; color: var(--doux); }
-.fermer-aide { text-align: center; margin: 0 0 12px; font-size: 2rem; }
+.fermer-aide {
+  display: block; margin: 0 auto 14px; width: 64px; height: 64px; border-radius: 50%;
+  border: 0; background: var(--barre); color: #fff; font-size: 2rem; cursor: pointer;
+}
 
 #depart { display: grid; place-items: center; background: var(--fond); }
 #depart[hidden] { display: none; }
@@ -413,3 +423,19 @@ body.jeu.avec-clavier { grid-template-rows: 1fr auto auto; }
   .barre, .adulte { display: none; }
   dialog { position: static; box-shadow: none; }
 }
+
+/* bouton d'aide : « ? » blanc bien contrasté (l'emoji ❓ rouge l'était mal sur la barre) */
+.barre .bouton-aide { font-weight: 700; font-size: 1.9rem; color: #fff; }
+
+/* mode classe (TBI) : lisible du fond de la salle */
+.mode-classe .barre { padding-top: 12px; padding-bottom: 12px; }
+.mode-classe .barre button { width: 84px; height: 84px; font-size: 2.6rem; border-radius: 20px; }
+.mode-classe .barre .bouton-aide { font-size: 3rem; }
+.mode-classe .compteurs { font-size: 2.4rem; }
+.mode-classe .compteurs .joueur { font-size: 2.6rem; }
+.mode-classe .fiche .case { --taille: 160px; }
+.mode-classe .fiche input { height: 72px; font-size: 2.6rem; }
+.mode-classe .zone-ecrire { grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); }
+.mode-classe .touche { width: clamp(52px, 6vw, 92px); height: clamp(56px, 8vh, 88px); font-size: clamp(1.6rem, 3vw, 2.6rem); }
+.mode-classe .touche.valider { width: clamp(90px, 12vw, 160px); }
+.mode-classe .series span { width: 26px; height: 26px; }

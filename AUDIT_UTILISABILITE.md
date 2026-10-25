@@ -50,6 +50,23 @@ P2, corrigés le même jour :
 - **#11 Séances courtes** : séries de 8 paires par défaut, sur tous les écrans et dans les
   deux types de jeux (réglage adulte pour revenir au plateau complet).
 
+P3, corrigés le même jour :
+
+- **#12 Pression** : chrono et erreurs masqués par défaut (réglables) ; la fin de partie
+  annonce seulement « 26 trouvés ! ». Les erreurs restent dans la fiche de l'adulte.
+- **#13 Dessins** : les 6 couleurs sont un crayon de couleur et son trait, au lieu d'une
+  tache. Les référents doubles montrent les deux objets (carotte + cerise, pot + pomme,
+  salade + rose, gâteau + girafe). « Point » est le point qui finit une phrase. Toucher
+  une carte de la fiche d'aide dit son référent. Validation par un enseignant ou les
+  auteurs toujours conseillée.
+- **#14 Mode classe (TBI)** : réglage adulte ou `&classe=1` dans l'adresse. Cases jusqu'à
+  280 px (264 px mesurés sur 1920×1080), barre et clavier agrandis, sans chrono ni
+  erreurs.
+- **#15 Cursive** : « Playwrite FR Trad » (cursive française traditionnelle avec
+  attaques, licence OFL), embarquée, à la place de la cursive moderne.
+- **#16 Accessibilité** : « ? » blanc à la place du ❓ rouge peu contrasté, voyelles
+  soulignées en plus du rouge, fiche d'aide qui ne se ferme plus qu'avec un gros ✖.
+
 ## Synthèse classée
 
 | # | Prio | Pour | Problème | Effort |

@@ -29,8 +29,9 @@ Espace adulte : **appui long** sur ⚙️ en bas à droite du menu. On y gère l
 les jeux), les séances courtes, l'affichage, et la fiche de scores par élève avec les
 confusions fréquentes.
 
-Lien de séance (par exemple pour le TBI ou l'ENT) : ajouter `&g=` et les identifiants des
-graphèmes à l'adresse d'un jeu, par exemple `jeu.html?id=complexes1&g=ou,on,an,au`.
+Lien de séance (par exemple pour le TBI ou l'ENT) : ajouter à l'adresse d'un jeu `&g=`
+suivi des graphèmes voulus, et `&classe=1` pour le mode TBI (tout en plus grand), par
+exemple `jeu.html?id=complexes1&g=ou,on,an,au&classe=1`.
 
 ## Installer sur tablette ou téléphone
 
