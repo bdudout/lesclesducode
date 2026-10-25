@@ -1,0 +1,25 @@
+{
+  "name": "les-cles-du-code",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Les clés du code — version web, Android et iPhone",
+  "type": "module",
+  "scripts": {
+    "serveur": "python3 -m http.server 8123",
+    "www": "node outils/construire-www.mjs",
+    "android": "npm run www && npx cap sync android && npx cap open android",
+    "ios": "npm run www && npx cap sync ios && npx cap open ios",
+    "icones": "npx @capacitor/assets generate --android --ios --iconBackgroundColor '#3d405b' --splashBackgroundColor '#fff6dc'"
+  },
+  "dependencies": {
+    "@capacitor-community/text-to-speech": "^8.0.2",
+    "@capacitor/android": "^8.5.3",
+    "@capacitor/app": "^8.1.2",
+    "@capacitor/cli": "^8.5.3",
+    "@capacitor/core": "^8.5.3",
+    "@capacitor/haptics": "^8.0.2",
+    "@capacitor/ios": "^8.5.3",
+    "@capacitor/preferences": "^8.0.1",
+    "@capacitor/status-bar": "^8.0.4"
+  }
+}

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Les clés du code</string>
+    <string name="title_activity_main">Les clés du code</string>
+    <string name="package_name">fr.lesclesducode.app</string>
+    <string name="custom_url_scheme">fr.lesclesducode.app</string>
+</resources>

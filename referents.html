@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Affiche des référents</title>
+  <link rel="stylesheet" href="css/app.css">
+  <style>
+    body { padding: 16px; }
+    h1, h2 { text-align: center; }
+    h2 { margin-top: 28px; }
+    .grille-aide { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+    .carte-aide img { width: 80px; height: 80px; }
+    .voyelle { color: var(--voyelle); }
+    @media print { h2 { break-before: page; } h2:first-of-type { break-before: avoid; } }
+  </style>
+</head>
+<body>
+  <h1>🔑 Les mots-référents</h1>
+  <p class="note" style="text-align:center">Affiche à imprimer pour la classe · Ctrl/Cmd + P</p>
+  <div id="planche"></div>
+  <script type="module">
+    import { charger } from './js/data.js';
+    const { familles } = await charger();
+    const titres = { alphabet: 'Alphabet', complexes: 'Graphèmes complexes', doubles: 'Consonnes doubles', autres: 'Autres graphèmes' };
+    document.getElementById('planche').innerHTML = Object.entries(familles).map(([f, items]) => `
+      <h2>${titres[f]}</h2>
+      <div class="grille-aide">${items.map(it => `
+        <div class="carte-aide">
+          <div class="grapheme ${f === 'alphabet' && it.voyelle ? 'voyelle' : ''}">${it.graphie}</div>
+          <img src="img/referents/${f}/${it.id}.svg" alt="${it.mot || ''}">
+          <div class="mot">${it.mot || '(muet)'}</div>
+        </div>`).join('')}
+      </div>`).join('');
+  </script>
+</body>
+</html>

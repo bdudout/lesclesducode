@@ -1,0 +1,14 @@
+[
+ {"id": "alphabet1", "numero": 1, "titre": "Alphabet — capitales", "moteur": "association", "famille": "alphabet", "ecriture": "capitales", "melange": "images", "vignette": ["A", "a"]},
+ {"id": "alphabet2", "numero": 2, "titre": "Alphabet — script", "moteur": "association", "famille": "alphabet", "ecriture": "script", "melange": "images", "vignette": ["a", "a"]},
+ {"id": "alphabet3", "numero": 3, "titre": "Alphabet — cursive", "moteur": "association", "famille": "alphabet", "ecriture": "cursive", "melange": "tout", "vignette": ["a", "a"]},
+ {"id": "alphabet_ecrire", "numero": 4, "titre": "Alphabet — écrire", "moteur": "ecriture", "famille": "alphabet", "ecriture": "script", "melange": "images", "vignette": ["a", "a"]},
+ {"id": "complexes1", "numero": 5, "titre": "Graphèmes complexes 1", "moteur": "association", "famille": "complexes", "ecriture": "script", "melange": "images-par-rangee", "vignette": ["ou", "ou"]},
+ {"id": "complexes2", "numero": 6, "titre": "Graphèmes complexes 2", "moteur": "association", "famille": "complexes", "ecriture": "script", "melange": "graphemes-par-rangee", "vignette": ["au", "au"]},
+ {"id": "complexes3", "numero": 7, "titre": "Graphèmes complexes 3", "moteur": "association", "famille": "complexes", "ecriture": "script", "melange": "tout", "vignette": ["ch", "ch"]},
+ {"id": "complexes_ecrire", "numero": 8, "titre": "Graphèmes complexes — écrire", "moteur": "ecriture", "famille": "complexes", "ecriture": "script", "melange": "images", "vignette": ["on", "on"]},
+ {"id": "doubles", "numero": 9, "titre": "Consonnes doubles", "moteur": "association", "famille": "doubles", "ecriture": "script", "melange": "tout", "vignette": ["cr", "cr"]},
+ {"id": "doubles_ecrire", "numero": 10, "titre": "Consonnes doubles — écrire", "moteur": "ecriture", "famille": "doubles", "ecriture": "script", "melange": "images", "vignette": ["gr", "gr"]},
+ {"id": "autres", "numero": 11, "titre": "Autres graphèmes", "moteur": "association", "famille": "autres", "ecriture": "script", "melange": "tout", "vignette": ["om", "om"]},
+ {"id": "autres_ecrire", "numero": 12, "titre": "Autres graphèmes — écrire", "moteur": "ecriture", "famille": "autres", "ecriture": "script", "melange": "images", "vignette": ["ss", "ss"]}
+]

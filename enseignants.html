@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Guide enseignant</title>
+  <meta name="theme-color" content="#3d405b">
+  <link rel="stylesheet" href="css/app.css">
+  <style>
+    body { padding: max(16px, env(safe-area-inset-top)) 16px 40px; }
+    .guide { max-width: 760px; margin: 0 auto; line-height: 1.5; font-size: 1.05rem; }
+    .guide h1 { font-size: clamp(1.6rem, 5vw, 2.2rem); }
+    .guide h2 { margin-top: 32px; border-bottom: 3px solid var(--bord); padding-bottom: 4px; }
+    .guide .encadre { background: var(--carte); border: 2px solid var(--bord); border-radius: 14px; padding: 12px 16px; }
+    .guide kbd { background: var(--carte); border: 2px solid var(--bord); border-radius: 8px; padding: 0 6px; }
+    .guide table { border-collapse: collapse; width: 100%; }
+    .guide td, .guide th { border-bottom: 1px solid var(--bord); padding: 6px; text-align: left; vertical-align: top; }
+    .retour { display: inline-block; margin-bottom: 8px; color: var(--doux); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <main class="guide">
+    <a class="retour" href="index.html">← Retour aux jeux</a>
+    <h1>👩‍🏫 Guide enseignant</h1>
+
+    <p class="encadre">« Les clés du code » fait mémoriser, pour chaque graphème, un
+      <b>mot-référent</b> illustré : « a de ananas », « ou de rouge », « cr de crocodile ».
+      Devant un mot inconnu, l'enfant se rappelle le référent et retrouve le son. Les jeux
+      complètent la mallette <i>La boîte à outils pour l'apprentissage du code en
+      lecture-écriture</i> (Retz) ; ils sont plus efficaces utilisés avec elle.</p>
+
+    <h2>Les 12 jeux</h2>
+    <p>Le menu suit l'ordre de la méthode, en 4 étapes de couleur. Dans chaque étape :
+      👀 <b>lire</b> (associer le son et l'image) et ✏️ <b>écrire</b> (écrire le son sous l'image).</p>
+    <table>
+      <tr><th>Étape</th><th>Contenu</th><th>Jeux</th></tr>
+      <tr><td>1</td><td>Alphabet : 26 lettres, voyelles en rouge</td><td>capitales, script, cursive, écrire</td></tr>
+      <tr><td>2</td><td>40 graphèmes complexes, en 5 rangées de 8</td><td>3 jeux de lecture (mélange de plus en plus fort), écrire</td></tr>
+      <tr><td>3</td><td>13 consonnes doubles (cr, bl…)</td><td>lire, écrire</td></tr>
+      <tr><td>4</td><td>12 autres graphèmes (ç, ss, œu…)</td><td>lire, écrire</td></tr>
+    </table>
+
+    <h2>Préparer la séance</h2>
+    <p>Ouvrez l'<b>espace adulte</b> : restez appuyé une seconde sur ⚙️ en bas à droite du
+      menu (un enfant ne l'ouvrira pas par hasard).</p>
+    <ul>
+      <li><b>Graphèmes travaillés</b> : cochez seulement ceux déjà vus en classe. Pour les
+        graphèmes complexes, un bouton coche une rangée entière. Le menu affiche alors
+        « 8/40 » sur les jeux concernés.</li>
+      <li><b>Élèves</b> (facultatif) : ajoutez les prénoms. Chaque enfant choisit son animal
+        en arrivant, et la fiche de scores est tenue par élève. Sans élève, tout le monde
+        joue « sans nom ».</li>
+      <li><b>Voix</b> : « ou de rouge » (conseillé au début), le mot seul (« rouge ») quand
+        les référents sont connus, ou muet.</li>
+      <li><b>Séances courtes</b> (activé par défaut) : les jeux se jouent par séries de 8
+        paires au plus, avec une étoile à chaque série.</li>
+      <li><b>Chrono et erreurs</b> : à masquer pour les enfants que ça stresse.</li>
+    </ul>
+    <p><b>Lien de séance</b> (TBI, ENT) : ajoutez <code>&amp;g=</code> et les graphèmes à
+      l'adresse d'un jeu, par exemple
+      <code>jeu.html?id=complexes1&amp;g=ou,on,an,au</code>.</p>
+
+    <h2>Pendant la séance</h2>
+    <table>
+      <tr><td>▶</td><td>L'enfant touche le grand bouton : la consigne est dite à voix haute.</td></tr>
+      <tr><td>👂</td><td>Réécouter la consigne.</td></tr>
+      <tr><td>❓</td><td>La fiche des référents de la famille (toucher pour fermer).</td></tr>
+      <tr><td>🏠</td><td>Retour au menu : <b>rester appuyé</b> une seconde. Un toucher rapide ne fait rien.</td></tr>
+      <tr><td>Image</td><td>Toucher une image fait entendre son mot : l'enfant qui ne reconnaît pas le dessin s'aide seul.</td></tr>
+      <tr><td>Aides</td><td>Après 2 erreurs sur un même son, la voix redit le référent complet ; après 3, la bonne réponse brille. Ces aides sont comptées dans la fiche.</td></tr>
+    </table>
+    <p>Les jeux ✏️ ont leur propre clavier, en gros, avec seulement les lettres utiles et
+      les accents visibles (é, è, ê, ç, œ). Les majuscules sont acceptées, l'accent est exigé.</p>
+
+    <h2>Après la séance</h2>
+    <p>Dans l'espace adulte, la <b>fiche de scores</b> se filtre par élève. Elle montre
+      chaque partie (erreurs, aides, temps) et les <b>confusions fréquentes</b> : par
+      exemple « on → ou ×4 » veut dire que l'enfant cherchait « on » et a choisi « ou »
+      quatre fois. C'est le meilleur point de départ pour la remédiation. Bouton 🖨️ pour
+      imprimer.</p>
+    <p>L'<a href="referents.html">affiche des référents</a> s'imprime pour la classe.</p>
+
+    <h2>Verrouiller la tablette sur le jeu</h2>
+    <ul>
+      <li><b>iPad / iPhone — Accès guidé</b> : Réglages → Accessibilité → Accès guidé →
+        activer, choisir un code. Dans le jeu, triple-clic sur le bouton latéral (ou
+        principal) → Démarrer. Même geste pour sortir.</li>
+      <li><b>Android — Épinglage d'écran</b> : Paramètres → Sécurité → Épinglage
+        d'application → activer. Ouvrir les applis récentes, toucher l'icône du jeu →
+        Épingler. Pour sortir : maintenir Retour et Accueil.</li>
+    </ul>
+
+    <h2>Confidentialité</h2>
+    <p>Aucun compte, aucune publicité, aucun traceur. Les prénoms, réglages et scores
+      restent sur l'appareil et ne sont envoyés nulle part. « Effacer les scores » les
+      supprime.</p>
+  </main>
+</body>
+</html>

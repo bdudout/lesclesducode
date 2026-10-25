@@ -1,0 +1,11 @@
+{
+  "appId": "fr.lesclesducode.app",
+  "appName": "Les clés du code",
+  "webDir": "www",
+  "android": {
+    "allowMixedContent": false
+  },
+  "ios": {
+    "contentInset": "never"
+  }
+}

@@ -1,0 +1,725 @@
+{
+ "_source": "Relevé sur lesclesducode.fr/classique (oct. 2026). Mots-référents : méthode « La boîte à outils pour l'apprentissage du code en lecture-écriture », Retz. Emoji = visuels de remplacement libres ; null = pas d'emoji fiable, afficher le mot ou un SVG maison.",
+ "_champs": {
+  "id": "identifiant stable (noms de fichiers img/son)",
+  "graphie": "ce que l'enfant voit / doit écrire",
+  "mot": "mot-référent",
+  "dit": "phrase à prononcer en mode son 1",
+  "emoji": "visuel de remplacement",
+  "rangee": "rangée de 8 (complexes 1 et 2)",
+  "voyelle": "affichée en rouge (alphabet)"
+ },
+ "familles": {
+  "alphabet": [
+   {
+    "id": "a",
+    "graphie": "a",
+    "mot": "ananas",
+    "dit": "a de ananas",
+    "emoji": "🍍",
+    "voyelle": true
+   },
+   {
+    "id": "b",
+    "graphie": "b",
+    "mot": "ballon",
+    "dit": "b de ballon",
+    "emoji": "⚽",
+    "voyelle": false
+   },
+   {
+    "id": "c",
+    "graphie": "c",
+    "mot": "carotte ou cerise",
+    "dit": "c de carotte ou de cerise",
+    "emoji": "🥕",
+    "voyelle": false
+   },
+   {
+    "id": "d",
+    "graphie": "d",
+    "mot": "deux",
+    "dit": "d de deux",
+    "emoji": "2️⃣",
+    "voyelle": false
+   },
+   {
+    "id": "e",
+    "graphie": "e",
+    "mot": "renard",
+    "dit": "e de renard",
+    "emoji": "🦊",
+    "voyelle": true
+   },
+   {
+    "id": "f",
+    "graphie": "f",
+    "mot": "fantôme",
+    "dit": "f de fantôme",
+    "emoji": "👻",
+    "voyelle": false
+   },
+   {
+    "id": "g",
+    "graphie": "g",
+    "mot": "gâteau ou girafe",
+    "dit": "g de gâteau ou de girafe",
+    "emoji": "🎂",
+    "voyelle": false
+   },
+   {
+    "id": "h",
+    "graphie": "h",
+    "mot": null,
+    "dit": "h, on ne l'entend pas",
+    "emoji": "🤫",
+    "voyelle": false
+   },
+   {
+    "id": "i",
+    "graphie": "i",
+    "mot": "gris",
+    "dit": "i de gris",
+    "emoji": "🩶",
+    "voyelle": true
+   },
+   {
+    "id": "j",
+    "graphie": "j",
+    "mot": "jupe",
+    "dit": "j de jupe",
+    "emoji": "👗",
+    "voyelle": false
+   },
+   {
+    "id": "k",
+    "graphie": "k",
+    "mot": "kangourou",
+    "dit": "k de kangourou",
+    "emoji": "🦘",
+    "voyelle": false
+   },
+   {
+    "id": "l",
+    "graphie": "l",
+    "mot": "lit",
+    "dit": "l de lit",
+    "emoji": "🛏️",
+    "voyelle": false
+   },
+   {
+    "id": "m",
+    "graphie": "m",
+    "mot": "moto",
+    "dit": "m de moto",
+    "emoji": "🏍️",
+    "voyelle": false
+   },
+   {
+    "id": "n",
+    "graphie": "n",
+    "mot": "nuage",
+    "dit": "n de nuage",
+    "emoji": "☁️",
+    "voyelle": false
+   },
+   {
+    "id": "o",
+    "graphie": "o",
+    "mot": "pot ou pomme",
+    "dit": "o de pot ou de pomme",
+    "emoji": "🍎",
+    "voyelle": true
+   },
+   {
+    "id": "p",
+    "graphie": "p",
+    "mot": "pied",
+    "dit": "p de pied",
+    "emoji": "🦶",
+    "voyelle": false
+   },
+   {
+    "id": "q",
+    "graphie": "q",
+    "mot": "cinq",
+    "dit": "q de cinq",
+    "emoji": "5️⃣",
+    "voyelle": false
+   },
+   {
+    "id": "r",
+    "graphie": "r",
+    "mot": "robot",
+    "dit": "r de robot",
+    "emoji": "🤖",
+    "voyelle": false
+   },
+   {
+    "id": "s",
+    "graphie": "s",
+    "mot": "salade ou rose",
+    "dit": "s de salade ou de rose",
+    "emoji": "🥬",
+    "voyelle": false
+   },
+   {
+    "id": "t",
+    "graphie": "t",
+    "mot": "table",
+    "dit": "t de table",
+    "emoji": null,
+    "voyelle": false
+   },
+   {
+    "id": "u",
+    "graphie": "u",
+    "mot": "rue",
+    "dit": "u de rue",
+    "emoji": "🛣️",
+    "voyelle": true
+   },
+   {
+    "id": "v",
+    "graphie": "v",
+    "mot": "vélo",
+    "dit": "v de vélo",
+    "emoji": "🚲",
+    "voyelle": false
+   },
+   {
+    "id": "w",
+    "graphie": "w",
+    "mot": "wagon",
+    "dit": "w de wagon",
+    "emoji": "🚃",
+    "voyelle": false
+   },
+   {
+    "id": "x",
+    "graphie": "x",
+    "mot": "xylophone",
+    "dit": "x de xylophone",
+    "emoji": null,
+    "voyelle": false
+   },
+   {
+    "id": "y",
+    "graphie": "y",
+    "mot": "pyjama",
+    "dit": "y de pyjama",
+    "emoji": null,
+    "voyelle": true
+   },
+   {
+    "id": "z",
+    "graphie": "z",
+    "mot": "zèbre",
+    "dit": "z de zèbre",
+    "emoji": "🦓",
+    "voyelle": false
+   }
+  ],
+  "complexes": [
+   {
+    "id": "ou",
+    "graphie": "ou",
+    "mot": "rouge",
+    "dit": "ou de rouge",
+    "emoji": "🟥",
+    "rangee": 1
+   },
+   {
+    "id": "on",
+    "graphie": "on",
+    "mot": "bonbon",
+    "dit": "on de bonbon",
+    "emoji": "🍬",
+    "rangee": 1
+   },
+   {
+    "id": "eacute",
+    "graphie": "é",
+    "mot": "épée",
+    "dit": "é de épée",
+    "emoji": "🗡️",
+    "rangee": 1
+   },
+   {
+    "id": "an",
+    "graphie": "an",
+    "mot": "banc",
+    "dit": "an de banc",
+    "emoji": null,
+    "rangee": 1
+   },
+   {
+    "id": "au",
+    "graphie": "au",
+    "mot": "jaune",
+    "dit": "au de jaune",
+    "emoji": "🟨",
+    "rangee": 1
+   },
+   {
+    "id": "in",
+    "graphie": "in",
+    "mot": "lapin",
+    "dit": "in de lapin",
+    "emoji": "🐇",
+    "rangee": 1
+   },
+   {
+    "id": "ai",
+    "graphie": "ai",
+    "mot": "lait",
+    "dit": "ai de lait",
+    "emoji": "🥛",
+    "rangee": 1
+   },
+   {
+    "id": "oi",
+    "graphie": "oi",
+    "mot": "oiseau",
+    "dit": "oi de oiseau",
+    "emoji": "🐦",
+    "rangee": 1
+   },
+   {
+    "id": "ch",
+    "graphie": "ch",
+    "mot": "chat",
+    "dit": "ch de chat",
+    "emoji": "🐈",
+    "rangee": 2
+   },
+   {
+    "id": "ion",
+    "graphie": "ion",
+    "mot": "lion",
+    "dit": "ion de lion",
+    "emoji": "🦁",
+    "rangee": 2
+   },
+   {
+    "id": "er1",
+    "graphie": "er",
+    "mot": "cahier",
+    "dit": "er de cahier",
+    "emoji": "📓",
+    "rangee": 2
+   },
+   {
+    "id": "en",
+    "graphie": "en",
+    "mot": "cent",
+    "dit": "en de cent",
+    "emoji": "💯",
+    "rangee": 2
+   },
+   {
+    "id": "eau",
+    "graphie": "eau",
+    "mot": "chapeau",
+    "dit": "eau de chapeau",
+    "emoji": "🎩",
+    "rangee": 2
+   },
+   {
+    "id": "ain",
+    "graphie": "ain",
+    "mot": "main",
+    "dit": "ain de main",
+    "emoji": "✋",
+    "rangee": 2
+   },
+   {
+    "id": "egrave",
+    "graphie": "è",
+    "mot": "règle",
+    "dit": "è de règle",
+    "emoji": "📏",
+    "rangee": 2
+   },
+   {
+    "id": "oin",
+    "graphie": "oin",
+    "mot": "point",
+    "dit": "oin de point",
+    "emoji": "⚫",
+    "rangee": 2
+   },
+   {
+    "id": "ph",
+    "graphie": "ph",
+    "mot": "phoque",
+    "dit": "ph de phoque",
+    "emoji": "🦭",
+    "rangee": 3
+   },
+   {
+    "id": "or",
+    "graphie": "or",
+    "mot": "tortue",
+    "dit": "or de tortue",
+    "emoji": "🐢",
+    "rangee": 3
+   },
+   {
+    "id": "ez",
+    "graphie": "ez",
+    "mot": "nez",
+    "dit": "ez de nez",
+    "emoji": "👃",
+    "rangee": 3
+   },
+   {
+    "id": "eu",
+    "graphie": "eu",
+    "mot": "bleu",
+    "dit": "eu de bleu",
+    "emoji": "🟦",
+    "rangee": 3
+   },
+   {
+    "id": "ette",
+    "graphie": "ette",
+    "mot": "lunette",
+    "dit": "ette de lunette",
+    "emoji": "👓",
+    "rangee": 3
+   },
+   {
+    "id": "ein",
+    "graphie": "ein",
+    "mot": "ceinture",
+    "dit": "ein de ceinture",
+    "emoji": null,
+    "rangee": 3
+   },
+   {
+    "id": "ecirc",
+    "graphie": "ê",
+    "mot": "tête",
+    "dit": "ê de tête",
+    "emoji": "👤",
+    "rangee": 3
+   },
+   {
+    "id": "ui",
+    "graphie": "ui",
+    "mot": "huit",
+    "dit": "ui de huit",
+    "emoji": "8️⃣",
+    "rangee": 3
+   },
+   {
+    "id": "qu",
+    "graphie": "qu",
+    "mot": "quatre",
+    "dit": "qu de quatre",
+    "emoji": "4️⃣",
+    "rangee": 4
+   },
+   {
+    "id": "eur",
+    "graphie": "eur",
+    "mot": "fleur",
+    "dit": "eur de fleur",
+    "emoji": "🌸",
+    "rangee": 4
+   },
+   {
+    "id": "et",
+    "graphie": "et",
+    "mot": "bonnet",
+    "dit": "et de bonnet",
+    "emoji": null,
+    "rangee": 4
+   },
+   {
+    "id": "euille",
+    "graphie": "euille",
+    "mot": "feuille",
+    "dit": "euille de feuille",
+    "emoji": "🍃",
+    "rangee": 4
+   },
+   {
+    "id": "elle",
+    "graphie": "elle",
+    "mot": "pelle",
+    "dit": "elle de pelle",
+    "emoji": null,
+    "rangee": 4
+   },
+   {
+    "id": "ien",
+    "graphie": "ien",
+    "mot": "chien",
+    "dit": "ien de chien",
+    "emoji": "🐕",
+    "rangee": 4
+   },
+   {
+    "id": "ei",
+    "graphie": "ei",
+    "mot": "reine",
+    "dit": "ei de reine",
+    "emoji": "👸",
+    "rangee": 4
+   },
+   {
+    "id": "ill",
+    "graphie": "ill",
+    "mot": "fille",
+    "dit": "ill de fille",
+    "emoji": "👧",
+    "rangee": 4
+   },
+   {
+    "id": "gu",
+    "graphie": "gu",
+    "mot": "guitare",
+    "dit": "gu de guitare",
+    "emoji": "🎸",
+    "rangee": 5
+   },
+   {
+    "id": "es",
+    "graphie": "es",
+    "mot": "escargot",
+    "dit": "es de escargot",
+    "emoji": "🐌",
+    "rangee": 5
+   },
+   {
+    "id": "gn",
+    "graphie": "gn",
+    "mot": "peigne",
+    "dit": "gn de peigne",
+    "emoji": "🪮",
+    "rangee": 5
+   },
+   {
+    "id": "aille",
+    "graphie": "aille",
+    "mot": "médaille",
+    "dit": "aille de médaille",
+    "emoji": "🏅",
+    "rangee": 5
+   },
+   {
+    "id": "erre",
+    "graphie": "erre",
+    "mot": "terre",
+    "dit": "erre de terre",
+    "emoji": "🌍",
+    "rangee": 5
+   },
+   {
+    "id": "ouille",
+    "graphie": "ouille",
+    "mot": "citrouille",
+    "dit": "ouille de citrouille",
+    "emoji": "🎃",
+    "rangee": 5
+   },
+   {
+    "id": "er2",
+    "graphie": "er",
+    "mot": "vert",
+    "dit": "er de vert",
+    "emoji": "🟩",
+    "rangee": 5
+   },
+   {
+    "id": "eille",
+    "graphie": "eille",
+    "mot": "abeille",
+    "dit": "eille de abeille",
+    "emoji": "🐝",
+    "rangee": 5
+   }
+  ],
+  "doubles": [
+   {
+    "id": "cr",
+    "graphie": "cr",
+    "mot": "crocodile",
+    "dit": "cr de crocodile",
+    "emoji": "🐊"
+   },
+   {
+    "id": "br",
+    "graphie": "br",
+    "mot": "bras",
+    "dit": "br de bras",
+    "emoji": "💪"
+   },
+   {
+    "id": "dr",
+    "graphie": "dr",
+    "mot": "dragon",
+    "dit": "dr de dragon",
+    "emoji": "🐉"
+   },
+   {
+    "id": "fr",
+    "graphie": "fr",
+    "mot": "fromage",
+    "dit": "fr de fromage",
+    "emoji": "🧀"
+   },
+   {
+    "id": "gr",
+    "graphie": "gr",
+    "mot": "grenouille",
+    "dit": "gr de grenouille",
+    "emoji": "🐸"
+   },
+   {
+    "id": "pr",
+    "graphie": "pr",
+    "mot": "prune",
+    "dit": "pr de prune",
+    "emoji": null
+   },
+   {
+    "id": "tr",
+    "graphie": "tr",
+    "mot": "train",
+    "dit": "tr de train",
+    "emoji": "🚂"
+   },
+   {
+    "id": "vr",
+    "graphie": "vr",
+    "mot": "livre",
+    "dit": "vr de livre",
+    "emoji": "📖"
+   },
+   {
+    "id": "cl",
+    "graphie": "cl",
+    "mot": "clé",
+    "dit": "cl de clé",
+    "emoji": "🔑"
+   },
+   {
+    "id": "bl",
+    "graphie": "bl",
+    "mot": "blanc",
+    "dit": "bl de blanc",
+    "emoji": "⬜"
+   },
+   {
+    "id": "fl",
+    "graphie": "fl",
+    "mot": "flûte",
+    "dit": "fl de flûte",
+    "emoji": "🪈"
+   },
+   {
+    "id": "gl",
+    "graphie": "gl",
+    "mot": "glace",
+    "dit": "gl de glace",
+    "emoji": "🍦"
+   },
+   {
+    "id": "pl",
+    "graphie": "pl",
+    "mot": "pluie",
+    "dit": "pl de pluie",
+    "emoji": "🌧️"
+   }
+  ],
+  "autres": [
+   {
+    "id": "am",
+    "graphie": "am",
+    "mot": "jambe",
+    "dit": "am de jambe",
+    "emoji": "🦵"
+   },
+   {
+    "id": "ccedille",
+    "graphie": "ç",
+    "mot": "garçon",
+    "dit": "ç de garçon",
+    "emoji": "👦"
+   },
+   {
+    "id": "em",
+    "graphie": "em",
+    "mot": "embrasser",
+    "dit": "em de embrasser",
+    "emoji": "😘"
+   },
+   {
+    "id": "esse",
+    "graphie": "esse",
+    "mot": "princesse",
+    "dit": "esse de princesse",
+    "emoji": "👑"
+   },
+   {
+    "id": "ge",
+    "graphie": "ge",
+    "mot": "pigeon",
+    "dit": "ge de pigeon",
+    "emoji": "🕊️"
+   },
+   {
+    "id": "im",
+    "graphie": "im",
+    "mot": "timbre",
+    "dit": "im de timbre",
+    "emoji": null
+   },
+   {
+    "id": "oeu_oeuf",
+    "graphie": "œu",
+    "mot": "œuf",
+    "dit": "œu de œuf",
+    "emoji": "🥚"
+   },
+   {
+    "id": "oeu_noeud",
+    "graphie": "œu",
+    "mot": "nœud",
+    "dit": "œu de nœud",
+    "emoji": "🎀"
+   },
+   {
+    "id": "om",
+    "graphie": "om",
+    "mot": "pompier",
+    "dit": "om de pompier",
+    "emoji": "🧑‍🚒"
+   },
+   {
+    "id": "ss",
+    "graphie": "ss",
+    "mot": "tasse",
+    "dit": "ss de tasse",
+    "emoji": "☕"
+   },
+   {
+    "id": "t_addition",
+    "graphie": "t",
+    "mot": "addition",
+    "dit": "t de addition",
+    "emoji": "➕"
+   },
+   {
+    "id": "y_yaourt",
+    "graphie": "y",
+    "mot": "yaourt",
+    "dit": "y de yaourt",
+    "emoji": null
+   }
+  ]
+ }
+}

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Les clés du code</title>
+  <meta name="theme-color" content="#3d405b">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="img/icone.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="img/icone-180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+</head>
+<body>
+  <div class="menu">
+    <header>
+      <h1><span>🔑</span> Les clés du code</h1>
+      <button class="joueur-menu" id="b-joueur" hidden aria-label="Changer de joueur"></button>
+    </header>
+    <main class="parcours" id="parcours" aria-label="Choisir un jeu"></main>
+    <footer class="pied">
+      <a class="lien-prof" href="enseignants.html">👩‍🏫 Enseignants</a>
+      <span class="indication">Adulte : rester appuyé sur ⚙️</span>
+      <button class="adulte" id="adulte" title="Espace adulte : appui long" aria-label="Espace adulte (appui long)">⚙️</button>
+    </footer>
+  </div>
+
+  <div class="calque" id="qui-joue" hidden>
+    <h2 class="titre-qui">Qui joue ? <button class="ecouter" id="b-qui" aria-label="Écouter">👂</button></h2>
+    <div class="grille-joueurs" id="grille-joueurs"></div>
+  </div>
+
+  <dialog id="reglages">
+    <h2>Espace adulte</h2>
+    <p class="note">Ouvert par un appui long sur ⚙️ pour que les enfants n'y entrent pas par hasard.
+      Mode d'emploi complet : <a href="enseignants.html">page enseignants</a>.</p>
+
+    <h3>Élèves</h3>
+    <p class="note">Facultatif. Avec des élèves, chaque enfant choisit son animal en arrivant, et la fiche
+      de scores est tenue par élève. Seul le prénom est enregistré, sur cet appareil uniquement.</p>
+    <ul class="liste-eleves" id="liste-eleves"></ul>
+    <div class="ajout-eleve">
+      <input type="text" id="prenom" maxlength="20" placeholder="Prénom" autocomplete="off">
+      <div class="choix-avatar" id="choix-avatar" role="radiogroup" aria-label="Animal"></div>
+      <button type="button" id="ajouter-eleve">➕ Ajouter</button>
+    </div>
+
+    <h3>Voix</h3>
+    <label><input type="radio" name="son" value="1"> 🔊 Le son et son mot : « ou de rouge »</label>
+    <label><input type="radio" name="son" value="2"> 🔉 Le mot seul : « rouge »</label>
+    <label><input type="radio" name="son" value="3"> 🔇 Muet</label>
+    <label><input type="checkbox" id="r-voix"> Voix lente</label>
+    <p class="alerte-voix" id="alerte-voix" hidden>⚠️ Aucune voix française n'est installée sur cet appareil.
+      Android : Paramètres → Système → Langues → Synthèse vocale, puis télécharger « Français ».
+      iPhone/iPad : Réglages → Accessibilité → Contenu énoncé → Voix → Français.</p>
+
+    <h3>Graphèmes travaillés</h3>
+    <p class="note">Les jeux ne proposent que les graphèmes cochés (2 au minimum par famille).</p>
+    <div id="choix-graphemes"></div>
+
+    <h3>Séances</h3>
+    <label><input type="checkbox" id="r-series"> Séances courtes : séries de 8 paires au plus</label>
+
+    <h3>Affichage</h3>
+    <label><input type="checkbox" id="r-chrono"> Afficher le chronomètre</label>
+    <label><input type="checkbox" id="r-erreurs"> Afficher le nombre d'erreurs</label>
+    <label><input type="checkbox" id="r-titres"> Afficher les titres des jeux au menu</label>
+    <label id="ligne-vibrations"><input type="checkbox" id="r-vibrations"> Petite vibration à chaque paire trouvée</label>
+
+    <h3>Fiche de scores</h3>
+    <label>Élève : <select id="filtre-eleve"></select></label>
+    <div id="confusions"></div>
+    <div id="scores"></div>
+    <p class="note">Les scores restent sur cet appareil. Aucune donnée n'est envoyée.</p>
+    <div class="actions">
+      <button id="imprimer">🖨️ Imprimer</button>
+      <button id="effacer">Effacer les scores</button>
+      <button id="fermer">Fermer</button>
+    </div>
+  </dialog>
+
+  <script type="module" src="js/menu.js"></script>
+</body>
+</html>

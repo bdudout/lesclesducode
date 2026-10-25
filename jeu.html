@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Les clés du code</title>
+  <meta name="theme-color" content="#3d405b">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="img/icone.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="img/icone-180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+</head>
+<body class="jeu">
+  <main id="plateau" aria-live="polite"></main>
+
+  <nav class="barre" aria-label="Outils">
+    <button id="b-menu" aria-label="Retour au menu (appui long)" title="Menu : rester appuyé">🏠</button>
+    <button id="b-consigne" aria-label="Réécouter la consigne" title="Consigne">👂</button>
+    <button id="b-aide" aria-label="Fiche des mots-référents" title="Aide">❓</button>
+    <div class="compteurs">
+      <span id="joueur" class="joueur" aria-label="joueur"></span>
+      <span aria-label="réussites">✅ <b id="c-reussites">0</b></span>
+      <span id="bloc-erreurs" aria-label="erreurs">❌ <b id="c-erreurs">0</b></span>
+      <span id="bloc-chrono" aria-label="temps">⏱️ <b id="c-chrono">0:00</b></span>
+    </div>
+  </nav>
+
+  <div class="calque" id="depart">
+    <button id="b-jouer" aria-label="Jouer">
+      <span class="apercu" id="apercu"></span>
+      <span class="jouer">▶</span>
+    </button>
+  </div>
+
+  <div class="calque" id="aide" hidden></div>
+
+  <div class="calque" id="fin" hidden>
+    <div>
+      <div class="etoile-geante">⭐</div>
+      <h2>Bravo !</h2>
+      <p class="stats" id="fin-stats"></p>
+      <div class="boutons">
+        <button id="b-rejouer" aria-label="Rejouer">🔁</button>
+        <a href="index.html" aria-label="Retour au menu">🏠</a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/jeu.js"></script>
+</body>
+</html>
