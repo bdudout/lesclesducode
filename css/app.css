@@ -397,7 +397,7 @@ body.jeu.avec-clavier { grid-template-rows: 1fr auto auto; }
 
 #fin { display: grid; place-items: center; text-align: center; overflow: hidden; }
 #fin[hidden] { display: none; }
-#fin .etoile-geante { font-size: clamp(5rem, 22vmin, 12rem); animation: saute 1s infinite; }
+#fin .etoile-geante { font-size: clamp(5rem, 22vmin, 12rem); }
 #fin h2 { font-size: clamp(2rem, 8vmin, 4rem); margin: 0; }
 #fin .stats { font-size: 1.3rem; margin: 8px 0 20px; }
 #fin .boutons { display: flex; gap: 20px; justify-content: center; }
@@ -439,3 +439,39 @@ body.jeu.avec-clavier { grid-template-rows: 1fr auto auto; }
 .mode-classe .touche { width: clamp(52px, 6vw, 92px); height: clamp(56px, 8vh, 88px); font-size: clamp(1.6rem, 3vw, 2.6rem); }
 .mode-classe .touche.valider { width: clamp(90px, 12vw, 160px); }
 .mode-classe .series span { width: 26px; height: 26px; }
+
+/* ---------- Célébrations (js/celebration.js) ---------- */
+.celebration { display: grid; place-items: center; text-align: center; overflow: hidden; z-index: 20; }
+.celebration .contenu { display: grid; justify-items: center; gap: 10px; }
+.grand-emoji { font-size: clamp(6rem, 28vmin, 13rem); line-height: 1; }
+.parfait .grand-emoji, .parfait .etoile-geante { animation: triomphe 1.4s ease-in-out infinite; }
+.bravo .grand-emoji, .bravo .etoile-geante { animation: saute 1s ease-in-out infinite; }
+.courage .grand-emoji, .courage .etoile-geante { animation: balance 1.6s ease-in-out infinite; }
+@keyframes triomphe {
+  0%, 100% { transform: scale(1) rotate(0); }
+  25% { transform: scale(1.18) rotate(-8deg); }
+  50% { transform: scale(1.05) rotate(0); }
+  75% { transform: scale(1.18) rotate(8deg); }
+}
+@keyframes balance { 0%, 100% { transform: rotate(-8deg); } 50% { transform: rotate(8deg); } }
+
+.etoiles { display: flex; gap: 10px; justify-content: center; font-size: clamp(2.6rem, 10vmin, 4.5rem); }
+.etoiles span { animation: apparait .5s backwards cubic-bezier(.3, 1.6, .5, 1); }
+.etoiles .vide { filter: grayscale(1); opacity: .25; }
+@keyframes apparait { from { transform: scale(0) rotate(-90deg); opacity: 0; } }
+
+.texte-celebration { font-size: clamp(1.8rem, 7vmin, 3.4rem); font-weight: 700; margin: 4px 0 10px; }
+.parfait .texte-celebration { color: #c77d00; }
+
+.suivant {
+  width: clamp(96px, 22vmin, 150px); aspect-ratio: 1; border-radius: 50%; border: 0;
+  padding-left: .15em; font-size: clamp(2.8rem, 10vmin, 4.5rem); color: #fff;
+  background: var(--ok); box-shadow: 0 7px 0 #1f776d; cursor: pointer; touch-action: manipulation;
+  opacity: .3; transition: opacity .3s;
+}
+.suivant.pret { opacity: 1; animation: respire 1.6s ease-in-out infinite; }
+.etoiles-fin { margin: 4px 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .grand-emoji, .etoile-geante, .etoiles span, .suivant.pret { animation: none !important; }
+}

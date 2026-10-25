@@ -27,12 +27,3 @@ export function pointsSeries(series, numero) {
   return `<div class="series" aria-label="Série ${numero + 1} sur ${series.length}">${series.map((_, i) =>
     `<span class="${i < numero ? 'faite' : i === numero ? 'en-cours' : ''}"></span>`).join('')}</div>`;
 }
-
-// ⭐ plein écran entre deux séries, puis on enchaîne.
-export function celebrerSerie(ensuite) {
-  const etoile = document.createElement('div');
-  etoile.className = 'etoile-serie';
-  etoile.textContent = '⭐';
-  document.body.append(etoile);
-  setTimeout(() => { etoile.remove(); ensuite(); }, 900);
-}

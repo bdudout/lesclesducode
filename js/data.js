@@ -15,13 +15,14 @@ async function lireJson(url, parDefaut) {
 
 export async function charger() {
   await restaurerStockage();
-  const [referentiel, jeux, images, sons] = await Promise.all([
+  const [referentiel, jeux, images, sons, phrases] = await Promise.all([
     lireJson('data/referentiel.json', null),
     lireJson('data/jeux.json', []),
     lireJson('img/images.json', []),
     lireJson('son/sons.json', []),
+    lireJson('data/phrases.json', {}),
   ]);
-  return { familles: referentiel.familles, jeux, images: new Set(images), sons: new Set(sons) };
+  return { familles: referentiel.familles, jeux, images: new Set(images), sons: new Set(sons), phrases };
 }
 
 // Pour insérer un texte saisi (prénom, réponse tapée) dans du HTML sans risque.

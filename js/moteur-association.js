@@ -5,7 +5,7 @@
 // réponse brille.
 
 import { melanger } from './data.js';
-import { PAR_SERIE, decouper, pointsSeries, celebrerSerie } from './series.js';
+import { PAR_SERIE, decouper, pointsSeries } from './series.js';
 
 const TAILLE_CONFORT = 64; // en dessous, on découpe en séries
 const TAILLE_MIN = 44;     // en dessous, on fait défiler plutôt que de rapetisser
@@ -71,6 +71,7 @@ export function lancerAssociation(plateau, partie) {
   let numero = 0;
   let serie = [];
   let trouvesDansSerie = 0;
+  let erreursSerie = 0;
 
   function ajusterIci() {
     let mesure = calculer(plateau, serie.length, null, max);
@@ -85,6 +86,7 @@ export function lancerAssociation(plateau, partie) {
   function afficherSerie() {
     serie = series[numero];
     trouvesDansSerie = 0;
+    erreursSerie = 0;
     const graphemes = ordonner(serie, jeu.melange, 'graphemes');
     const images = ordonner(serie, jeu.melange, 'images');
     plateau.innerHTML = `
@@ -104,7 +106,8 @@ export function lancerAssociation(plateau, partie) {
 
   function serieSuivante() {
     numero++;
-    if (numero < series.length) celebrerSerie(afficherSerie); // la fin de partie est gérée par jeu.js
+    // la dernière série est célébrée par l'écran de fin (jeu.js)
+    if (numero < series.length) partie.celebrerSerie(erreursSerie, series[numero - 1].length, afficherSerie);
   }
 
   afficherSerie();
@@ -162,6 +165,7 @@ export function lancerAssociation(plateau, partie) {
       void bouton.offsetWidth;
       bouton.classList.add('secoue');
       partie.erreur();
+      erreursSerie++;
       partie.confusion(selection.dataset.id, bouton.dataset.id);
       aider(selection);
     }

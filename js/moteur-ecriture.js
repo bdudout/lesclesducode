@@ -5,7 +5,7 @@
 // la réponse brillent.
 
 import { melanger } from './data.js';
-import { decouper, pointsSeries, celebrerSerie } from './series.js';
+import { decouper, pointsSeries } from './series.js';
 
 const LONGUEUR_MAX = 8;
 
@@ -30,6 +30,7 @@ export function lancerEcriture(plateau, partie) {
   const parId = id => items.find(i => i.id === id);
   let numero = 0;
   let trouvesDansSerie = 0;
+  let erreursSerie = 0;
   let active = null; // la fiche où l'on écrit
   const erreursSur = {};
 
@@ -64,6 +65,7 @@ export function lancerEcriture(plateau, partie) {
 
   function afficherSerie() {
     trouvesDansSerie = 0;
+    erreursSerie = 0;
     plateau.innerHTML = `
       ${pointsSeries(series, numero)}
       <div class="zone-ecrire">
@@ -95,7 +97,8 @@ export function lancerEcriture(plateau, partie) {
       if (trouvesDansSerie === series[numero].length) {
         active = null;
         numero++;
-        if (numero < series.length) celebrerSerie(afficherSerie); // la fin de partie est gérée par jeu.js
+        // la dernière série est célébrée par l'écran de fin (jeu.js)
+        if (numero < series.length) partie.celebrerSerie(erreursSerie, series[numero - 1].length, afficherSerie);
       } else {
         activer(plateau.querySelector('.fiche:not(.trouve)'));
       }
@@ -104,6 +107,7 @@ export function lancerEcriture(plateau, partie) {
       void active.offsetWidth;
       active.classList.add('secoue');
       partie.erreur();
+      erreursSerie++;
       partie.confusion(item.id, `« ${champ.value.trim()} »`);
       erreursSur[item.id] = (erreursSur[item.id] || 0) + 1;
       if (erreursSur[item.id] === 2) partie.direIndice(item);

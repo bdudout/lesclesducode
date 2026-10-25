@@ -4,10 +4,12 @@ import {
   AVATARS, lireProfils, ecrireProfils, joueurCourant, joueurAChoisi, choisirJoueur,
 } from './data.js';
 import { appuiLong } from './appui-long.js';
-import { parler } from './audio.js';
+import { direPhrase } from './audio.js';
 import { estNatif, surRetour, quitterAppli, pleinEcran, voixFrancaiseDisponible } from './natif.js';
 
-const { jeux, familles } = await charger();
+const { jeux, familles, sons, phrases } = await charger();
+// phrase enregistrée (data/phrases.json), sauf si l'adulte a coupé le son
+const phrase = cle => { if (lireReglages().son !== 3) direPhrase(cle, phrases[cle], sons); };
 const $ = id => document.getElementById(id);
 
 // Ordre de la méthode : on avance de l'alphabet vers les graphèmes plus rares.
@@ -63,10 +65,10 @@ $('grille-joueurs').addEventListener('click', e => {
   choisirJoueur(carte.dataset.id);
   $('qui-joue').hidden = true;
   const joueur = joueurCourant();
-  if (joueur) parler(`Bonjour ${joueur.prenom} !`);
+  if (joueur) phrase('bonjour');
   afficherMenu();
 });
-$('b-qui').addEventListener('click', () => parler('Qui joue ? Touche ton animal.'));
+$('b-qui').addEventListener('click', () => phrase('qui-joue'));
 $('b-joueur').addEventListener('click', afficherQuiJoue);
 
 afficherMenu();

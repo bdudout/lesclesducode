@@ -79,12 +79,23 @@ synthèse vocale du navigateur.
 - `sw.js` + `manifest.webmanifest` : appli installable et hors-ligne
 - `android/`, `ios/`, `capacitor.config.json` : applis natives
 
+## Voix
+
+Les voix sont pré-enregistrées dans `son/` avec **Piper** (synthèse neuronale libre,
+voix « siwis », base SIWIS de l'Université d'Édimbourg, licence CC BY 4.0) : même voix
+naturelle partout, y compris hors connexion et sur Android. Le texte prononcé est le
+champ `voix` de `data/referentiel.json` (le son, pas le nom des lettres : « gne, de
+peigne ») et les phrases de `data/phrases.json`. Pour régénérer après une modification :
+`piper-env/bin/python outils/generer_voix.py fr_FR-siwis-medium.onnx` (voir l'en-tête du
+script). Seuls les messages variables (rien pour l'instant) passent par la voix du système.
+
 ## Ajouter ses images et ses sons
 
 - Image : déposer `img/referents/<famille>/<id>.svg` (ou .webp/.png/.jpg) et ajouter
   `"<famille>/<id>.svg"` dans `img/images.json`.
-- Son : déposer `son/<famille>/<id>.mp3` (« ou de rouge ») et, au besoin,
-  `<id>_mot.mp3` (« rouge »), puis les lister dans `son/sons.json`.
+- Son : remplacer `son/<famille>/<id>.mp3` (« ou de rouge ») ou `<id>_mot.mp3`
+  (« rouge ») par un vrai enregistrement, en gardant le même nom. Le script des voix ne
+  l'écrase pas (sauf avec `--tout`) et tient `son/sons.json` à jour.
 
 Les `id` sont ceux de `data/referentiel.json` (ex. `complexes/eacute`).
 

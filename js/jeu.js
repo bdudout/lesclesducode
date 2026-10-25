@@ -3,7 +3,8 @@
 
 import './pwa.js';
 import { charger, lireReglages, ajouterHistorique, itemsDuJeu, joueurCourant } from './data.js';
-import { dire, parler, taire, debloquer, reglerVitesse } from './audio.js';
+import { dire, direMot, direPhrase, taire, debloquer, reglerVitesse } from './audio.js';
+import { celebrerSerie, preparerFin } from './celebration.js';
 import { surRetour, surPause, surReprise, pleinEcran, vibrer } from './natif.js';
 import { lancerAssociation } from './moteur-association.js';
 import { lancerEcriture } from './moteur-ecriture.js';
@@ -29,15 +30,18 @@ $('bloc-chrono').hidden = !reglages.chrono || modeClasse;
 $('bloc-erreurs').hidden = !reglages.erreurs || modeClasse;
 if (joueur) $('joueur').textContent = joueur.avatar;
 
-const CONSIGNES = {
-  association: 'Touche un son, puis l\'image qui va avec.',
-  ecriture: 'Regarde l\'image et écris le son qui va avec.',
-};
-
 // Son : 1 « ou de rouge », 2 le mot seul, 3 muet. Réglé par l'adulte (menu ⚙️),
 // pour qu'un enfant ne coupe pas la voix sans s'en rendre compte.
 const modeSon = reglages.son;
-const consigne = () => { if (modeSon !== 3) parler(CONSIGNES[jeu.moteur]); };
+const sons = donnees.sons;
+
+// Phrase fixe (data/phrases.json) : dite si le son est actif, et renvoyée pour l'affichage.
+function phrase(cle) {
+  const texte = donnees.phrases[cle] || '';
+  if (modeSon !== 3) direPhrase(cle, texte, sons);
+  return texte;
+}
+const consigne = () => phrase(`consigne-${jeu.moteur}`);
 $('b-consigne').addEventListener('click', consigne);
 
 // Retour au menu par appui long : un toucher accidentel ne fait plus perdre la partie.
@@ -88,7 +92,7 @@ $('b-aide').addEventListener('click', () => { $('aide').hidden = false; });
 $('b-fermer-aide').addEventListener('click', () => { $('aide').hidden = true; });
 $('aide').addEventListener('click', e => {
   const carte = e.target.closest('.carte-aide');
-  if (carte && modeSon !== 3) parler(items.find(i => i.id === carte.dataset.id).dit);
+  if (carte && modeSon !== 3) dire(jeu.famille, items.find(i => i.id === carte.dataset.id), 1, sons);
 });
 
 // ---------- Score et chrono (démarre au premier essai, pas au chargement) ----------
@@ -118,11 +122,13 @@ const partie = {
   // toute la famille, même si l'enseignant en a retiré : le clavier des jeux « écrire »
   // en tire ses touches, sans trahir les seuls graphèmes du jeu
   famille: donnees.familles[jeu.famille],
-  dire: item => dire(jeu.famille, item, modeSon, donnees.sons),
+  dire: item => dire(jeu.famille, item, modeSon, sons),
   // un toucher sur une image sans sélection : on dit seulement le mot, pour aider
-  direMot: item => { if (modeSon !== 3) parler(item.mot || item.dit); },
+  direMot: item => { if (modeSon !== 3) direMot(jeu.famille, item, sons); },
   // indice après 2 erreurs : on redit le référent complet, quel que soit le réglage de voix
-  direIndice: item => { if (modeSon !== 3) parler(item.dit); },
+  direIndice: item => { if (modeSon !== 3) dire(jeu.famille, item, 1, sons); },
+  // entre deux séries : célébration selon les erreurs de la série, puis la suite
+  celebrerSerie: (erreursSerie, total, ensuite) => celebrerSerie({ erreurs: erreursSerie, total, dire: phrase, ensuite }),
   aide() { aides++; },
   confusion(cherche, donne) { confusions.push([cherche, donne]); },
   essai() { demarrerChrono(); },
@@ -148,23 +154,8 @@ function finir() {
   $('fin-stats').textContent = morceaux.join(' · ');
   setTimeout(() => {
     $('fin').hidden = false;
-    lancerConfettis();
-    if (modeSon !== 3) parler('Bravo !');
+    preparerFin({ erreurs, total: items.length, dire: phrase, ecran: $('fin') });
   }, 900);
-}
-
-function lancerConfettis() {
-  const couleurs = ['#e76f51', '#2a9d8f', '#ffb703', '#8338ec', '#d62828', '#219ebc'];
-  for (let i = 0; i < 70; i++) {
-    const c = document.createElement('span');
-    c.className = 'confetti';
-    c.style.left = `${Math.random() * 100}vw`;
-    c.style.background = couleurs[i % couleurs.length];
-    c.style.animationDuration = `${2 + Math.random() * 2.5}s`;
-    c.style.animationDelay = `${Math.random() * .8}s`;
-    $('fin').append(c);
-    c.addEventListener('animationend', () => c.remove());
-  }
 }
 
 // Appli mise en arrière-plan : on coupe la voix et on fige le chrono.

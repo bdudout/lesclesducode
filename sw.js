@@ -6,9 +6,9 @@ const VERSION = 'cdc-v4';
 const FICHIERS = [
   './', 'index.html', 'jeu.html', 'referents.html', 'enseignants.html', 'manifest.webmanifest',
   'css/app.css',
-  'js/data.js', 'js/audio.js', 'js/appui-long.js', 'js/natif.js', 'js/series.js', 'js/menu.js', 'js/jeu.js', 'js/pwa.js',
+  'js/data.js', 'js/audio.js', 'js/appui-long.js', 'js/natif.js', 'js/series.js', 'js/celebration.js', 'js/menu.js', 'js/jeu.js', 'js/pwa.js',
   'js/moteur-association.js', 'js/moteur-ecriture.js',
-  'data/referentiel.json', 'data/jeux.json', 'img/images.json', 'son/sons.json',
+  'data/referentiel.json', 'data/jeux.json', 'data/phrases.json', 'img/images.json', 'son/sons.json',
   'fonts/andika-400.woff2', 'fonts/andika-700.woff2', 'fonts/playwrite-fr-trad.woff',
   'img/icone.svg', 'img/icone-192.png', 'img/icone-512.png', 'img/icone-180.png',
 ];
