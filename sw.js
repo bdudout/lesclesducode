@@ -13,14 +13,18 @@ const FICHIERS = [
   'img/icone.svg', 'img/icone-192.png', 'img/icone-512.png', 'img/icone-180.png',
 ];
 
+// Toujours redemander au serveur : GitHub Pages laisse les navigateurs garder 10 min une
+// copie des fichiers, et une mise à jour ne doit pas remplir le cache avec l'ancienne version.
+const frais = url => new Request(url, { cache: 'reload' });
+
 self.addEventListener('install', event => {
   event.waitUntil((async () => {
     const cache = await caches.open(VERSION);
-    await cache.addAll(FICHIERS);
+    await cache.addAll(FICHIERS.map(frais));
     // dessins et sons déposés : listés dans leurs index respectifs
-    const images = await (await fetch('img/images.json')).json();
-    const sons = await (await fetch('son/sons.json')).json();
-    await cache.addAll([...images.map(f => `img/referents/${f}`), ...sons.map(f => `son/${f}`)]);
+    const images = await (await fetch(frais('img/images.json'))).json();
+    const sons = await (await fetch(frais('son/sons.json'))).json();
+    await cache.addAll([...images.map(f => `img/referents/${f}`), ...sons.map(f => `son/${f}`)].map(frais));
     self.skipWaiting();
   })());
 });
