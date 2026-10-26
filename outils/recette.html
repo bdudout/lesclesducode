@@ -56,7 +56,10 @@
   <main id="recette"></main>
 
   <script type="module">
-    const lire = async url => (await fetch(url)).json();
+    // tout est relu à neuf : un outil de relecture doit montrer la dernière version
+    // (sinon le navigateur peut garder l'ancienne liste des sons, et aucun bouton « écouter »)
+    const FRAIS = `?v=${Date.now()}`;
+    const lire = async url => (await fetch(url, { cache: 'no-store' })).json();
     const [ref, phrases, sons] = await Promise.all([lire('../data/referentiel.json'), lire('../data/phrases.json'), lire('../son/sons.json')]);
     const familles = ref.familles;
     const disponibles = new Set(sons);
@@ -73,8 +76,8 @@
     let lecteur = null;
     function ecouter(chemin) {
       if (lecteur) lecteur.pause();
-      lecteur = new Audio(`../son/${chemin}`);
-      lecteur.play();
+      lecteur = new Audio(`../son/${chemin}${FRAIS}`);
+      lecteur.play().catch(err => alert(`Le son ne peut pas être lu (${chemin}) : ${err.message}`));
     }
     const boutonSon = (chemin, libelle) => disponibles.has(chemin)
       ? `<button data-son="${chemin}">▶ ${libelle}</button>` : `<span class="note">—</span>`;
@@ -105,7 +108,7 @@
           return `<div class="fiche-recette ${etatFiche([['dessins', cle], ['sons', cle]])}" data-cle="${cle}">
             <div class="entete">
               <span class="graphie">${echapper(it.graphie)}</span>
-              <img src="../img/referents/${cle}.svg" alt="${echapper(it.mot || '')}">
+              <img src="../img/referents/${cle}.svg${FRAIS}" alt="${echapper(it.mot || '')}">
               <div class="details">« ${echapper(it.voix)} »<br>son : [${echapper(it.api)}]${it.api_mot ? `<br>mot : [${echapper(it.api_mot)}]` : ''}</div>
             </div>
             <div class="ecoute">

@@ -72,25 +72,47 @@ def perforations():
             s += f'<circle cx="{x}" cy="{y}" r="3" fill="#fff" stroke="none"/>'
     return s
 
+def ballon_foot():
+    """Ballon de football : pentagone noir au centre, pentagones partiels au bord."""
+    def penta(cx, cy, r, rot):
+        return " ".join(f"{cx + r * math.cos(rot + i * 2 * math.pi / 5):.1f},{cy + r * math.sin(rot + i * 2 * math.pi / 5):.1f}" for i in range(5))
+    s = '<clipPath id="c"><circle cx="50" cy="52" r="38"/></clipPath><circle cx="50" cy="52" r="38" fill="#fff"/>'
+    s += f'<polygon points="{penta(50, 52, 13, -math.pi / 2)}" fill="{{D}}"/><g clip-path="url(#c)">'
+    for i in range(5):
+        a = -math.pi / 2 + i * 2 * math.pi / 5
+        x1, y1 = 50 + 13 * math.cos(a), 52 + 13 * math.sin(a)
+        x2, y2 = 50 + 30 * math.cos(a), 52 + 30 * math.sin(a)
+        s += f'<path d="M{x1:.1f} {y1:.1f} L{x2:.1f} {y2:.1f}" stroke-width="2.5"/>'
+        cx, cy = 50 + 40 * math.cos(a), 52 + 40 * math.sin(a)
+        s += f'<polygon points="{penta(cx, cy, 12, a + math.pi)}" fill="{{D}}"/>'
+    return s + '</g><circle cx="50" cy="52" r="38"/><path d="M26 36 Q30 28 38 25" stroke="#fff" stroke-width="4" opacity=".8"/>'
+
+def spirale(cx, cy, tours, r_max):
+    """Spirale d'Archimède (coquille d'escargot)."""
+    pts = []
+    for i in range(0, int(tours * 60) + 1):
+        t = i / 60 * 2 * math.pi
+        r = r_max * i / (tours * 60)
+        pts.append(f"{cx + r * math.cos(t):.1f} {cy + r * math.sin(t):.1f}")
+    return "M" + " L".join(pts)
+
+def feston(cx, cy, rx, ry, n, creux, debut=0.0, fin=2 * math.pi):
+    """Contour ondulé (feuilles de salade frisées) le long d'une ellipse."""
+    pts = []
+    pas = 120
+    for i in range(pas + 1):
+        t = debut + (fin - debut) * i / pas
+        k = 1 - creux * (0.5 + 0.5 * math.cos(n * t))
+        pts.append(f"{cx + rx * k * math.cos(t):.1f} {cy + ry * k * math.sin(t):.1f}")
+    return "M" + " L".join(pts) + "Z"
+
 ALPHABET = {
  "a": '<clipPath id="c"><ellipse cx="50" cy="64" rx="24" ry="28"/></clipPath>'
       '<path d="M50 38 L36 10 L47 22 L50 4 L54 22 L66 10 L58 38Z" fill="{G}"/>'
       '<ellipse cx="50" cy="64" rx="24" ry="28" fill="{Y}"/>'
       '<g clip-path="url(#c)" stroke="#b5651d" stroke-width="2"><path d="M20 40 L80 100 M20 60 L70 110 M30 30 L90 90 M80 40 L20 100 M80 60 L30 110 M70 30 L10 90"/></g>'
       '<ellipse cx="50" cy="64" rx="24" ry="28"/>',
- "b": # ballon de plage : quartiers courbes de couleur, calotte blanche, reflet
-      '<clipPath id="c"><circle cx="50" cy="52" r="38"/></clipPath>'
-      '<g clip-path="url(#c)" stroke="none">'
-      '<path d="M50 14 Q-30 52 50 90 Q20 52 50 14Z" fill="{R}"/>'
-      '<path d="M50 14 Q20 52 50 90 Q50 52 50 14Z" fill="#fff"/>'
-      '<path d="M50 14 Q50 52 50 90 Q80 52 50 14Z" fill="{B}"/>'
-      '<path d="M50 14 Q80 52 50 90 Q130 52 50 14Z" fill="{Y}"/>'
-      '<path d="M50 14 Q-30 52 50 90 L0 90 L0 14Z" fill="{G}"/>'
-      '<path d="M50 14 Q130 52 50 90 L100 90 L100 14Z" fill="{G}"/></g>'
-      '<path d="M50 14 Q20 52 50 90 M50 14 Q80 52 50 90 M50 14 L50 90" stroke-width="2.5"/>'
-      '<circle cx="50" cy="52" r="38"/>'
-      '<ellipse cx="50" cy="17" rx="8" ry="4" fill="#fff" stroke-width="2"/>'
-      '<path d="M28 36 Q32 28 40 25" stroke="#fff" stroke-width="5" opacity=".75"/>',
+ "b": ballon_foot(),
  "c": '<path d="M40 24 Q30 8 18 12 M46 22 Q46 4 56 4 M50 26 Q64 12 74 18" stroke="{DG}" stroke-width="6"/>'
       '<path d="M26 34 Q42 14 60 30 L80 90 Z" fill="{O}"/>'
       '<path d="M38 44 L48 42 M46 60 L56 58 M56 74 L64 73" stroke-width="2"/>',
@@ -149,9 +171,11 @@ ALPHABET = {
       '<circle cx="42" cy="32" r="5" fill="{Y}"/><circle cx="58" cy="32" r="5" fill="{Y}"/><rect x="40" y="40" width="20" height="4" fill="{D}"/>'
       '<path d="M26 60 L12 76 M74 60 L88 76" stroke-width="6"/><path d="M38 84 L38 95 M62 84 L62 95" stroke-width="6"/>'
       '<rect x="26" y="52" width="48" height="32" rx="6" fill="#8d99ae"/><rect x="40" y="60" width="20" height="12" rx="2" fill="{B}"/>',
- "s": '<circle cx="50" cy="56" r="34" fill="#8ac926"/>'
-      '<path d="M50 22 L50 90 M30 38 Q50 30 70 38 M20 56 Q50 44 80 56 M26 74 Q50 64 74 74" stroke="{DG}" stroke-width="3"/>'
-      '<circle cx="50" cy="56" r="34"/>',
+ "s": # salade : feuilles frisées vert tendre autour d'un cœur clair, nervures
+      f'<path d="{feston(50, 58, 40, 32, 9, .12)}" fill="#6a994e"/>'
+      f'<path d="{feston(50, 56, 31, 25, 8, .13)}" fill="#a7c957"/>'
+      f'<path d="{feston(50, 54, 19, 15, 7, .15)}" fill="#dde5b6"/>'
+      '<path d="M50 54 L28 70 M50 54 L72 70 M50 54 L50 84 M50 54 L22 52 M50 54 L78 52" stroke="#386641" stroke-width="2"/>',
  "t": '<rect x="16" y="44" width="8" height="42" rx="2" fill="{BR}"/><rect x="76" y="44" width="8" height="42" rx="2" fill="{BR}"/>'
       '<rect x="22" y="44" width="56" height="8" fill="#8b4513"/><rect x="8" y="34" width="84" height="11" rx="3" fill="{BR}"/>',
  "u": '<rect x="4" y="30" width="22" height="24" fill="{PK}"/><path d="M1 32 L15 16 L29 32Z" fill="{R}"/>'
@@ -220,20 +244,26 @@ COMPLEXES = {
        + trait("M80 20 Q92 20 92 50 Q92 80 80 80 Q68 80 68 50 Q68 20 80 20Z", "{P}", 7),
  "eau": '<ellipse cx="50" cy="72" rx="44" ry="11" fill="#6b4226"/><path d="M28 72 L30 28 Q50 20 70 28 L72 72Z" fill="#6b4226"/>'
         '<rect x="29" y="58" width="42" height="9" fill="{R}"/>',
- "ain": '<rect x="10" y="50" width="28" height="12" rx="6" fill="{SK}" transform="rotate(-35 30 56)"/>'
-        '<rect x="28" y="16" width="10" height="44" rx="5" fill="{SK}"/><rect x="39" y="8" width="10" height="50" rx="5" fill="{SK}"/>'
-        '<rect x="50" y="10" width="10" height="48" rx="5" fill="{SK}"/><rect x="61" y="18" width="10" height="42" rx="5" fill="{SK}"/>'
-        '<rect x="28" y="42" width="43" height="46" rx="14" fill="{SK}"/>'
-        '<rect x="30" y="40" width="39" height="10" fill="{SK}" stroke="none"/>',
+ "ain": # main ouverte : doigts et pouce attachés à la paume
+      trait("M34 50 L34 20", "{SK}", 10) + trait("M44 50 L44 12", "{SK}", 10)
+      + trait("M54 50 L54 14", "{SK}", 10) + trait("M64 52 L64 24", "{SK}", 10)
+      + trait("M32 70 L16 50", "{SK}", 11)
+      + '<path d="M28 48 Q28 42 34 42 L66 42 Q72 42 72 48 L72 74 Q72 92 52 92 L46 92 Q28 92 28 74Z" fill="{SK}" stroke="none"/>'
+      '<path d="M72 48 L72 74 Q72 92 52 92 L46 92 Q28 92 28 74 L28 64" fill="none"/>'
+      '<path d="M40 70 Q50 76 60 70" stroke-width="2"/>',
  "egrave": '<g transform="rotate(-15 50 50)"><rect x="8" y="36" width="84" height="26" rx="3" fill="{Y}"/>' + graduations() + '</g>',
- "oin": '<rect x="6" y="46" width="30" height="12" rx="6" fill="#ced4da" stroke="none"/>'
-        '<rect x="42" y="46" width="22" height="12" rx="6" fill="#ced4da" stroke="none"/>'
-        '<circle cx="80" cy="53" r="10" fill="{D}"/>',
- "ph": '<circle cx="84" cy="10" r="8" fill="{R}"/>'
-       '<path d="M50 76 L42 93 L62 90Z" fill="#6c7a89"/><path d="M14 80 L2 72 L4 90Z" fill="#6c7a89"/>'
-       '<path d="M10 80 Q20 60 46 58 Q60 40 66 26 Q72 16 82 20 Q92 26 86 40 Q80 60 74 76 Q60 88 30 86 Q14 88 10 80Z" fill="#8d99ae"/>'
-       '<circle cx="79" cy="28" r="2.5" fill="{D}"/><circle cx="88" cy="34" r="2.5" fill="{D}"/>'
-       '<path d="M86 38 L97 36 M86 41 L97 43" stroke-width="1.5"/>',
+ "oin": # le point qui finit une phrase : une phrase écrite, et son point en grand
+      '<text x="4" y="60" textLength="62" lengthAdjust="spacingAndGlyphs" font-family="Andika, Arial, sans-serif" font-size="24" font-weight="700" fill="{D}" stroke="none">le chat</text>'
+      '<circle cx="82" cy="55" r="12" fill="{R}" opacity=".25" stroke="none"/>'
+      '<circle cx="82" cy="55" r="6" fill="{D}" stroke="none"/>',
+ "ph": # phoque allongé, tête relevée, ballon sur le nez
+      '<path d="M16 74 L2 66 Q4 78 2 90 L16 80Z" fill="#6c7a89"/>'
+      '<path d="M14 76 Q12 62 32 60 Q50 58 60 46 Q66 30 76 28 Q90 28 88 42 Q86 54 78 62 Q70 78 52 84 Q32 90 14 76Z" fill="#8d99ae"/>'
+      '<path d="M30 80 Q48 82 64 72" stroke="#c9d1db" stroke-width="5"/>'
+      '<path d="M52 74 Q46 88 56 94 Q62 86 60 74Z" fill="#6c7a89"/>'
+      '<circle cx="78" cy="38" r="3" fill="{D}"/><ellipse cx="88" cy="44" rx="3.5" ry="2.5" fill="{D}"/>'
+      '<path d="M84 48 L96 46 M84 50 L96 52" stroke-width="1.5"/>'
+      '<circle cx="86" cy="15" r="11" fill="{R}"/><path d="M75 15 Q86 9 97 15" stroke="#fff" stroke-width="3"/>',
  "or": '<path d="M18 64 L6 70 L18 72Z" fill="#a7c957"/>'
        '<rect x="22" y="60" width="13" height="18" rx="5" fill="#a7c957"/><rect x="64" y="60" width="13" height="18" rx="5" fill="#a7c957"/>'
        '<ellipse cx="88" cy="58" rx="10" ry="9" fill="#a7c957"/><circle cx="91" cy="55" r="2" fill="{D}"/>'
@@ -253,11 +283,13 @@ COMPLEXES = {
         '<circle cx="70" cy="50" r="2.2" fill="{D}"/><circle cx="78" cy="50" r="2.2" fill="{D}"/><circle cx="86" cy="50" r="2.2" fill="{D}"/>'
         '<rect x="28" y="32" width="26" height="36" rx="4" stroke="{D}" stroke-width="10"/><rect x="28" y="32" width="26" height="36" rx="4" stroke="{GO}" stroke-width="5"/>'
         '<path d="M28 50 L50 50" stroke-width="4"/>',
- "ecirc": '<circle cx="20" cy="56" r="7" fill="{SK}"/><circle cx="80" cy="56" r="7" fill="{SK}"/>'
-          '<circle cx="50" cy="54" r="31" fill="{SK}"/>'
-          '<path d="M19 52 Q16 16 50 16 Q84 16 81 52 Q72 30 50 32 Q28 30 19 52Z" fill="{BR}"/>'
-          '<circle cx="39" cy="52" r="3.5" fill="{D}"/><circle cx="61" cy="52" r="3.5" fill="{D}"/>'
-          '<path d="M50 56 L47 66 L52 66" stroke-width="2"/><path d="M40 74 Q50 82 60 74" stroke-width="2.5"/>',
+ "ecirc": # la tête : un gros plan du visage seul (le garçon, lui, est en pied)
+      '<circle cx="14" cy="54" r="8" fill="{SK}"/><circle cx="86" cy="54" r="8" fill="{SK}"/>'
+      '<circle cx="50" cy="52" r="38" fill="{SK}"/>'
+      '<path d="M12 46 Q10 8 50 8 Q90 8 88 46 Q80 22 64 24 Q56 14 46 22 Q30 18 12 46Z" fill="#e9b949"/>'
+      '<circle cx="36" cy="50" r="4.5" fill="{D}"/><circle cx="64" cy="50" r="4.5" fill="{D}"/>'
+      '<path d="M50 54 L46 66 L53 66" stroke-width="2.5"/><path d="M36 76 Q50 86 64 76" stroke-width="3"/>'
+      '<circle cx="28" cy="66" r="5" fill="{PK}" stroke="none" opacity=".7"/><circle cx="72" cy="66" r="5" fill="{PK}" stroke="none" opacity=".7"/>',
  "ui": trait("M50 46 Q34 46 34 31 Q34 16 50 16 Q66 16 66 31 Q66 46 50 46 Q30 46 30 66 Q30 86 50 86 Q70 86 70 66 Q70 46 50 46Z", "{G}"),
  "qu": trait("M62 86 L62 14 L26 64 L76 64", "{R}"),
  "eur": '<path d="M50 52 Q46 74 50 96" stroke="{DG}" stroke-width="5"/><path d="M50 80 Q64 64 76 70 Q66 84 50 80Z" fill="{G}"/>'
@@ -277,12 +309,15 @@ COMPLEXES = {
         '<circle cx="39" cy="42" r="3.5" fill="{D}"/><circle cx="62" cy="42" r="3.5" fill="#fff" stroke="none"/><circle cx="62" cy="42" r="3" fill="{D}"/>'
         '<ellipse cx="50" cy="66" rx="17" ry="13" fill="#fff"/><path d="M46 76 Q50 90 54 76Z" fill="{PK}" stroke-width="2"/>'
         '<ellipse cx="50" cy="59" rx="6" ry="4.5" fill="{D}"/><path d="M50 63 L50 70 M42 70 Q50 76 58 70" stroke-width="2"/>',
- "ei": '<path d="M22 94 Q16 44 50 40 Q84 44 78 94Z" fill="#8b4513"/>'
-       '<circle cx="50" cy="58" r="22" fill="{SK}"/><circle cx="42" cy="56" r="3" fill="{D}"/><circle cx="58" cy="56" r="3" fill="{D}"/>'
-       '<path d="M43 68 Q50 73 57 68" stroke="{R}" stroke-width="2.5"/>'
-       '<path d="M28 40 L28 14 L39 26 L50 8 L61 26 L72 14 L72 40Z" fill="{Y}"/>'
-       '<circle cx="50" cy="30" r="4" fill="{R}" stroke-width="2"/><circle cx="36" cy="33" r="3" fill="{B}" stroke-width="2"/><circle cx="64" cy="33" r="3" fill="{B}" stroke-width="2"/>'
-       '<path d="M22 96 Q50 78 78 96Z" fill="{R}"/>',
+ "ei": # reine : femme couronnée, cape rouge bordée d'hermine
+      '<path d="M14 98 Q18 62 50 60 Q82 62 86 98Z" fill="{R}"/>'
+      '<path d="M26 72 Q50 82 74 72 L74 80 Q50 90 26 80Z" fill="#fff"/>'
+      '<circle cx="34" cy="78" r="1.6" fill="{D}" stroke="none"/><circle cx="46" cy="82" r="1.6" fill="{D}" stroke="none"/><circle cx="58" cy="81" r="1.6" fill="{D}" stroke="none"/><circle cx="68" cy="77" r="1.6" fill="{D}" stroke="none"/>'
+      '<path d="M28 66 Q24 40 50 38 Q76 40 72 66Z" fill="#8b4513"/>'
+      '<circle cx="50" cy="54" r="18" fill="{SK}"/><circle cx="44" cy="53" r="2.5" fill="{D}"/><circle cx="56" cy="53" r="2.5" fill="{D}"/>'
+      '<path d="M44 62 Q50 66 56 62" stroke="{R}" stroke-width="2"/>'
+      '<path d="M30 38 L30 12 L40 24 L50 6 L60 24 L70 12 L70 38Z" fill="{Y}"/>'
+      '<circle cx="50" cy="28" r="4" fill="{R}" stroke-width="2"/><circle cx="37" cy="32" r="3" fill="{B}" stroke-width="2"/><circle cx="63" cy="32" r="3" fill="{B}" stroke-width="2"/>',
  "ill": '<ellipse cx="17" cy="54" rx="8" ry="15" fill="#6b3e26"/><ellipse cx="83" cy="54" rx="8" ry="15" fill="#6b3e26"/>'
         + coeur(20, 38, 6, "{PK}") + coeur(80, 38, 6, "{PK}")
         + '<path d="M30 94 L36 78 L64 78 L70 94Z" fill="{PK}"/>'
@@ -293,10 +328,12 @@ COMPLEXES = {
        '<path d="M50 38 Q66 38 66 54 Q66 58 62 62 Q72 66 72 78 Q72 96 50 96 Q28 96 28 78 Q28 66 38 62 Q34 58 34 54 Q34 38 50 38Z" fill="{O}"/>'
        '<circle cx="50" cy="66" r="6" fill="#6b3e26"/><rect x="42" y="82" width="16" height="4" fill="#6b3e26" stroke-width="1.5"/>'
        '<path d="M48 10 L48 84 M52 10 L52 84" stroke-width="1"/>',
- "es": '<path d="M6 84 L84 84 Q94 84 92 72 L88 56 Q84 50 80 56 L78 74 L20 74 Q8 76 6 84Z" fill="{Y}"/>'
-       '<path d="M84 54 L80 38 M88 54 L96 40" stroke-width="2"/><circle cx="80" cy="36" r="3" fill="{D}"/><circle cx="96" cy="38" r="3" fill="{D}"/>'
-       '<circle cx="46" cy="50" r="27" fill="#bc6c25"/>'
-       '<path d="M46 50 a4 4 0 1 1 4 4 a9 9 0 1 1 -9 -9 a15 15 0 1 1 15 15 a21 21 0 1 1 -21 -21" stroke-width="3"/>',
+ "es": # escargot : coquille ronde à spirale, corps et cornes
+      '<path d="M6 86 L80 86 Q94 86 92 72 L88 52 Q84 46 80 52 L78 74 L18 74 Q6 76 6 86Z" fill="#e9c46a"/>'
+      '<path d="M84 50 L80 34 M88 50 L96 36" stroke-width="2.5"/><circle cx="80" cy="32" r="3.5" fill="{D}"/><circle cx="96" cy="34" r="3.5" fill="{D}"/>'
+      '<circle cx="44" cy="48" r="28" fill="#bc6c25"/>'
+      f'<path d="{spirale(44, 48, 2.6, 25)}" stroke="#7f4f24" stroke-width="3.5"/>'
+      '<circle cx="44" cy="48" r="28"/>',
  "gn": dents_peigne() + '<rect x="10" y="26" width="80" height="18" rx="5" fill="#ff8fab"/>',
  "aille": '<path d="M28 4 L44 4 L58 46 L42 46Z" fill="{B}"/><path d="M72 4 L56 4 L42 46 L58 46Z" fill="{R}"/>'
           '<circle cx="50" cy="66" r="24" fill="{Y}"/><circle cx="50" cy="66" r="17" stroke="{GO}" stroke-width="3"/>' + etoile(50, 66, 12, "{GO}"),
@@ -322,10 +359,11 @@ DOUBLES = {
        '<circle cx="64" cy="40" r="7" fill="{G}"/><circle cx="65" cy="39" r="2.5" fill="{D}"/>'
        '<path d="M66 59 L69 64 L72 59 L75 64 L78 58 L81 63 L84 58 L87 62 L90 58" fill="#fff" stroke-width="1.5"/>'
        '<path d="M70 52 L96 52" stroke-width="2"/>',
- "br": '<rect x="4" y="58" width="18" height="28" rx="3" fill="{B}"/>'
-       '<path d="M20 86 L50 86 Q72 84 76 64 L80 36 Q80 26 72 24 L64 24 Q56 26 58 36 L60 56 Q56 62 46 62 L20 62Z" fill="{SK}"/>'
-       '<path d="M30 62 Q42 44 56 60" fill="{SK}"/><circle cx="69" cy="22" r="13" fill="{SK}"/>'
-       '<path d="M62 18 L68 22 M64 26 L70 28" stroke-width="2"/>',
+ "br": # bras plié qui montre ses muscles
+      '<rect x="2" y="56" width="20" height="30" rx="4" fill="{B}"/>'
+      + trait("M20 72 L54 72 L62 30", "{SK}", 20)
+      + '<ellipse cx="37" cy="59" rx="15" ry="12" fill="{SK}" stroke="none"/><path d="M21 63 Q36 40 52 61" fill="none"/>'
+      '<circle cx="63" cy="22" r="13" fill="{SK}"/><path d="M56 18 L66 20 M56 25 L66 27" stroke-width="2"/>',
  "dr": '<path d="M30 50 L8 18 L20 26 L22 14 L32 28 L36 20 L42 44Z" fill="{DG}"/>'
        '<path d="M24 74 Q4 80 8 94 L14 86 Q20 84 32 80Z" fill="{G}"/>'
        '<ellipse cx="46" cy="64" rx="24" ry="22" fill="{G}"/><ellipse cx="50" cy="68" rx="12" ry="14" fill="{Y}"/>'
@@ -375,28 +413,40 @@ AUTRES = {
  "am": '<path d="M32 8 L68 8 L64 42 Q60 56 62 70 L64 80 L38 82 L40 70 Q34 56 34 42Z" fill="{SK}"/>'
        '<path d="M40 46 Q50 52 60 46" stroke-width="2.5"/><rect x="26" y="4" width="48" height="20" rx="4" fill="{B}"/>'
        '<path d="M36 78 L64 76 Q88 78 92 92 L36 94Z" fill="{R}"/><path d="M36 89 L92 89" stroke-width="2"/>',
- "ccedille": '<circle cx="24" cy="56" r="6" fill="{SK}"/><circle cx="76" cy="56" r="6" fill="{SK}"/>'
-             '<path d="M26 96 Q28 80 50 80 Q72 80 74 96Z" fill="{B}"/>'
-             '<circle cx="50" cy="54" r="26" fill="{SK}"/>'
-             '<path d="M24 52 Q20 22 50 22 Q80 22 76 52 L72 40 L64 44 L58 34 L50 42 L42 34 L36 44 L28 40Z" fill="{O}"/>'
-             '<circle cx="41" cy="56" r="3" fill="{D}"/><circle cx="59" cy="56" r="3" fill="{D}"/><path d="M41 68 Q50 75 59 68" stroke-width="2.5"/>',
+ "ccedille": # garçon en pied (pour ne pas le confondre avec « tête »)
+      '<path d="M40 74 L38 94 M60 74 L62 94" stroke-width="7"/><path d="M40 74 L38 94 M60 74 L62 94" stroke="{B}" stroke-width="3"/>'
+      '<path d="M34 94 L44 94 M56 94 L66 94" stroke="{D}" stroke-width="5"/>'
+      '<path d="M32 50 L22 66 M68 50 L78 66" stroke-width="7"/><path d="M32 50 L22 66 M68 50 L78 66" stroke="{SK}" stroke-width="3"/>'
+      '<path d="M32 46 Q50 40 68 46 L66 76 L34 76Z" fill="{O}"/>'
+      '<circle cx="50" cy="26" r="17" fill="{SK}"/>'
+      '<path d="M33 24 Q32 8 50 8 Q68 8 67 24 L62 16 L56 20 L50 13 L44 20 L38 16Z" fill="#6b3e26"/>'
+      '<circle cx="44" cy="27" r="2.3" fill="{D}"/><circle cx="56" cy="27" r="2.3" fill="{D}"/><path d="M44 34 Q50 38 56 34" stroke-width="2"/>',
  "em": '<path d="M18 52 Q34 34 50 45 Q66 34 82 52 Q66 72 50 72 Q34 72 18 52Z" fill="{R}"/>'
        '<path d="M20 52 Q50 60 80 52" stroke-width="2"/>' + coeur(78, 22, 8, "{R}") + coeur(90, 40, 5, "{PK}"),
- "esse": '<path d="M24 92 Q18 40 50 34 Q82 40 76 92Z" fill="{Y}"/>'
-         '<path d="M34 94 L40 74 L60 74 L66 94Z" fill="{PK}"/>'
-         '<circle cx="50" cy="54" r="20" fill="{SK}"/><circle cx="43" cy="53" r="2.5" fill="{D}"/><circle cx="57" cy="53" r="2.5" fill="{D}"/>'
-         '<path d="M44 62 Q50 66 56 62" stroke="{R}" stroke-width="2"/>'
-         '<path d="M32 40 Q30 30 50 30 Q70 30 68 40 Q60 34 50 36 Q40 34 32 40Z" fill="{Y}"/>'
-         '<path d="M37 32 L41 20 L45 28 L50 16 L55 28 L59 20 L63 32Z" fill="{PK}" stroke-width="2"/>',
+ "esse": # princesse : jeune fille au chapeau pointu à voile, robe rose
+      '<path d="M50 6 L34 40 L66 40Z" fill="{PK}"/><path d="M50 6 Q70 20 82 56" stroke="#c77dff" stroke-width="3" opacity=".8"/>'
+      '<path d="M28 94 Q24 58 50 56 Q76 58 72 94Z" fill="{PK}"/>'
+      '<path d="M32 46 Q30 72 36 78 L64 78 Q70 72 68 46Z" fill="{Y}"/>'
+      '<circle cx="50" cy="54" r="17" fill="{SK}"/><circle cx="44" cy="53" r="2.5" fill="{D}"/><circle cx="56" cy="53" r="2.5" fill="{D}"/>'
+      '<path d="M45 61 Q50 65 55 61" stroke="{R}" stroke-width="2"/>'
+      '<path d="M34 40 L66 40" stroke-width="4"/>',
  "ge": '<path d="M76 58 L96 50 L94 68Z" fill="#8d8d8d"/>'
        '<path d="M44 78 L42 90 M56 78 L58 90" stroke="#ff8fab" stroke-width="4"/>'
        '<ellipse cx="52" cy="58" rx="30" ry="22" fill="#b0b0b0"/><circle cx="25" cy="38" r="13" fill="#b0b0b0"/>'
        '<path d="M26 48 Q36 56 42 44 Q34 36 26 48Z" fill="#7bc8a4" stroke-width="2"/>'
        '<path d="M46 52 Q64 42 80 58 Q62 72 46 52Z" fill="#8d8d8d"/><path d="M58 56 L66 50 M62 60 L70 54" stroke-width="2"/>'
        '<path d="M13 36 L3 40 L13 43Z" fill="#555"/><circle cx="22" cy="35" r="3" fill="{O}" stroke-width="1.5"/>',
- "im": '<rect x="14" y="14" width="72" height="72" fill="#fff"/>' + perforations()
-       + '<rect x="24" y="24" width="52" height="52" fill="{LB}"/><circle cx="62" cy="38" r="7" fill="{Y}"/>'
-         '<path d="M24 70 L40 48 L52 62 L62 52 L76 68 L76 76 L24 76Z" fill="{G}"/>',
+ "im": # timbre collé sur une enveloppe, avec le cachet de la poste
+      '<rect x="6" y="28" width="88" height="60" rx="4" fill="#fff"/><path d="M6 32 L50 62 L94 32" stroke-width="2.5"/>'
+      '<rect x="56" y="12" width="34" height="40" fill="#fff"/>'
+      + "".join(f'<circle cx="{x}" cy="{y}" r="2.6" fill="#fff" stroke="none"/>'
+                for x in range(58, 91, 5) for y in (12, 52))
+      + "".join(f'<circle cx="{x}" cy="{y}" r="2.6" fill="#fff" stroke="none"/>'
+                for x in (56, 90) for y in range(15, 51, 5))
+      + '<rect x="61" y="17" width="24" height="30" fill="{R}" stroke-width="2"/>'
+      + coeur(73, 31, 6, "#fff")
+      + '<circle cx="50" cy="34" r="12" fill="none" stroke="#5a5a5a" stroke-width="2" stroke-dasharray="3 2"/>'
+      '<path d="M40 50 Q46 46 52 50 T64 50 T76 50 M40 56 Q46 52 52 56 T64 56 T76 56" stroke="#5a5a5a" stroke-width="2"/>',
  "oeu_oeuf": '<path d="M50 10 Q76 10 80 56 Q80 90 50 90 Q20 90 20 56 Q24 10 50 10Z" fill="#fff8e1"/>'
              '<path d="M34 34 Q38 24 46 20" stroke="#fff" stroke-width="5"/>',
  "oeu_noeud": '<path d="M46 54 L32 88 L41 83 L46 90Z M54 54 L68 88 L59 83 L54 90Z" fill="#ff8fab"/>'
@@ -428,9 +478,13 @@ POT = ('<rect x="22" y="34" width="56" height="58" rx="12" fill="#c1121f"/>'
        '<rect x="16" y="18" width="68" height="18" rx="5" fill="#e9c46a"/>'
        '<path d="M22 36 L30 46 L38 36 L46 46 L54 36 L62 46 L70 36 L78 46" stroke-width="2"/>'
        '<rect x="32" y="56" width="36" height="22" rx="3" fill="#fff"/><path d="M38 64 L62 64 M38 70 L56 70" stroke-width="2"/>')
-ROSE = ('<path d="M50 58 Q46 78 50 96" stroke="{DG}" stroke-width="5"/><path d="M50 80 Q64 66 76 72 Q66 86 50 80Z" fill="{G}"/>'
-        '<path d="M30 40 Q28 18 50 16 Q72 18 70 40 Q68 60 50 60 Q32 60 30 40Z" fill="#e63973"/>'
-        '<path d="M50 38 m-4 0 a4 4 0 1 1 8 0 a9 9 0 1 1 -16 0 a14 14 0 1 1 26 2" stroke="#9d0b4b" stroke-width="2.5"/>')
+ROSE = ('<path d="M50 50 Q47 74 50 96" stroke="{DG}" stroke-width="5"/>'
+        '<path d="M49 66 L43 63 M50 80 L56 77" stroke="{DG}" stroke-width="2.5"/>'
+        '<path d="M50 74 Q66 62 78 70 Q66 82 50 74Z" fill="{G}"/><path d="M49 84 Q34 76 24 82 Q36 92 49 84Z" fill="{G}"/>'
+        '<path d="M26 30 Q24 54 50 56 Q76 54 74 30 Q66 40 50 38 Q34 40 26 30Z" fill="#c9184a"/>'
+        '<path d="M32 30 Q34 12 50 14 Q66 12 68 30 Q60 40 50 38 Q40 40 32 30Z" fill="#ff4d6d"/>'
+        '<path d="M42 28 Q44 20 52 22 Q58 26 54 32 Q48 34 46 28" stroke="#9d0b4b" stroke-width="2.5"/>'
+        '<path d="M26 30 Q36 44 50 38 Q64 44 74 30" stroke="#9d0b4b" stroke-width="2"/>')
 GIRAFE = ('<path d="M38 98 L46 44 L62 44 L66 98Z" fill="{Y}"/>'
           '<ellipse cx="50" cy="62" rx="5" ry="4" fill="{BR}" stroke="none"/><ellipse cx="58" cy="78" rx="5" ry="4" fill="{BR}" stroke="none"/>'
           '<ellipse cx="47" cy="88" rx="4" ry="3" fill="{BR}" stroke="none"/>'

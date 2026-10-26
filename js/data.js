@@ -5,7 +5,8 @@ import { restaurerStockage, sauverNatif, effacerNatif } from './natif.js';
 
 async function lireJson(url, parDefaut) {
   try {
-    const r = await fetch(url);
+    // revalidé à chaque fois (réponse « inchangé » très rapide) : jamais d'ancienne liste
+    const r = await fetch(url, { cache: 'no-cache' });
     if (!r.ok) return parDefaut;
     return await r.json();
   } catch {

@@ -1,7 +1,7 @@
 // Service worker : met toute l'appli en cache pour jouer sans connexion.
 // Changer VERSION à chaque mise en ligne pour que les tablettes récupèrent la mise à jour.
 
-const VERSION = 'cdc-v4';
+const VERSION = 'cdc-v5';
 
 const FICHIERS = [
   './', 'index.html', 'jeu.html', 'referents.html', 'enseignants.html', 'manifest.webmanifest',
