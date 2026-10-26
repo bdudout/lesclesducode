@@ -26,7 +26,7 @@ function touchesDe(famille) {
 
 export function lancerEcriture(plateau, partie) {
   const { jeu, items } = partie;
-  const series = partie.seriesCourtes ? decouper(melanger(items), 'tout') : [melanger(items)];
+  let series = partie.seriesCourtes ? decouper(melanger(items), 'tout') : [melanger(items)];
   const parId = id => items.find(i => i.id === id);
   let numero = 0;
   let trouvesDansSerie = 0;
@@ -139,4 +139,16 @@ export function lancerEcriture(plateau, partie) {
   plateau.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); valider(); } });
 
   afficherSerie();
+
+  // Tout ne tient pas à l'écran (téléphone) ? Comme pour les jeux « lire », on passe
+  // en séries : autant de cases que l'écran en montre au-dessus du clavier.
+  const fiche = plateau.querySelector('.fiche');
+  if (series.length === 1 && fiche && plateau.scrollHeight > plateau.clientHeight + 8) {
+    const zone = plateau.querySelector('.zone-ecrire');
+    const colonnes = Math.max(1, Math.round(zone.clientWidth / (fiche.offsetWidth + 14)));
+    // hauteur utile : sans les marges du plateau ni la ligne de points des séries (≈ 60 px)
+    const lignes = Math.max(1, Math.floor((plateau.clientHeight - 60 + 14) / (fiche.offsetHeight + 14)));
+    series = decouper(series[0], 'tout', Math.max(4, colonnes * lignes));
+    afficherSerie();
+  }
 }

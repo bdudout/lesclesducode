@@ -268,6 +268,7 @@ document.querySelectorAll('input[name=voix]').forEach(r =>
   r.addEventListener('change', () => { modifier({ voix: r.value }); phrase('bonjour'); }));
 
 $('fermer').addEventListener('click', () => dialogue.close());
+$('fermer-haut').addEventListener('click', () => dialogue.close());
 $('imprimer').addEventListener('click', () => window.print());
 $('effacer').addEventListener('click', () => {
   if (!confirm('Effacer tous les scores enregistrés sur cet appareil ?')) return;

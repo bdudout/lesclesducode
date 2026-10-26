@@ -106,6 +106,23 @@ def feston(cx, cy, rx, ry, n, creux, debut=0.0, fin=2 * math.pi):
         pts.append(f"{cx + rx * k * math.cos(t):.1f} {cy + ry * k * math.sin(t):.1f}")
     return "M" + " L".join(pts) + "Z"
 
+def bord_dentele(x0, y0, x1, y1, r=2.6, pas=6.4):
+    """Contour d'un timbre : rectangle aux bords dentelés (demi-cercles creusés)."""
+    def cote(xa, ya, xb, yb):
+        longueur = math.hypot(xb - xa, yb - ya)
+        n = max(1, round(longueur / pas))
+        dx, dy = (xb - xa) / n, (yb - ya) / n
+        d = ""
+        for i in range(n):
+            mx, my = xa + dx * (i + .5), ya + dy * (i + .5)
+            ux, uy = dx / math.hypot(dx, dy), dy / math.hypot(dx, dy)
+            d += (f" L{mx - ux * r:.1f} {my - uy * r:.1f}"
+                  f" A{r} {r} 0 0 0 {mx + ux * r:.1f} {my + uy * r:.1f}"
+                  f" L{xa + dx * (i + 1):.1f} {ya + dy * (i + 1):.1f}")
+        return d
+    return (f"M{x0} {y0}" + cote(x0, y0, x1, y0) + cote(x1, y0, x1, y1)
+            + cote(x1, y1, x0, y1) + cote(x0, y1, x0, y0) + "Z")
+
 ALPHABET = {
  "a": '<clipPath id="c"><ellipse cx="50" cy="64" rx="24" ry="28"/></clipPath>'
       '<path d="M50 38 L36 10 L47 22 L50 4 L54 22 L66 10 L58 38Z" fill="{G}"/>'
@@ -244,18 +261,16 @@ COMPLEXES = {
        + trait("M80 20 Q92 20 92 50 Q92 80 80 80 Q68 80 68 50 Q68 20 80 20Z", "{P}", 7),
  "eau": '<ellipse cx="50" cy="72" rx="44" ry="11" fill="#6b4226"/><path d="M28 72 L30 28 Q50 20 70 28 L72 72Z" fill="#6b4226"/>'
         '<rect x="29" y="58" width="42" height="9" fill="{R}"/>',
- "ain": # main ouverte : doigts et pouce attachés à la paume
-      trait("M34 50 L34 20", "{SK}", 10) + trait("M44 50 L44 12", "{SK}", 10)
-      + trait("M54 50 L54 14", "{SK}", 10) + trait("M64 52 L64 24", "{SK}", 10)
-      + trait("M32 70 L16 50", "{SK}", 11)
-      + '<path d="M28 48 Q28 42 34 42 L66 42 Q72 42 72 48 L72 74 Q72 92 52 92 L46 92 Q28 92 28 74Z" fill="{SK}" stroke="none"/>'
-      '<path d="M72 48 L72 74 Q72 92 52 92 L46 92 Q28 92 28 74 L28 64" fill="none"/>'
-      '<path d="M40 70 Q50 76 60 70" stroke-width="2"/>',
+ "ain": # main ouverte : les doigts prolongent exactement les bords de la paume
+      trait("M35 50 L35 22", "{SK}", 10) + trait("M45 50 L45 12", "{SK}", 10)
+      + trait("M55 50 L55 14", "{SK}", 10) + trait("M65 50 L65 24", "{SK}", 10)
+      + trait("M31 72 L15 52", "{SK}", 11)
+      + '<path d="M28.5 46 L71.5 46 L71.5 74 Q71.5 92 52 92 L48 92 Q28.5 92 28.5 74Z" fill="{SK}" stroke="none"/>'
+      '<path d="M71.5 44 L71.5 74 Q71.5 92 52 92 L48 92 Q28.5 92 28.5 74 L28.5 66" fill="none"/>'
+      '<path d="M40 72 Q50 78 60 72" stroke-width="2"/>',
  "egrave": '<g transform="rotate(-15 50 50)"><rect x="8" y="36" width="84" height="26" rx="3" fill="{Y}"/>' + graduations() + '</g>',
- "oin": # le point qui finit une phrase : une phrase écrite, et son point en grand
-      '<text x="4" y="60" textLength="62" lengthAdjust="spacingAndGlyphs" font-family="Andika, Arial, sans-serif" font-size="24" font-weight="700" fill="{D}" stroke="none">le chat</text>'
-      '<circle cx="82" cy="55" r="12" fill="{R}" opacity=".25" stroke="none"/>'
-      '<circle cx="82" cy="55" r="6" fill="{D}" stroke="none"/>',
+ "oin": # un point, simplement : gros et centré
+      '<circle cx="50" cy="50" r="20" fill="{D}"/>',
  "ph": # phoque allongé, tête relevée, ballon sur le nez
       '<path d="M16 74 L2 66 Q4 78 2 90 L16 80Z" fill="#6c7a89"/>'
       '<path d="M14 76 Q12 62 32 60 Q50 58 60 46 Q66 30 76 28 Q90 28 88 42 Q86 54 78 62 Q70 78 52 84 Q32 90 14 76Z" fill="#8d99ae"/>'
@@ -413,14 +428,17 @@ AUTRES = {
  "am": '<path d="M32 8 L68 8 L64 42 Q60 56 62 70 L64 80 L38 82 L40 70 Q34 56 34 42Z" fill="{SK}"/>'
        '<path d="M40 46 Q50 52 60 46" stroke-width="2.5"/><rect x="26" y="4" width="48" height="20" rx="4" fill="{B}"/>'
        '<path d="M36 78 L64 76 Q88 78 92 92 L36 94Z" fill="{R}"/><path d="M36 89 L92 89" stroke-width="2"/>',
- "ccedille": # garçon en pied (pour ne pas le confondre avec « tête »)
-      '<path d="M40 74 L38 94 M60 74 L62 94" stroke-width="7"/><path d="M40 74 L38 94 M60 74 L62 94" stroke="{B}" stroke-width="3"/>'
-      '<path d="M34 94 L44 94 M56 94 L66 94" stroke="{D}" stroke-width="5"/>'
-      '<path d="M32 50 L22 66 M68 50 L78 66" stroke-width="7"/><path d="M32 50 L22 66 M68 50 L78 66" stroke="{SK}" stroke-width="3"/>'
-      '<path d="M32 46 Q50 40 68 46 L66 76 L34 76Z" fill="{O}"/>'
-      '<circle cx="50" cy="26" r="17" fill="{SK}"/>'
-      '<path d="M33 24 Q32 8 50 8 Q68 8 67 24 L62 16 L56 20 L50 13 L44 20 L38 16Z" fill="#6b3e26"/>'
-      '<circle cx="44" cy="27" r="2.3" fill="{D}"/><circle cx="56" cy="27" r="2.3" fill="{D}"/><path d="M44 34 Q50 38 56 34" stroke-width="2"/>',
+ "ccedille": # garçon en pied, en marinière (pour ne pas le confondre avec « tête »)
+      '<clipPath id="c"><path d="M38 46 Q50 41 62 46 L61 76 L39 76Z"/></clipPath>'
+      '<path d="M44 74 L43 94 M56 74 L57 94" stroke-width="7"/><path d="M44 74 L43 94 M56 74 L57 94" stroke="#264653" stroke-width="3"/>'
+      '<path d="M38 94 L47 94 M53 94 L62 94" stroke="{D}" stroke-width="5"/>'
+      '<path d="M39 49 L30 66 M61 49 L70 66" stroke-width="7"/><path d="M39 49 L30 66 M61 49 L70 66" stroke="{SK}" stroke-width="3"/>'
+      '<path d="M38 46 Q50 41 62 46 L61 76 L39 76Z" fill="#fff" stroke="none"/>'
+      '<g clip-path="url(#c)" stroke="#1d3557" stroke-width="3.2"><path d="M30 51 L70 51 M30 57 L70 57 M30 63 L70 63 M30 69 L70 69 M30 75 L70 75"/></g>'
+      '<path d="M38 46 Q50 41 62 46 L61 76 L39 76Z" fill="none"/>'
+      '<circle cx="50" cy="26" r="16" fill="{SK}"/>'
+      '<path d="M34 24 Q33 9 50 9 Q67 9 66 24 L61 17 L55 21 L50 14 L45 21 L39 17Z" fill="#6b3e26"/>'
+      '<circle cx="44" cy="27" r="2.2" fill="{D}"/><circle cx="56" cy="27" r="2.2" fill="{D}"/><path d="M44 33 Q50 37 56 33" stroke-width="2"/>',
  "em": '<path d="M18 52 Q34 34 50 45 Q66 34 82 52 Q66 72 50 72 Q34 72 18 52Z" fill="{R}"/>'
        '<path d="M20 52 Q50 60 80 52" stroke-width="2"/>' + coeur(78, 22, 8, "{R}") + coeur(90, 40, 5, "{PK}"),
  "esse": # princesse : jeune fille au chapeau pointu à voile, robe rose
@@ -436,17 +454,15 @@ AUTRES = {
        '<path d="M26 48 Q36 56 42 44 Q34 36 26 48Z" fill="#7bc8a4" stroke-width="2"/>'
        '<path d="M46 52 Q64 42 80 58 Q62 72 46 52Z" fill="#8d8d8d"/><path d="M58 56 L66 50 M62 60 L70 54" stroke-width="2"/>'
        '<path d="M13 36 L3 40 L13 43Z" fill="#555"/><circle cx="22" cy="35" r="3" fill="{O}" stroke-width="1.5"/>',
- "im": # timbre collé sur une enveloppe, avec le cachet de la poste
-      '<rect x="6" y="28" width="88" height="60" rx="4" fill="#fff"/><path d="M6 32 L50 62 L94 32" stroke-width="2.5"/>'
-      '<rect x="56" y="12" width="34" height="40" fill="#fff"/>'
-      + "".join(f'<circle cx="{x}" cy="{y}" r="2.6" fill="#fff" stroke="none"/>'
-                for x in range(58, 91, 5) for y in (12, 52))
-      + "".join(f'<circle cx="{x}" cy="{y}" r="2.6" fill="#fff" stroke="none"/>'
-                for x in (56, 90) for y in range(15, 51, 5))
-      + '<rect x="61" y="17" width="24" height="30" fill="{R}" stroke-width="2"/>'
-      + coeur(73, 31, 6, "#fff")
-      + '<circle cx="50" cy="34" r="12" fill="none" stroke="#5a5a5a" stroke-width="2" stroke-dasharray="3 2"/>'
-      '<path d="M40 50 Q46 46 52 50 T64 50 T76 50 M40 56 Q46 52 52 56 T64 56 T76 56" stroke="#5a5a5a" stroke-width="2"/>',
+ "im": # timbre : bords dentelés, profil de femme au bonnet phrygien, aux couleurs du drapeau
+      f'<path d="{bord_dentele(20, 12, 80, 88)}" fill="#fff"/>'
+      '<rect x="27" y="19" width="46" height="62" fill="{R}" stroke-width="2"/>'
+      '<path d="M58 30 Q44 28 40 40 Q39 44 41 47 L36 53 Q35 55 38 56 L40 57 Q38 60 41 61 Q39 64 42 65 '
+      'Q43 70 50 70 L51 78 L68 78 L66 66 Q72 58 70 46 Q70 32 58 30Z" fill="#fff" stroke-width="2"/>'
+      '<path d="M64 40 Q80 48 77 62 Q75 72 66 78 Q70 68 68 60 Q66 52 60 48Z" fill="#fff" stroke-width="2"/>'
+      '<path d="M68 52 Q72 58 70 66" stroke-width="1.5"/>'
+      '<path d="M41 39 Q42 22 58 22 Q70 23 72 34 Q73 42 68 46 Q66 38 58 36 Q48 34 41 39Z" fill="{B}" stroke-width="2"/>'
+      '<circle cx="47" cy="47" r="1.6" fill="{D}" stroke="none"/>',
  "oeu_oeuf": '<path d="M50 10 Q76 10 80 56 Q80 90 50 90 Q20 90 20 56 Q24 10 50 10Z" fill="#fff8e1"/>'
              '<path d="M34 34 Q38 24 46 20" stroke="#fff" stroke-width="5"/>',
  "oeu_noeud": '<path d="M46 54 L32 88 L41 83 L46 90Z M54 54 L68 88 L59 83 L54 90Z" fill="#ff8fab"/>'

@@ -27,7 +27,15 @@ export function appuiLong(bouton, action, duree = 1000) {
     anneau = requestAnimationFrame(dessiner);
     declencheur = setTimeout(() => { annuler(); action(); }, duree);
   });
-  ['pointerup', 'pointerleave', 'pointercancel'].forEach(e => bouton.addEventListener(e, annuler));
+  ['pointerleave', 'pointercancel'].forEach(e => bouton.addEventListener(e, annuler));
+  // relâché trop tôt : le bouton clignote, pour montrer qu'il faut rester appuyé
+  bouton.addEventListener('pointerup', () => {
+    if (!bouton.classList.contains('charge')) return;
+    annuler();
+    bouton.classList.remove('montre');
+    void bouton.offsetWidth;
+    bouton.classList.add('montre');
+  });
   bouton.addEventListener('contextmenu', e => e.preventDefault());
   // un simple clic (souris, clavier) ne fait rien : seul le maintien compte
   bouton.addEventListener('click', e => e.preventDefault());

@@ -32,19 +32,14 @@
   </div>
 
   <dialog id="reglages">
+    <button class="fermer-dialogue" id="fermer-haut" aria-label="Fermer l'espace adulte">✖</button>
     <h2>Espace adulte</h2>
     <p class="note">Ouvert par un appui long sur ⚙️ pour que les enfants n'y entrent pas par hasard.
       Mode d'emploi complet : <a href="enseignants.html">page enseignants</a>.</p>
 
-    <h3>Élèves</h3>
-    <p class="note">Facultatif. Avec des élèves, chaque enfant choisit son animal en arrivant, et la fiche
-      de scores est tenue par élève. Seul le prénom est enregistré, sur cet appareil uniquement.</p>
-    <ul class="liste-eleves" id="liste-eleves"></ul>
-    <div class="ajout-eleve">
-      <input type="text" id="prenom" maxlength="20" placeholder="Prénom" autocomplete="off">
-      <div class="choix-avatar" id="choix-avatar" role="radiogroup" aria-label="Animal"></div>
-      <button type="button" id="ajouter-eleve">➕ Ajouter</button>
-    </div>
+    <h3>Graphèmes travaillés</h3>
+    <p class="note">Les jeux ne proposent que les graphèmes cochés (2 au minimum par famille).</p>
+    <div id="choix-graphemes"></div>
 
     <h3>Voix</h3>
     <label><input type="radio" name="son" value="1"> 🔊 Le son et son mot : « ou de rouge »</label>
@@ -58,15 +53,18 @@
       Android : Paramètres → Système → Langues → Synthèse vocale, puis télécharger « Français ».
       iPhone/iPad : Réglages → Accessibilité → Contenu énoncé → Voix → Français.</p>
 
-    <h3>Graphèmes travaillés</h3>
-    <p class="note">Les jeux ne proposent que les graphèmes cochés (2 au minimum par famille).</p>
-    <div id="choix-graphemes"></div>
-
-    <h3>Séances</h3>
-    <label><input type="checkbox" id="r-series"> Toujours jouer par séries de 8 paires (sinon seulement quand l'écran est trop petit)</label>
-    <p class="note">Aussi réglable pendant le jeu avec le petit bouton en haut à droite (⊞ / 1·2).</p>
+    <h3>Élèves</h3>
+    <p class="note">Facultatif. Avec des élèves, chaque enfant choisit son animal en arrivant, et la fiche
+      de scores est tenue par élève. Seul le prénom est enregistré, sur cet appareil uniquement.</p>
+    <ul class="liste-eleves" id="liste-eleves"></ul>
+    <div class="ajout-eleve">
+      <input type="text" id="prenom" maxlength="20" placeholder="Prénom" autocomplete="off">
+      <div class="choix-avatar" id="choix-avatar" role="radiogroup" aria-label="Animal"></div>
+      <button type="button" id="ajouter-eleve">➕ Ajouter</button>
+    </div>
 
     <h3>Affichage</h3>
+    <label><input type="checkbox" id="r-series"> Toujours jouer par séries de 8 (sinon seulement si l'écran est trop petit ; aussi réglable par le bouton ⊞ / 1·2 de l'écran de départ)</label>
     <label><input type="checkbox" id="r-chrono"> Afficher le chronomètre</label>
     <label><input type="checkbox" id="r-erreurs"> Afficher le nombre d'erreurs</label>
     <label><input type="checkbox" id="r-titres"> Afficher les titres des jeux au menu</label>

@@ -67,6 +67,23 @@ P3, corrigés le même jour :
 - **#16 Accessibilité** : « ? » blanc à la place du ❓ rouge peu contrasté, voyelles
   soulignées en plus du rouge, fiche d'aide qui ne se ferme plus qu'avec un gros ✖.
 
+## Second audit UX/UI et cohérence (27 octobre 2026)
+
+Parcours complet sur téléphone (portrait et paysage), tablette et TBI, après les retours
+de l'autrice. Corrigé, sans ajouter de fonction :
+
+- **Bouton ⊞ / 1·2** : il n'apparaît plus que sur l'écran de départ. Pendant la partie, un
+  toucher d'enfant relançait le jeu, et le bouton passait par-dessus la fiche d'aide.
+- **Jeux « écrire » sur téléphone** : séries automatiques, comme les jeux « lire »,
+  avec des cases plus compactes. On voit 6 cases au-dessus du clavier, sans défiler
+  (avant : 13 à 40 cases dans une longue liste).
+- **Appui long** (🏠, ⚙️) : un toucher trop bref fait clignoter le bouton, pour montrer
+  qu'il faut rester appuyé (avant : il ne se passait rien).
+- **Espace adulte** : ✖ toujours visible en haut, rubriques dans l'ordre d'usage
+  (graphèmes, voix, élèves, affichage, scores), ronds et cases à cocher de même taille.
+- **Affiche des référents** : lien de retour aux jeux.
+- **Clavier physique / TBI** : repère de focus visible.
+
 ## Synthèse classée
 
 | # | Prio | Pour | Problème | Effort |

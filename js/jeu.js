@@ -47,6 +47,8 @@ $('b-consigne').addEventListener('click', consigne);
 
 // Pagination en option (bouton discret en haut à droite, pour l'adulte) : par défaut tout
 // tient sur un écran quand c'est possible ; sinon, ou si on le choisit, séries de 8.
+// Il n'existe que sur l'écran de départ : pendant la partie, un toucher d'enfant
+// relancerait le jeu.
 $('b-pages').textContent = reglages.seriesCourtes ? '1·2' : '⊞';
 $('b-pages').setAttribute('aria-label', reglages.seriesCourtes
   ? 'Jeu par séries de 8 : passer à tout sur un écran (la partie recommence)'
@@ -97,6 +99,7 @@ $('apercu').innerHTML = `<span class="grapheme">${texteVignette}</span>`
   + `<img src="img/referents/${jeu.famille}/${idVignette}.svg" alt="" draggable="false">`;
 $('b-jouer').addEventListener('click', () => {
   $('depart').hidden = true;
+  $('b-pages').hidden = true;
   consigne();
 });
 
