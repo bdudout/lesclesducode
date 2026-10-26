@@ -507,3 +507,8 @@ dialog input[type=radio], dialog input[type=checkbox] { flex: none; width: 22px;
   .fiche .case { --taille: 72px; }
   .fiche input { height: 44px; font-size: 1.5rem; }
 }
+
+/* espace adulte : installer sur Android */
+.installer { background: var(--select-fond); border: 2px solid var(--select); border-radius: 14px; padding: 4px 14px 10px; margin: 10px 0; }
+.installer[hidden], #b-installer[hidden], #aide-installer[hidden] { display: none; }
+#b-installer { font: inherit; font-weight: 700; padding: 10px 16px; border-radius: 12px; border: 0; background: var(--ok); color: #fff; cursor: pointer; }

@@ -1,4 +1,4 @@
-import './pwa.js';
+import { estAndroid, dejaInstallee, peutInviter, installer } from './pwa.js';
 import {
   charger, echapper, lireReglages, ecrireReglages, lireHistorique, effacerHistorique, itemsDuJeu,
   AVATARS, lireProfils, ecrireProfils, joueurCourant, joueurAChoisi, choisirJoueur,
@@ -246,7 +246,20 @@ function afficherScores() {
 }
 $('filtre-eleve').addEventListener('change', afficherScores);
 
+// Installer sur Android : bouton si Chrome le propose, sinon la marche à suivre ;
+// rien du tout ailleurs qu'Android, ou si l'appli est déjà installée.
+function afficherInstallation() {
+  $('bloc-installer').hidden = !estAndroid || dejaInstallee();
+  $('b-installer').hidden = !peutInviter();
+  $('aide-installer').hidden = peutInviter();
+}
+window.addEventListener('installation-possible', afficherInstallation);
+$('b-installer').addEventListener('click', async () => {
+  if (await installer()) $('bloc-installer').hidden = true;
+});
+
 function ouvrir() {
+  afficherInstallation();
   const r = lireReglages();
   for (const [cle, id] of Object.entries(cases)) $(id).checked = r[cle];
   document.querySelector(`input[name=son][value="${r.son}"]`).checked = true;
