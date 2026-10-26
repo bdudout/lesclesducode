@@ -4,12 +4,16 @@ import {
   AVATARS, lireProfils, ecrireProfils, joueurCourant, joueurAChoisi, choisirJoueur,
 } from './data.js';
 import { appuiLong } from './appui-long.js';
-import { direPhrase } from './audio.js';
+import { direPhrase, reglerVoix } from './audio.js';
 import { estNatif, surRetour, quitterAppli, pleinEcran, voixFrancaiseDisponible } from './natif.js';
 
 const { jeux, familles, sons, phrases } = await charger();
 // phrase enregistrée (data/phrases.json), sauf si l'adulte a coupé le son
-const phrase = cle => { if (lireReglages().son !== 3) direPhrase(cle, phrases[cle], sons); };
+const phrase = cle => {
+  const r = lireReglages();
+  reglerVoix(r.voix);
+  if (r.son !== 3) direPhrase(cle, phrases[cle], sons);
+};
 const $ = id => document.getElementById(id);
 
 // Ordre de la méthode : on avance de l'alphabet vers les graphèmes plus rares.
@@ -84,7 +88,7 @@ const dialogue = $('reglages');
 appuiLong($('adulte'), ouvrir);
 
 const cases = {
-  chrono: 'r-chrono', erreurs: 'r-erreurs', voixLente: 'r-voix', vibrations: 'r-vibrations',
+  chrono: 'r-chrono', erreurs: 'r-erreurs', vibrations: 'r-vibrations',
   seriesCourtes: 'r-series', titres: 'r-titres', classe: 'r-classe',
 };
 $('ligne-vibrations').hidden = !estNatif;
@@ -246,6 +250,7 @@ function ouvrir() {
   const r = lireReglages();
   for (const [cle, id] of Object.entries(cases)) $(id).checked = r[cle];
   document.querySelector(`input[name=son][value="${r.son}"]`).checked = true;
+  document.querySelector(`input[name=voix][value="${r.voix}"]`).checked = true;
   afficherEleves();
   afficherChoixGraphemes();
   afficherScores();
@@ -258,6 +263,9 @@ for (const [cle, id] of Object.entries(cases)) {
 }
 document.querySelectorAll('input[name=son]').forEach(r =>
   r.addEventListener('change', () => modifier({ son: Number(r.value) })));
+// choisir une voix la fait entendre aussitôt
+document.querySelectorAll('input[name=voix]').forEach(r =>
+  r.addEventListener('change', () => { modifier({ voix: r.value }); phrase('bonjour'); }));
 
 $('fermer').addEventListener('click', () => dialogue.close());
 $('imprimer').addEventListener('click', () => window.print());

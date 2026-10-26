@@ -475,3 +475,17 @@ body.jeu.avec-clavier { grid-template-rows: 1fr auto auto; }
 @media (prefers-reduced-motion: reduce) {
   .grand-emoji, .etoile-geante, .etoiles span, .suivant.pret { animation: none !important; }
 }
+
+/* pagination en option : petit bouton discret en haut à droite (pour l'adulte) */
+.bouton-pages {
+  position: fixed; z-index: 30; top: max(8px, env(safe-area-inset-top)); right: max(8px, env(safe-area-inset-right));
+  min-width: 44px; height: 36px; padding: 0 8px; border-radius: 10px;
+  border: 2px solid var(--bord); background: var(--carte); color: var(--doux);
+  font: inherit; font-size: 1.05rem; font-weight: 700; opacity: .75; cursor: pointer; touch-action: manipulation;
+}
+@media (max-width: 600px) { #plateau { padding-top: 52px; } }
+
+/* boutons croix : le caractère ✖ parfaitement centré */
+.fermer-aide, .liste-eleves .retirer {
+  display: grid; place-items: center; padding: 0; line-height: 1; font-family: system-ui, sans-serif;
+}

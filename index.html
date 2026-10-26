@@ -50,7 +50,10 @@
     <label><input type="radio" name="son" value="1"> 🔊 Le son et son mot : « ou de rouge »</label>
     <label><input type="radio" name="son" value="2"> 🔉 Le mot seul : « rouge »</label>
     <label><input type="radio" name="son" value="3"> 🔇 Muet</label>
-    <label><input type="checkbox" id="r-voix"> Voix lente</label>
+    <p class="note">Qui parle :</p>
+    <label><input type="radio" name="voix" value="femme"> 👩 Voix de femme</label>
+    <label><input type="radio" name="voix" value="homme"> 👨 Voix d'homme</label>
+    <label><input type="radio" name="voix" value="alternee"> 👩👨 Les deux, en alternance</label>
     <p class="alerte-voix" id="alerte-voix" hidden>⚠️ Aucune voix française n'est installée sur cet appareil.
       Android : Paramètres → Système → Langues → Synthèse vocale, puis télécharger « Français ».
       iPhone/iPad : Réglages → Accessibilité → Contenu énoncé → Voix → Français.</p>
@@ -60,7 +63,8 @@
     <div id="choix-graphemes"></div>
 
     <h3>Séances</h3>
-    <label><input type="checkbox" id="r-series"> Séances courtes : séries de 8 paires au plus</label>
+    <label><input type="checkbox" id="r-series"> Toujours jouer par séries de 8 paires (sinon seulement quand l'écran est trop petit)</label>
+    <p class="note">Aussi réglable pendant le jeu avec le petit bouton en haut à droite (⊞ / 1·2).</p>
 
     <h3>Affichage</h3>
     <label><input type="checkbox" id="r-chrono"> Afficher le chronomètre</label>

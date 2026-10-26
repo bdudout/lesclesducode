@@ -125,12 +125,13 @@ export function lancerEcriture(plateau, partie) {
     else if (champ.value.length < LONGUEUR_MAX) champ.value += touche.dataset.lettre;
   });
 
-  // toucher une fiche la rend active ; toucher l'image fait entendre le mot
+  // toucher une fiche (n'importe où, même celle déjà active) la rend active et fait
+  // entendre son mot. Rien n'est dit tout seul : un seul son par geste de l'enfant.
   plateau.addEventListener('click', e => {
     const fiche = e.target.closest('.fiche');
-    if (!fiche) return;
+    if (!fiche || fiche.classList.contains('trouve')) return;
     activer(fiche);
-    if (e.target.closest('.case.image')) partie.direMot(parId(fiche.dataset.id));
+    partie.direMot(parId(fiche.dataset.id));
   });
 
   // clavier physique (ordinateur) : on écrit dans le champ, Entrée valide

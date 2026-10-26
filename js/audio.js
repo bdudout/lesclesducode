@@ -61,20 +61,54 @@ export function debloquer() {
   window.addEventListener('pointerdown', amorcer);
 }
 
-// Joue son/<fichier> s'il existe, sinon lit le texte avec la voix du système.
+// Voix des enregistrements : 'femme', 'homme', ou 'alternee' (l'une puis l'autre,
+// une voix par action : jamais deux sons pour un même geste).
+let choixVoix = 'femme';
+let derniere = 'homme';
+export function reglerVoix(choix) { choixVoix = choix; }
+
+function voixSuivante() {
+  if (choixVoix !== 'alternee') return choixVoix;
+  derniere = derniere === 'femme' ? 'homme' : 'femme';
+  return derniere;
+}
+
+// Joue son/<voix>/<fichier> s'il existe (sinon l'autre voix), sinon lit le texte avec
+// la voix du système. Chaque son coupe le précédent : un seul son à la fois.
 function jouer(fichier, texte, sons) {
   taire();
-  if (sons.has(fichier)) {
-    lecteur = new Audio(`son/${fichier}`);
-    lecteur.playbackRate = lente ? 0.95 : 1.05;
+  const voix = voixSuivante();
+  const autre = voix === 'femme' ? 'homme' : 'femme';
+  const chemin = [voix, autre].map(v => `${v}/${fichier}`).find(f => sons.has(f));
+  if (chemin) {
+    // lu tel quel : changer la vitesse de lecture déforme la voix (effet robot)
+    lecteur = new Audio(`son/${chemin}`);
     lecteur.play().catch(() => parler(texte));
   } else {
     parler(texte);
   }
 }
 
+// Lance action quand le son en cours est fini (+ un petit temps de respiration) :
+// les félicitations ne recouvrent jamais le son du dernier référent.
+export function apresSon(suite, pause = 350) {
+  let fait = false;
+  const action = () => { if (!fait) { fait = true; suite(); } };
+  setTimeout(action, 8000); // sécurité : si la fin du son n'est jamais signalée
+  const enCours = lecteur && !lecteur.paused && !lecteur.ended;
+  const parle = !voixNative && 'speechSynthesis' in window && speechSynthesis.speaking;
+  if (enCours) {
+    lecteur.addEventListener('ended', () => setTimeout(action, pause), { once: true });
+  } else if (parle) {
+    const attendre = () => (speechSynthesis.speaking ? setTimeout(attendre, 100) : setTimeout(action, pause));
+    attendre();
+  } else {
+    setTimeout(action, pause);
+  }
+}
+
 // mode 1 : « ou de rouge » · mode 2 : le mot seul · mode 3 : muet
-// item.voix : le même texte écrit pour être bien prononcé (« gne, de peigne »)
+// item.voix : la même phrase en texte, pour la voix de secours du navigateur
 export function dire(famille, item, mode, sons) {
   if (mode === 3) return;
   if (mode === 1) jouer(`${famille}/${item.id}.mp3`, item.voix || item.dit, sons);
@@ -85,7 +119,7 @@ export function direMot(famille, item, sons) {
   jouer(`${famille}/${item.id}_mot.mp3`, item.mot || item.voix || item.dit, sons);
 }
 
-// Phrases fixes (consignes, encouragements) : data/phrases.json, son/phrases/<cle>.mp3
+// Phrases fixes (consignes, encouragements) : data/phrases.json, son/<voix>/phrases/<cle>.mp3
 export function direPhrase(cle, texte, sons) {
   jouer(`phrases/${cle}.mp3`, texte, sons);
 }

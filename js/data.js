@@ -55,14 +55,15 @@ function ecrireLocal(cle, valeur) {
   try { localStorage.setItem(cle, texte); } catch { /* navigation privée */ }
   sauverNatif(cle, texte);
 }
-// son : 1 « ou de rouge », 2 le mot seul, 3 muet
+// son : 1 « ou de rouge », 2 le mot seul, 3 muet ; voix : femme, homme ou alternee
 // graphemes : { famille: [ids] } choisis par l'enseignant ; absent = toute la famille
-// seriesCourtes : jouer par séries de 8 ; titres : afficher les titres des jeux au menu
+// seriesCourtes : toujours jouer par séries de 8 (sinon seulement si l'écran est trop petit)
+// titres : afficher les titres des jeux au menu
 // chrono et erreurs masqués par défaut : pas de pression inutile à 5 ans (fiche adulte)
 // classe : mode TBI (tout en plus grand, sans chrono ni erreurs)
 const REGLAGES_DEFAUT = {
-  chrono: false, erreurs: false, voixLente: true, vibrations: true, son: 1, graphemes: {},
-  seriesCourtes: true, titres: false, classe: false,
+  chrono: false, erreurs: false, voixLente: true, vibrations: true, son: 1, voix: 'femme', graphemes: {},
+  seriesCourtes: false, titres: false, classe: false,
 };
 
 // Graphèmes du jeu : ceux du lien de séance (?g=ou,on), sinon ceux cochés par

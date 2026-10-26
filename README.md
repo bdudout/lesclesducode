@@ -81,13 +81,28 @@ synthèse vocale du navigateur.
 
 ## Voix
 
-Les voix sont pré-enregistrées dans `son/` avec **Piper** (synthèse neuronale libre,
-voix « siwis », base SIWIS de l'Université d'Édimbourg, licence CC BY 4.0) : même voix
-naturelle partout, y compris hors connexion et sur Android. Le texte prononcé est le
-champ `voix` de `data/referentiel.json` (le son, pas le nom des lettres : « gne, de
-peigne ») et les phrases de `data/phrases.json`. Pour régénérer après une modification :
-`piper-env/bin/python outils/generer_voix.py fr_FR-siwis-medium.onnx` (voir l'en-tête du
-script). Seuls les messages variables (rien pour l'instant) passent par la voix du système.
+Les voix sont pré-enregistrées dans `son/femme/` et `son/homme/` avec **Piper**
+(synthèse neuronale libre, hors connexion) : voix de femme « siwis » (base SIWIS,
+Université d'Édimbourg, CC BY 4.0) et voix d'homme « upmc pierre » (MaryTTS,
+CC BY-SA 4.0). L'adulte choisit femme, homme ou les deux en alternance ; un seul son
+par action.
+
+Pour que les sons soient justes, le son du graphème (ou le nom de la lettre) est donné
+en **phonétique exacte** (champ `api` de `data/referentiel.json`, par ex. [ɛ̃] pour
+« ein » de ceinture), et les mots mal lus par la synthèse ont leur phonétique imposée
+(`api_mot` : ananas, huit, pluie, nuage). Pour régénérer :
+
+```bash
+piper-env/bin/python -I outils/generer_voix.py fr_FR-siwis-medium.onnx --dossier femme --tout
+```
+
+```bash
+piper-env/bin/python -I outils/generer_voix.py fr_FR-upmc-medium.onnx --locuteur 1 --dossier homme --tout
+```
+
+**Recette** : `outils/recette.html` (en local, avec le serveur) permet d'écouter chaque
+son dans les deux voix, de valider chaque dessin, de commenter, puis d'exporter un JSON
+des retours.
 
 ## Ajouter ses images et ses sons
 

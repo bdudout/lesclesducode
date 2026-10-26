@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Recette des dessins et des sons</title>
+  <link rel="stylesheet" href="../css/app.css">
+  <style>
+    body { padding: 16px; max-width: 1200px; margin: 0 auto; }
+    h1 { margin: 0 0 4px; }
+    .barre-recette {
+      position: sticky; top: 0; z-index: 5; background: var(--fond); padding: 10px 0;
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: center; border-bottom: 3px solid var(--bord);
+    }
+    .barre-recette input[type=text] { font: inherit; padding: 6px 10px; border: 2px solid var(--bord); border-radius: 10px; }
+    .barre-recette button, .barre-recette label.bouton {
+      font: inherit; padding: 8px 12px; border-radius: 10px; border: 2px solid var(--bord); background: var(--carte); cursor: pointer;
+    }
+    .compte { margin-left: auto; font-weight: 700; }
+    h2 { margin-top: 28px; }
+    .grille-recette { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+    .fiche-recette { background: var(--carte); border: 3px solid var(--bord); border-radius: 16px; padding: 10px; display: grid; gap: 8px; }
+    .fiche-recette.ok { border-color: var(--ok); }
+    .fiche-recette.ko { border-color: var(--voyelle); }
+    .entete { display: flex; align-items: center; gap: 10px; }
+    .entete img { width: 96px; height: 96px; background: #fff; border-radius: 12px; border: 1px solid var(--bord); }
+    .entete .graphie { font-size: 2.2rem; font-weight: 700; min-width: 2.5ch; text-align: center; }
+    .entete .details { font-size: .85rem; color: var(--doux); }
+    .ecoute { display: grid; grid-template-columns: auto 1fr 1fr; gap: 4px 6px; align-items: center; font-size: .85rem; }
+    .ecoute button { font: inherit; padding: 4px 6px; border-radius: 8px; border: 2px solid var(--bord); background: var(--fond); cursor: pointer; }
+    .verdict { display: grid; grid-template-columns: 64px auto auto 1fr; gap: 6px; align-items: center; font-size: .9rem; }
+    .verdict button { font: inherit; width: 40px; height: 34px; border-radius: 8px; border: 2px solid var(--bord); background: var(--fond); cursor: pointer; }
+    .verdict button.choisi[data-v=ok] { background: var(--ok); border-color: var(--ok); }
+    .verdict button.choisi[data-v=ko] { background: var(--voyelle); border-color: var(--voyelle); }
+    .verdict textarea { grid-column: 1 / -1; font: inherit; font-size: .9rem; min-height: 0; height: 2.4em; resize: vertical;
+      border: 2px solid var(--bord); border-radius: 8px; padding: 4px 8px; }
+    .verdict textarea[hidden] { display: none; }
+    .masquer-ok .fiche-recette.ok { display: none; }
+  </style>
+</head>
+<body>
+  <h1>🔍 Recette des dessins et des sons</h1>
+  <p class="note">Outil local, pour l'autrice et l'équipe. Écoutez chaque son, regardez chaque dessin, puis
+    ✅ ou ❌ (avec un commentaire : ce qui ne va pas, ce qu'il faudrait). Tout est gardé dans ce navigateur ;
+    « Exporter » produit un fichier JSON à renvoyer pour les corrections.</p>
+
+  <div class="barre-recette">
+    <input type="text" id="relecteur" placeholder="Votre prénom">
+    <label><input type="checkbox" id="masquer"> Cacher ce qui est validé</label>
+    <button id="exporter">⬇️ Exporter (JSON)</button>
+    <label class="bouton">⬆️ Importer <input type="file" id="importer" accept="application/json" hidden></label>
+    <span class="compte" id="compte"></span>
+  </div>
+
+  <main id="recette"></main>
+
+  <script type="module">
+    const lire = async url => (await fetch(url)).json();
+    const [ref, phrases, sons] = await Promise.all([lire('../data/referentiel.json'), lire('../data/phrases.json'), lire('../son/sons.json')]);
+    const familles = ref.familles;
+    const disponibles = new Set(sons);
+    const TITRES = { alphabet: 'Alphabet', complexes: 'Graphèmes complexes', doubles: 'Consonnes doubles', autres: 'Autres graphèmes' };
+    const CLE = 'cdc-recette';
+    const echapper = t => String(t ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+
+    // état : { relecteur, dessins: {"fam/id": {statut, commentaire}}, sons: {...}, phrases: {...} }
+    let etat;
+    try { etat = JSON.parse(localStorage.getItem(CLE)) || {}; } catch { etat = {}; }
+    etat = { relecteur: '', dessins: {}, sons: {}, phrases: {}, ...etat };
+    const sauver = () => { try { localStorage.setItem(CLE, JSON.stringify(etat)); } catch {} compter(); };
+
+    let lecteur = null;
+    function ecouter(chemin) {
+      if (lecteur) lecteur.pause();
+      lecteur = new Audio(`../son/${chemin}`);
+      lecteur.play();
+    }
+    const boutonSon = (chemin, libelle) => disponibles.has(chemin)
+      ? `<button data-son="${chemin}">▶ ${libelle}</button>` : `<span class="note">—</span>`;
+
+    function verdict(groupe, cle, titre) {
+      const v = etat[groupe][cle] || {};
+      return `<div class="verdict" data-groupe="${groupe}" data-cle="${cle}">
+        <span>${titre}</span>
+        <button data-v="ok" class="${v.statut === 'ok' ? 'choisi' : ''}" aria-label="${titre} validé">✅</button>
+        <button data-v="ko" class="${v.statut === 'ko' ? 'choisi' : ''}" aria-label="${titre} à refaire">❌</button>
+        <span></span>
+        <textarea placeholder="Ce qui ne va pas…" ${v.statut === 'ko' ? '' : 'hidden'}>${echapper(v.commentaire)}</textarea>
+      </div>`;
+    }
+
+    function etatFiche(cles) {
+      const statuts = cles.map(([g, c]) => etat[g][c]?.statut);
+      if (statuts.includes('ko')) return 'ko';
+      return statuts.every(s => s === 'ok') ? 'ok' : '';
+    }
+
+    function afficher() {
+      $('relecteur').value = etat.relecteur;
+      $('recette').innerHTML = Object.entries(familles).map(([f, items]) => `
+        <h2>${TITRES[f]}</h2>
+        <div class="grille-recette">${items.map(it => {
+          const cle = `${f}/${it.id}`;
+          return `<div class="fiche-recette ${etatFiche([['dessins', cle], ['sons', cle]])}" data-cle="${cle}">
+            <div class="entete">
+              <span class="graphie">${echapper(it.graphie)}</span>
+              <img src="../img/referents/${cle}.svg" alt="${echapper(it.mot || '')}">
+              <div class="details">« ${echapper(it.voix)} »<br>son : [${echapper(it.api)}]${it.api_mot ? `<br>mot : [${echapper(it.api_mot)}]` : ''}</div>
+            </div>
+            <div class="ecoute">
+              <span></span><b>👩 femme</b><b>👨 homme</b>
+              <span>Référent</span>${boutonSon(`femme/${cle}.mp3`, 'écouter')}${boutonSon(`homme/${cle}.mp3`, 'écouter')}
+              <span>Mot seul</span>${boutonSon(`femme/${cle}_mot.mp3`, 'écouter')}${boutonSon(`homme/${cle}_mot.mp3`, 'écouter')}
+            </div>
+            ${verdict('dessins', cle, 'Dessin')}
+            ${verdict('sons', cle, 'Sons')}
+          </div>`;
+        }).join('')}</div>`).join('')
+        + `<h2>Phrases du jeu</h2><div class="grille-recette">${Object.entries(phrases).map(([cle, texte]) => `
+          <div class="fiche-recette ${etatFiche([['phrases', cle]])}" data-cle="${cle}">
+            <div class="details">« ${echapper(texte)} »</div>
+            <div class="ecoute"><span></span>${boutonSon(`femme/phrases/${cle}.mp3`, '👩')}${boutonSon(`homme/phrases/${cle}.mp3`, '👨')}</div>
+            ${verdict('phrases', cle, 'Son')}
+          </div>`).join('')}</div>`;
+      compter();
+    }
+
+    function compter() {
+      const n = (g, total) => `${Object.values(etat[g]).filter(v => v.statut === 'ok').length}/${total} ✅ · ${Object.values(etat[g]).filter(v => v.statut === 'ko').length} ❌`;
+      const total = Object.values(familles).reduce((s, l) => s + l.length, 0);
+      $('compte').textContent = `Dessins ${n('dessins', total)} — Sons ${n('sons', total)} — Phrases ${n('phrases', Object.keys(phrases).length)}`;
+    }
+
+    const $ = id => document.getElementById(id);
+    $('recette').addEventListener('click', e => {
+      const son = e.target.closest('[data-son]');
+      if (son) return ecouter(son.dataset.son);
+      const b = e.target.closest('.verdict button');
+      if (!b) return;
+      const bloc = b.closest('.verdict');
+      const { groupe, cle } = bloc.dataset;
+      const v = etat[groupe][cle] || {};
+      v.statut = v.statut === b.dataset.v ? undefined : b.dataset.v;
+      etat[groupe][cle] = v;
+      bloc.querySelectorAll('button').forEach(x => x.classList.toggle('choisi', x.dataset.v === v.statut));
+      bloc.querySelector('textarea').hidden = v.statut !== 'ko';
+      if (v.statut === 'ko') bloc.querySelector('textarea').focus();
+      const fiche = b.closest('.fiche-recette');
+      const groupes = [...fiche.querySelectorAll('.verdict')].map(x => [x.dataset.groupe, x.dataset.cle]);
+      fiche.classList.remove('ok', 'ko');
+      const statut = etatFiche(groupes);
+      if (statut) fiche.classList.add(statut);
+      sauver();
+    });
+    $('recette').addEventListener('input', e => {
+      const bloc = e.target.closest('.verdict');
+      if (!bloc) return;
+      const { groupe, cle } = bloc.dataset;
+      etat[groupe][cle] = { ...(etat[groupe][cle] || {}), commentaire: e.target.value };
+      sauver();
+    });
+    $('relecteur').addEventListener('input', e => { etat.relecteur = e.target.value; sauver(); });
+    $('masquer').addEventListener('change', e => document.body.classList.toggle('masquer-ok', e.target.checked));
+
+    $('exporter').addEventListener('click', () => {
+      const date = new Date().toISOString().slice(0, 10);
+      const sortie = { outil: 'recette-cles-du-code', date, ...etat };
+      const lien = document.createElement('a');
+      lien.href = URL.createObjectURL(new Blob([JSON.stringify(sortie, null, 2)], { type: 'application/json' }));
+      lien.download = `recette-${(etat.relecteur || 'relecture').toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${date}.json`;
+      lien.click();
+      URL.revokeObjectURL(lien.href);
+    });
+    // importer : reprend une relecture (les verdicts importés complètent ceux d'ici)
+    $('importer').addEventListener('change', async e => {
+      const fichier = e.target.files[0];
+      if (!fichier) return;
+      try {
+        const lu = JSON.parse(await fichier.text());
+        for (const g of ['dessins', 'sons', 'phrases']) etat[g] = { ...etat[g], ...(lu[g] || {}) };
+        if (!etat.relecteur && lu.relecteur) etat.relecteur = lu.relecteur;
+        sauver();
+        afficher();
+      } catch {
+        alert('Ce fichier n\'est pas une recette valide.');
+      }
+      e.target.value = '';
+    });
+
+    afficher();
+  </script>
+</body>
+</html>

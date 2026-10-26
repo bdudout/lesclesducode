@@ -8,7 +8,10 @@
   "emoji": "visuel de remplacement",
   "rangee": "rangée de 8 (complexes 1 et 2)",
   "voyelle": "affichée en rouge (alphabet)",
-  "voix": "texte donné à la synthèse vocale (le son, pas le nom des lettres) ; à faire valider par l'autrice"
+  "voix": "même phrase en texte, pour la voix de secours du navigateur",
+  "api": "phonétique (API) du son ou du nom de lettre dit avant « de … », utilisée pour les enregistrements ; à faire valider par l'autrice",
+  "suite": "la fin de la phrase dite (« de rouge »)",
+  "api_mot": "phonétique imposée du mot quand la synthèse le lit mal (ananas, huit, pluie, nuage)"
  },
  "familles": {
   "alphabet": [
@@ -19,7 +22,10 @@
     "dit": "a de ananas",
     "emoji": "🍍",
     "voyelle": true,
-    "voix": "a, de ananas"
+    "voix": "a, de ananas",
+    "api": "a",
+    "suite": "de ananas",
+    "api_mot": "ananˈas"
    },
    {
     "id": "b",
@@ -28,7 +34,9 @@
     "dit": "b de ballon",
     "emoji": "⚽",
     "voyelle": false,
-    "voix": "b, de ballon"
+    "voix": "b, de ballon",
+    "api": "be",
+    "suite": "de ballon"
    },
    {
     "id": "c",
@@ -37,7 +45,9 @@
     "dit": "c de carotte ou de cerise",
     "emoji": "🥕",
     "voyelle": false,
-    "voix": "c, de carotte ou de cerise"
+    "voix": "c, de carotte ou de cerise",
+    "api": "se",
+    "suite": "de carotte ou de cerise"
    },
    {
     "id": "d",
@@ -46,7 +56,9 @@
     "dit": "d de deux",
     "emoji": "2️⃣",
     "voyelle": false,
-    "voix": "d, de deux"
+    "voix": "d, de deux",
+    "api": "de",
+    "suite": "de deux"
    },
    {
     "id": "e",
@@ -55,7 +67,9 @@
     "dit": "e de renard",
     "emoji": "🦊",
     "voyelle": true,
-    "voix": "e, de renard"
+    "voix": "e, de renard",
+    "api": "ə",
+    "suite": "de renard"
    },
    {
     "id": "f",
@@ -64,7 +78,9 @@
     "dit": "f de fantôme",
     "emoji": "👻",
     "voyelle": false,
-    "voix": "f, de fantôme"
+    "voix": "f, de fantôme",
+    "api": "ɛf",
+    "suite": "de fantôme"
    },
    {
     "id": "g",
@@ -73,7 +89,9 @@
     "dit": "g de gâteau ou de girafe",
     "emoji": "🎂",
     "voyelle": false,
-    "voix": "g, de gâteau ou de girafe"
+    "voix": "g, de gâteau ou de girafe",
+    "api": "ʒe",
+    "suite": "de gâteau ou de girafe"
    },
    {
     "id": "h",
@@ -82,7 +100,9 @@
     "dit": "h, on ne l'entend pas",
     "emoji": "🤫",
     "voyelle": false,
-    "voix": "h, on ne l'entend pas"
+    "voix": "h, on ne l'entend pas",
+    "api": "aʃ",
+    "suite": "on ne l'entend pas"
    },
    {
     "id": "i",
@@ -91,7 +111,9 @@
     "dit": "i de gris",
     "emoji": "🩶",
     "voyelle": true,
-    "voix": "i, de gris"
+    "voix": "i, de gris",
+    "api": "i",
+    "suite": "de gris"
    },
    {
     "id": "j",
@@ -100,7 +122,9 @@
     "dit": "j de jupe",
     "emoji": "👗",
     "voyelle": false,
-    "voix": "j, de jupe"
+    "voix": "j, de jupe",
+    "api": "ʒi",
+    "suite": "de jupe"
    },
    {
     "id": "k",
@@ -109,7 +133,9 @@
     "dit": "k de kangourou",
     "emoji": "🦘",
     "voyelle": false,
-    "voix": "k, de kangourou"
+    "voix": "k, de kangourou",
+    "api": "ka",
+    "suite": "de kangourou"
    },
    {
     "id": "l",
@@ -118,7 +144,9 @@
     "dit": "l de lit",
     "emoji": "🛏️",
     "voyelle": false,
-    "voix": "l, de lit"
+    "voix": "l, de lit",
+    "api": "ɛl",
+    "suite": "de lit"
    },
    {
     "id": "m",
@@ -127,7 +155,9 @@
     "dit": "m de moto",
     "emoji": "🏍️",
     "voyelle": false,
-    "voix": "m, de moto"
+    "voix": "m, de moto",
+    "api": "ɛm",
+    "suite": "de moto"
    },
    {
     "id": "n",
@@ -136,7 +166,10 @@
     "dit": "n de nuage",
     "emoji": "☁️",
     "voyelle": false,
-    "voix": "n, de nuage"
+    "voix": "n, de nuage",
+    "api": "ɛn",
+    "suite": "de nuage",
+    "api_mot": "nɥˈaʒ"
    },
    {
     "id": "o",
@@ -145,7 +178,9 @@
     "dit": "o de pot ou de pomme",
     "emoji": "🍎",
     "voyelle": true,
-    "voix": "o, de pot ou de pomme"
+    "voix": "o, de pot ou de pomme",
+    "api": "o",
+    "suite": "de pot ou de pomme"
    },
    {
     "id": "p",
@@ -154,7 +189,9 @@
     "dit": "p de pied",
     "emoji": "🦶",
     "voyelle": false,
-    "voix": "p, de pied"
+    "voix": "p, de pied",
+    "api": "pe",
+    "suite": "de pied"
    },
    {
     "id": "q",
@@ -163,7 +200,9 @@
     "dit": "q de cinq",
     "emoji": "5️⃣",
     "voyelle": false,
-    "voix": "q, de cinq"
+    "voix": "q, de cinq",
+    "api": "ky",
+    "suite": "de cinq"
    },
    {
     "id": "r",
@@ -172,7 +211,9 @@
     "dit": "r de robot",
     "emoji": "🤖",
     "voyelle": false,
-    "voix": "r, de robot"
+    "voix": "r, de robot",
+    "api": "ɛʁ",
+    "suite": "de robot"
    },
    {
     "id": "s",
@@ -181,7 +222,9 @@
     "dit": "s de salade ou de rose",
     "emoji": "🥬",
     "voyelle": false,
-    "voix": "s, de salade ou de rose"
+    "voix": "s, de salade ou de rose",
+    "api": "ɛs",
+    "suite": "de salade ou de rose"
    },
    {
     "id": "t",
@@ -190,7 +233,9 @@
     "dit": "t de table",
     "emoji": null,
     "voyelle": false,
-    "voix": "t, de table"
+    "voix": "t, de table",
+    "api": "te",
+    "suite": "de table"
    },
    {
     "id": "u",
@@ -199,7 +244,9 @@
     "dit": "u de rue",
     "emoji": "🛣️",
     "voyelle": true,
-    "voix": "u, de rue"
+    "voix": "u, de rue",
+    "api": "y",
+    "suite": "de rue"
    },
    {
     "id": "v",
@@ -208,7 +255,9 @@
     "dit": "v de vélo",
     "emoji": "🚲",
     "voyelle": false,
-    "voix": "v, de vélo"
+    "voix": "v, de vélo",
+    "api": "ve",
+    "suite": "de vélo"
    },
    {
     "id": "w",
@@ -217,7 +266,9 @@
     "dit": "w de wagon",
     "emoji": "🚃",
     "voyelle": false,
-    "voix": "w, de wagon"
+    "voix": "w, de wagon",
+    "api": "dubləve",
+    "suite": "de wagon"
    },
    {
     "id": "x",
@@ -226,7 +277,9 @@
     "dit": "x de xylophone",
     "emoji": null,
     "voyelle": false,
-    "voix": "x, de xylophone"
+    "voix": "x, de xylophone",
+    "api": "iks",
+    "suite": "de xylophone"
    },
    {
     "id": "y",
@@ -235,7 +288,9 @@
     "dit": "y de pyjama",
     "emoji": null,
     "voyelle": true,
-    "voix": "y, de pyjama"
+    "voix": "i grec, de pyjama",
+    "api": "iɡʁɛk",
+    "suite": "de pyjama"
    },
    {
     "id": "z",
@@ -244,7 +299,9 @@
     "dit": "z de zèbre",
     "emoji": "🦓",
     "voyelle": false,
-    "voix": "z, de zèbre"
+    "voix": "z, de zèbre",
+    "api": "zɛd",
+    "suite": "de zèbre"
    }
   ],
   "complexes": [
@@ -255,7 +312,9 @@
     "dit": "ou de rouge",
     "emoji": "🟥",
     "rangee": 1,
-    "voix": "ou, de rouge"
+    "voix": "ou, de rouge",
+    "api": "u",
+    "suite": "de rouge"
    },
    {
     "id": "on",
@@ -264,7 +323,9 @@
     "dit": "on de bonbon",
     "emoji": "🍬",
     "rangee": 1,
-    "voix": "on, de bonbon"
+    "voix": "on, de bonbon",
+    "api": "ɔ̃",
+    "suite": "de bonbon"
    },
    {
     "id": "eacute",
@@ -273,7 +334,9 @@
     "dit": "é de épée",
     "emoji": "🗡️",
     "rangee": 1,
-    "voix": "é, de épée"
+    "voix": "é, de épée",
+    "api": "e",
+    "suite": "de épée"
    },
    {
     "id": "an",
@@ -282,7 +345,9 @@
     "dit": "an de banc",
     "emoji": null,
     "rangee": 1,
-    "voix": "an, de banc"
+    "voix": "an, de banc",
+    "api": "ɑ̃",
+    "suite": "de banc"
    },
    {
     "id": "au",
@@ -291,7 +356,9 @@
     "dit": "au de jaune",
     "emoji": "🟨",
     "rangee": 1,
-    "voix": "o, de jaune"
+    "voix": "o, de jaune",
+    "api": "o",
+    "suite": "de jaune"
    },
    {
     "id": "in",
@@ -300,7 +367,9 @@
     "dit": "in de lapin",
     "emoji": "🐇",
     "rangee": 1,
-    "voix": "in, de lapin"
+    "voix": "in, de lapin",
+    "api": "ɛ̃",
+    "suite": "de lapin"
    },
    {
     "id": "ai",
@@ -309,7 +378,9 @@
     "dit": "ai de lait",
     "emoji": "🥛",
     "rangee": 1,
-    "voix": "è, de lait"
+    "voix": "è, de lait",
+    "api": "ɛ",
+    "suite": "de lait"
    },
    {
     "id": "oi",
@@ -318,7 +389,9 @@
     "dit": "oi de oiseau",
     "emoji": "🐦",
     "rangee": 1,
-    "voix": "oua, de oiseau"
+    "voix": "oua, de oiseau",
+    "api": "wa",
+    "suite": "de oiseau"
    },
    {
     "id": "ch",
@@ -327,7 +400,9 @@
     "dit": "ch de chat",
     "emoji": "🐈",
     "rangee": 2,
-    "voix": "che, de chat"
+    "voix": "che, de chat",
+    "api": "ʃː",
+    "suite": "de chat"
    },
    {
     "id": "ion",
@@ -336,7 +411,9 @@
     "dit": "ion de lion",
     "emoji": "🦁",
     "rangee": 2,
-    "voix": "ion, de lion"
+    "voix": "ion, de lion",
+    "api": "jɔ̃",
+    "suite": "de lion"
    },
    {
     "id": "er1",
@@ -345,7 +422,9 @@
     "dit": "er de cahier",
     "emoji": "📓",
     "rangee": 2,
-    "voix": "é, de cahier"
+    "voix": "é, de cahier",
+    "api": "e",
+    "suite": "de cahier"
    },
    {
     "id": "en",
@@ -354,7 +433,9 @@
     "dit": "en de cent",
     "emoji": "💯",
     "rangee": 2,
-    "voix": "an, de cent"
+    "voix": "an, de cent",
+    "api": "ɑ̃",
+    "suite": "de cent"
    },
    {
     "id": "eau",
@@ -363,7 +444,9 @@
     "dit": "eau de chapeau",
     "emoji": "🎩",
     "rangee": 2,
-    "voix": "o, de chapeau"
+    "voix": "o, de chapeau",
+    "api": "o",
+    "suite": "de chapeau"
    },
    {
     "id": "ain",
@@ -372,7 +455,9 @@
     "dit": "ain de main",
     "emoji": "✋",
     "rangee": 2,
-    "voix": "in, de main"
+    "voix": "in, de main",
+    "api": "ɛ̃",
+    "suite": "de main"
    },
    {
     "id": "egrave",
@@ -381,7 +466,9 @@
     "dit": "è de règle",
     "emoji": "📏",
     "rangee": 2,
-    "voix": "è, de règle"
+    "voix": "è, de règle",
+    "api": "ɛ",
+    "suite": "de règle"
    },
    {
     "id": "oin",
@@ -390,7 +477,9 @@
     "dit": "oin de point",
     "emoji": "⚫",
     "rangee": 2,
-    "voix": "ouin, de point"
+    "voix": "ouin, de point",
+    "api": "wɛ̃",
+    "suite": "de point"
    },
    {
     "id": "ph",
@@ -399,7 +488,9 @@
     "dit": "ph de phoque",
     "emoji": "🦭",
     "rangee": 3,
-    "voix": "fe, de phoque"
+    "voix": "fe, de phoque",
+    "api": "fː",
+    "suite": "de phoque"
    },
    {
     "id": "or",
@@ -408,7 +499,9 @@
     "dit": "or de tortue",
     "emoji": "🐢",
     "rangee": 3,
-    "voix": "or, de tortue"
+    "voix": "or, de tortue",
+    "api": "ɔʁ",
+    "suite": "de tortue"
    },
    {
     "id": "ez",
@@ -417,7 +510,9 @@
     "dit": "ez de nez",
     "emoji": "👃",
     "rangee": 3,
-    "voix": "é, de nez"
+    "voix": "é, de nez",
+    "api": "e",
+    "suite": "de nez"
    },
    {
     "id": "eu",
@@ -426,7 +521,9 @@
     "dit": "eu de bleu",
     "emoji": "🟦",
     "rangee": 3,
-    "voix": "eu, de bleu"
+    "voix": "eu, de bleu",
+    "api": "ø",
+    "suite": "de bleu"
    },
    {
     "id": "ette",
@@ -435,7 +532,9 @@
     "dit": "ette de lunette",
     "emoji": "👓",
     "rangee": 3,
-    "voix": "ète, de lunette"
+    "voix": "ète, de lunette",
+    "api": "ɛt",
+    "suite": "de lunette"
    },
    {
     "id": "ein",
@@ -444,7 +543,9 @@
     "dit": "ein de ceinture",
     "emoji": null,
     "rangee": 3,
-    "voix": "in, de ceinture"
+    "voix": "in, de ceinture",
+    "api": "ɛ̃",
+    "suite": "de ceinture"
    },
    {
     "id": "ecirc",
@@ -453,7 +554,9 @@
     "dit": "ê de tête",
     "emoji": "👤",
     "rangee": 3,
-    "voix": "è, de tête"
+    "voix": "ê, de tête",
+    "api": "ɛ",
+    "suite": "de tête"
    },
    {
     "id": "ui",
@@ -462,7 +565,10 @@
     "dit": "ui de huit",
     "emoji": "8️⃣",
     "rangee": 3,
-    "voix": "ui, de huit"
+    "voix": "ui, de huit",
+    "api": "ɥi",
+    "suite": "de huit",
+    "api_mot": "ɥˈit"
    },
    {
     "id": "qu",
@@ -471,7 +577,9 @@
     "dit": "qu de quatre",
     "emoji": "4️⃣",
     "rangee": 4,
-    "voix": "ke, de quatre"
+    "voix": "ke, de quatre",
+    "api": "kə",
+    "suite": "de quatre"
    },
    {
     "id": "eur",
@@ -480,7 +588,9 @@
     "dit": "eur de fleur",
     "emoji": "🌸",
     "rangee": 4,
-    "voix": "eur, de fleur"
+    "voix": "eur, de fleur",
+    "api": "œʁ",
+    "suite": "de fleur"
    },
    {
     "id": "et",
@@ -489,7 +599,9 @@
     "dit": "et de bonnet",
     "emoji": null,
     "rangee": 4,
-    "voix": "è, de bonnet"
+    "voix": "è, de bonnet",
+    "api": "ɛ",
+    "suite": "de bonnet"
    },
    {
     "id": "euille",
@@ -498,7 +610,9 @@
     "dit": "euille de feuille",
     "emoji": "🍃",
     "rangee": 4,
-    "voix": "euille, de feuille"
+    "voix": "euille, de feuille",
+    "api": "œj",
+    "suite": "de feuille"
    },
    {
     "id": "elle",
@@ -507,7 +621,9 @@
     "dit": "elle de pelle",
     "emoji": null,
     "rangee": 4,
-    "voix": "èle, de pelle"
+    "voix": "èle, de pelle",
+    "api": "ɛl",
+    "suite": "de pelle"
    },
    {
     "id": "ien",
@@ -516,7 +632,9 @@
     "dit": "ien de chien",
     "emoji": "🐕",
     "rangee": 4,
-    "voix": "ien, de chien"
+    "voix": "ien, de chien",
+    "api": "jɛ̃",
+    "suite": "de chien"
    },
    {
     "id": "ei",
@@ -525,7 +643,9 @@
     "dit": "ei de reine",
     "emoji": "👸",
     "rangee": 4,
-    "voix": "è, de reine"
+    "voix": "è, de reine",
+    "api": "ɛ",
+    "suite": "de reine"
    },
    {
     "id": "ill",
@@ -534,7 +654,9 @@
     "dit": "ill de fille",
     "emoji": "👧",
     "rangee": 4,
-    "voix": "ille, de fille"
+    "voix": "ille, de fille",
+    "api": "ij",
+    "suite": "de fille"
    },
    {
     "id": "gu",
@@ -543,7 +665,9 @@
     "dit": "gu de guitare",
     "emoji": "🎸",
     "rangee": 5,
-    "voix": "gue, de guitare"
+    "voix": "gue, de guitare",
+    "api": "ɡə",
+    "suite": "de guitare"
    },
    {
     "id": "es",
@@ -552,7 +676,9 @@
     "dit": "es de escargot",
     "emoji": "🐌",
     "rangee": 5,
-    "voix": "èss, de escargot"
+    "voix": "èss, de escargot",
+    "api": "ɛs",
+    "suite": "de escargot"
    },
    {
     "id": "gn",
@@ -561,7 +687,9 @@
     "dit": "gn de peigne",
     "emoji": "🪮",
     "rangee": 5,
-    "voix": "gne, de peigne"
+    "voix": "gne, de peigne",
+    "api": "ɲə",
+    "suite": "de peigne"
    },
    {
     "id": "aille",
@@ -570,7 +698,9 @@
     "dit": "aille de médaille",
     "emoji": "🏅",
     "rangee": 5,
-    "voix": "aille, de médaille"
+    "voix": "aille, de médaille",
+    "api": "aj",
+    "suite": "de médaille"
    },
    {
     "id": "erre",
@@ -579,7 +709,9 @@
     "dit": "erre de terre",
     "emoji": "🌍",
     "rangee": 5,
-    "voix": "ère, de terre"
+    "voix": "ère, de terre",
+    "api": "ɛʁ",
+    "suite": "de terre"
    },
    {
     "id": "ouille",
@@ -588,7 +720,9 @@
     "dit": "ouille de citrouille",
     "emoji": "🎃",
     "rangee": 5,
-    "voix": "ouille, de citrouille"
+    "voix": "ouille, de citrouille",
+    "api": "uj",
+    "suite": "de citrouille"
    },
    {
     "id": "er2",
@@ -597,7 +731,9 @@
     "dit": "er de vert",
     "emoji": "🟩",
     "rangee": 5,
-    "voix": "èr, de vert"
+    "voix": "èr, de vert",
+    "api": "ɛʁ",
+    "suite": "de vert"
    },
    {
     "id": "eille",
@@ -606,7 +742,9 @@
     "dit": "eille de abeille",
     "emoji": "🐝",
     "rangee": 5,
-    "voix": "eille, de abeille"
+    "voix": "eille, de abeille",
+    "api": "ɛj",
+    "suite": "de abeille"
    }
   ],
   "doubles": [
@@ -616,7 +754,9 @@
     "mot": "crocodile",
     "dit": "cr de crocodile",
     "emoji": "🐊",
-    "voix": "cre, de crocodile"
+    "voix": "cre, de crocodile",
+    "api": "kʁə",
+    "suite": "de crocodile"
    },
    {
     "id": "br",
@@ -624,7 +764,9 @@
     "mot": "bras",
     "dit": "br de bras",
     "emoji": "💪",
-    "voix": "bre, de bras"
+    "voix": "bre, de bras",
+    "api": "bʁə",
+    "suite": "de bras"
    },
    {
     "id": "dr",
@@ -632,7 +774,9 @@
     "mot": "dragon",
     "dit": "dr de dragon",
     "emoji": "🐉",
-    "voix": "dre, de dragon"
+    "voix": "dre, de dragon",
+    "api": "dʁə",
+    "suite": "de dragon"
    },
    {
     "id": "fr",
@@ -640,7 +784,9 @@
     "mot": "fromage",
     "dit": "fr de fromage",
     "emoji": "🧀",
-    "voix": "fre, de fromage"
+    "voix": "fre, de fromage",
+    "api": "fʁə",
+    "suite": "de fromage"
    },
    {
     "id": "gr",
@@ -648,7 +794,9 @@
     "mot": "grenouille",
     "dit": "gr de grenouille",
     "emoji": "🐸",
-    "voix": "gre, de grenouille"
+    "voix": "gre, de grenouille",
+    "api": "ɡʁə",
+    "suite": "de grenouille"
    },
    {
     "id": "pr",
@@ -656,7 +804,9 @@
     "mot": "prune",
     "dit": "pr de prune",
     "emoji": null,
-    "voix": "pre, de prune"
+    "voix": "pre, de prune",
+    "api": "pʁə",
+    "suite": "de prune"
    },
    {
     "id": "tr",
@@ -664,7 +814,9 @@
     "mot": "train",
     "dit": "tr de train",
     "emoji": "🚂",
-    "voix": "tre, de train"
+    "voix": "tre, de train",
+    "api": "tʁə",
+    "suite": "de train"
    },
    {
     "id": "vr",
@@ -672,7 +824,9 @@
     "mot": "livre",
     "dit": "vr de livre",
     "emoji": "📖",
-    "voix": "vre, de livre"
+    "voix": "vre, de livre",
+    "api": "vʁə",
+    "suite": "de livre"
    },
    {
     "id": "cl",
@@ -680,7 +834,9 @@
     "mot": "clé",
     "dit": "cl de clé",
     "emoji": "🔑",
-    "voix": "cle, de clé"
+    "voix": "cle, de clé",
+    "api": "klə",
+    "suite": "de clé"
    },
    {
     "id": "bl",
@@ -688,7 +844,9 @@
     "mot": "blanc",
     "dit": "bl de blanc",
     "emoji": "⬜",
-    "voix": "ble, de blanc"
+    "voix": "ble, de blanc",
+    "api": "blə",
+    "suite": "de blanc"
    },
    {
     "id": "fl",
@@ -696,7 +854,9 @@
     "mot": "flûte",
     "dit": "fl de flûte",
     "emoji": "🪈",
-    "voix": "fle, de flûte"
+    "voix": "fle, de flûte",
+    "api": "flə",
+    "suite": "de flûte"
    },
    {
     "id": "gl",
@@ -704,7 +864,9 @@
     "mot": "glace",
     "dit": "gl de glace",
     "emoji": "🍦",
-    "voix": "gle, de glace"
+    "voix": "gle, de glace",
+    "api": "ɡlə",
+    "suite": "de glace"
    },
    {
     "id": "pl",
@@ -712,7 +874,10 @@
     "mot": "pluie",
     "dit": "pl de pluie",
     "emoji": "🌧️",
-    "voix": "ple, de pluie"
+    "voix": "ple, de pluie",
+    "api": "plə",
+    "suite": "de pluie",
+    "api_mot": "plɥˈi"
    }
   ],
   "autres": [
@@ -722,7 +887,9 @@
     "mot": "jambe",
     "dit": "am de jambe",
     "emoji": "🦵",
-    "voix": "an, de jambe"
+    "voix": "an, de jambe",
+    "api": "ɑ̃",
+    "suite": "de jambe"
    },
    {
     "id": "ccedille",
@@ -730,7 +897,9 @@
     "mot": "garçon",
     "dit": "ç de garçon",
     "emoji": "👦",
-    "voix": "sse, de garçon"
+    "voix": "sse, de garçon",
+    "api": "sː",
+    "suite": "de garçon"
    },
    {
     "id": "em",
@@ -738,7 +907,9 @@
     "mot": "embrasser",
     "dit": "em de embrasser",
     "emoji": "😘",
-    "voix": "an, de embrasser"
+    "voix": "an, de embrasser",
+    "api": "ɑ̃",
+    "suite": "de embrasser"
    },
    {
     "id": "esse",
@@ -746,7 +917,9 @@
     "mot": "princesse",
     "dit": "esse de princesse",
     "emoji": "👑",
-    "voix": "èsse, de princesse"
+    "voix": "èsse, de princesse",
+    "api": "ɛs",
+    "suite": "de princesse"
    },
    {
     "id": "ge",
@@ -754,7 +927,9 @@
     "mot": "pigeon",
     "dit": "ge de pigeon",
     "emoji": "🕊️",
-    "voix": "je, de pigeon"
+    "voix": "je, de pigeon",
+    "api": "ʒː",
+    "suite": "de pigeon"
    },
    {
     "id": "im",
@@ -762,7 +937,9 @@
     "mot": "timbre",
     "dit": "im de timbre",
     "emoji": null,
-    "voix": "in, de timbre"
+    "voix": "in, de timbre",
+    "api": "ɛ̃",
+    "suite": "de timbre"
    },
    {
     "id": "oeu_oeuf",
@@ -770,7 +947,9 @@
     "mot": "œuf",
     "dit": "œu de œuf",
     "emoji": "🥚",
-    "voix": "eu, de œuf"
+    "voix": "eu, de œuf",
+    "api": "œ",
+    "suite": "de œuf"
    },
    {
     "id": "oeu_noeud",
@@ -778,7 +957,9 @@
     "mot": "nœud",
     "dit": "œu de nœud",
     "emoji": "🎀",
-    "voix": "eu, de nœud"
+    "voix": "eu, de nœud",
+    "api": "ø",
+    "suite": "de nœud"
    },
    {
     "id": "om",
@@ -786,7 +967,9 @@
     "mot": "pompier",
     "dit": "om de pompier",
     "emoji": "🧑‍🚒",
-    "voix": "on, de pompier"
+    "voix": "on, de pompier",
+    "api": "ɔ̃",
+    "suite": "de pompier"
    },
    {
     "id": "ss",
@@ -794,7 +977,9 @@
     "mot": "tasse",
     "dit": "ss de tasse",
     "emoji": "☕",
-    "voix": "sse, de tasse"
+    "voix": "sse, de tasse",
+    "api": "sː",
+    "suite": "de tasse"
    },
    {
     "id": "t_addition",
@@ -802,7 +987,9 @@
     "mot": "addition",
     "dit": "t de addition",
     "emoji": "➕",
-    "voix": "sse, de addition"
+    "voix": "sse, de addition",
+    "api": "sː",
+    "suite": "de addition"
    },
    {
     "id": "y_yaourt",
@@ -810,7 +997,9 @@
     "mot": "yaourt",
     "dit": "y de yaourt",
     "emoji": null,
-    "voix": "ye, de yaourt"
+    "voix": "ye, de yaourt",
+    "api": "jə",
+    "suite": "de yaourt"
    }
   ]
  }

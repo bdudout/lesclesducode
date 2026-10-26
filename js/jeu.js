@@ -2,8 +2,8 @@
 // puis confie le plateau au moteur du jeu (association ou écriture).
 
 import './pwa.js';
-import { charger, lireReglages, ajouterHistorique, itemsDuJeu, joueurCourant } from './data.js';
-import { dire, direMot, direPhrase, taire, debloquer, reglerVitesse } from './audio.js';
+import { charger, lireReglages, ecrireReglages, ajouterHistorique, itemsDuJeu, joueurCourant } from './data.js';
+import { dire, direMot, direPhrase, apresSon, taire, debloquer, reglerVitesse, reglerVoix } from './audio.js';
 import { celebrerSerie, preparerFin } from './celebration.js';
 import { surRetour, surPause, surReprise, pleinEcran, vibrer } from './natif.js';
 import { lancerAssociation } from './moteur-association.js';
@@ -23,6 +23,7 @@ const modeClasse = reglages.classe || parametres.get('classe') === '1';
 document.body.classList.add(`ecriture-${jeu.ecriture}`, `famille-${jeu.famille}`);
 document.body.classList.toggle('mode-classe', modeClasse);
 reglerVitesse(reglages.voixLente);
+reglerVoix(reglages.voix);
 debloquer();
 
 const $ = sel => document.getElementById(sel);
@@ -43,6 +44,17 @@ function phrase(cle) {
 }
 const consigne = () => phrase(`consigne-${jeu.moteur}`);
 $('b-consigne').addEventListener('click', consigne);
+
+// Pagination en option (bouton discret en haut à droite, pour l'adulte) : par défaut tout
+// tient sur un écran quand c'est possible ; sinon, ou si on le choisit, séries de 8.
+$('b-pages').textContent = reglages.seriesCourtes ? '1·2' : '⊞';
+$('b-pages').setAttribute('aria-label', reglages.seriesCourtes
+  ? 'Jeu par séries de 8 : passer à tout sur un écran (la partie recommence)'
+  : 'Tout sur un écran : passer aux séries de 8 (la partie recommence)');
+$('b-pages').addEventListener('click', () => {
+  ecrireReglages({ ...lireReglages(), seriesCourtes: !reglages.seriesCourtes });
+  location.reload();
+});
 
 // Retour au menu par appui long : un toucher accidentel ne fait plus perdre la partie.
 appuiLong($('b-menu'), () => { location.href = 'index.html'; });
@@ -128,7 +140,9 @@ const partie = {
   // indice après 2 erreurs : on redit le référent complet, quel que soit le réglage de voix
   direIndice: item => { if (modeSon !== 3) dire(jeu.famille, item, 1, sons); },
   // entre deux séries : célébration selon les erreurs de la série, puis la suite
-  celebrerSerie: (erreursSerie, total, ensuite) => celebrerSerie({ erreurs: erreursSerie, total, dire: phrase, ensuite }),
+  // (après la fin du son du dernier référent : un seul son à la fois)
+  celebrerSerie: (erreursSerie, total, ensuite) =>
+    apresSon(() => celebrerSerie({ erreurs: erreursSerie, total, dire: phrase, ensuite })),
   aide() { aides++; },
   confusion(cherche, donne) { confusions.push([cherche, donne]); },
   essai() { demarrerChrono(); },
@@ -152,10 +166,11 @@ function finir() {
   const morceaux = [`${items.length} trouvés !`];
   if (reglages.chrono && !modeClasse) morceaux.push(temps);
   $('fin-stats').textContent = morceaux.join(' · ');
-  setTimeout(() => {
+  // on laisse finir le son du dernier référent, puis une courte pause, avant de féliciter
+  apresSon(() => {
     $('fin').hidden = false;
     preparerFin({ erreurs, total: items.length, dire: phrase, ecran: $('fin') });
-  }, 900);
+  }, 600);
 }
 
 // Appli mise en arrière-plan : on coupe la voix et on fige le chrono.

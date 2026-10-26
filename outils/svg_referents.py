@@ -78,11 +78,19 @@ ALPHABET = {
       '<ellipse cx="50" cy="64" rx="24" ry="28" fill="{Y}"/>'
       '<g clip-path="url(#c)" stroke="#b5651d" stroke-width="2"><path d="M20 40 L80 100 M20 60 L70 110 M30 30 L90 90 M80 40 L20 100 M80 60 L30 110 M70 30 L10 90"/></g>'
       '<ellipse cx="50" cy="64" rx="24" ry="28"/>',
- "b": '<path d="M50 50 L50 14 A36 36 0 0 1 86 50Z" fill="{R}" stroke="none"/>'
-      '<path d="M50 50 L50 86 A36 36 0 0 1 14 50Z" fill="{B}" stroke="none"/>'
-      '<path d="M50 50 L14 50 A36 36 0 0 1 50 14Z" fill="{Y}" stroke="none"/>'
-      '<path d="M50 50 L86 50 A36 36 0 0 1 50 86Z" fill="#fff" stroke="none"/>'
-      '<circle cx="50" cy="50" r="36"/><path d="M50 14 L50 86 M14 50 L86 50" stroke-width="2"/><circle cx="50" cy="50" r="6" fill="#fff"/>',
+ "b": # ballon de plage : quartiers courbes de couleur, calotte blanche, reflet
+      '<clipPath id="c"><circle cx="50" cy="52" r="38"/></clipPath>'
+      '<g clip-path="url(#c)" stroke="none">'
+      '<path d="M50 14 Q-30 52 50 90 Q20 52 50 14Z" fill="{R}"/>'
+      '<path d="M50 14 Q20 52 50 90 Q50 52 50 14Z" fill="#fff"/>'
+      '<path d="M50 14 Q50 52 50 90 Q80 52 50 14Z" fill="{B}"/>'
+      '<path d="M50 14 Q80 52 50 90 Q130 52 50 14Z" fill="{Y}"/>'
+      '<path d="M50 14 Q-30 52 50 90 L0 90 L0 14Z" fill="{G}"/>'
+      '<path d="M50 14 Q130 52 50 90 L100 90 L100 14Z" fill="{G}"/></g>'
+      '<path d="M50 14 Q20 52 50 90 M50 14 Q80 52 50 90 M50 14 L50 90" stroke-width="2.5"/>'
+      '<circle cx="50" cy="52" r="38"/>'
+      '<ellipse cx="50" cy="17" rx="8" ry="4" fill="#fff" stroke-width="2"/>'
+      '<path d="M28 36 Q32 28 40 25" stroke="#fff" stroke-width="5" opacity=".75"/>',
  "c": '<path d="M40 24 Q30 8 18 12 M46 22 Q46 4 56 4 M50 26 Q64 12 74 18" stroke="{DG}" stroke-width="6"/>'
       '<path d="M26 34 Q42 14 60 30 L80 90 Z" fill="{O}"/>'
       '<path d="M38 44 L48 42 M46 60 L56 58 M56 74 L64 73" stroke-width="2"/>',
@@ -101,11 +109,13 @@ ALPHABET = {
       '<rect x="28" y="34" width="44" height="20" rx="4" fill="{BR}"/>'
       '<path d="M28 40 Q28 32 34 32 L66 32 Q72 32 72 40 Q66 46 60 40 Q55 46 50 40 Q45 46 40 40 Q34 46 28 40Z" fill="{PK}"/>'
       '<rect x="46" y="14" width="8" height="18" rx="2" fill="{B}"/><path d="M50 3 Q57 10 50 14 Q43 10 50 3Z" fill="{Y}" stroke-width="2"/>',
- "h": '<circle cx="50" cy="50" r="36" fill="{SK}"/>'
-      '<path d="M30 42 Q37 47 44 42 M56 42 Q63 47 70 42"/>'
-      '<path d="M40 66 Q50 62 60 66"/>'
-      '<rect x="45" y="48" width="10" height="36" rx="5" fill="{SK}"/>'
-      '<path d="M78 24 Q86 30 84 40 M84 16 Q96 26 92 42" stroke-width="2.5" opacity=".5"/>',
+ "h": # « on ne l'entend pas » : une oreille, avec un badge rouge barré
+      '<g transform="translate(-8 0)">'
+      '<path d="M34 30 Q36 8 60 8 Q86 10 84 40 Q82 58 68 66 Q60 72 60 82 Q60 94 48 94 Q38 94 38 84 Q38 74 32 64 Q26 50 34 30Z" fill="{SK}"/>'
+      '<path d="M46 32 Q50 20 62 22 Q74 25 72 40 Q70 52 60 56" stroke-width="3.5"/>'
+      '<path d="M52 44 Q56 37 62 41 Q64 49 56 53 Q50 57 52 67" stroke-width="3"/></g>'
+      '<circle cx="76" cy="76" r="19" fill="{R}"/>'
+      '<path d="M67 67 L85 85 M85 67 L67 85" stroke="#fff" stroke-width="6"/>',
  "i": crayon("#9aa0a6", "#6c757d"),
  "j": '<rect x="30" y="16" width="40" height="11" rx="3" fill="{P}"/>'
       '<path d="M30 27 L70 27 L88 82 Q50 92 12 82Z" fill="#c77dff"/>'
