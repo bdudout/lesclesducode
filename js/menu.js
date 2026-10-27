@@ -196,8 +196,13 @@ $('choix-graphemes').addEventListener('click', e => {
 // ---------- Fiche de scores, par élève, avec les confusions fréquentes ----------
 const familleDuJeu = Object.fromEntries(jeux.map(j => [j.id, j.famille]));
 
+// « er (cahier) » quand la famille a deux graphèmes qui s'écrivent pareil
 function graphie(famille, id) {
-  return familles[famille]?.find(i => i.id === id)?.graphie ?? id;
+  const liste = familles[famille] || [];
+  const it = liste.find(i => i.id === id);
+  if (!it) return id;
+  const double = liste.some(i => i.id !== id && i.graphie === it.graphie);
+  return double ? `${it.graphie} (${it.mot})` : it.graphie;
 }
 
 function remplirFiltreEleves() {
